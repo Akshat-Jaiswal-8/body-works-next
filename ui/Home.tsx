@@ -1,15 +1,14 @@
-"use client";
 import React from "react";
 import { Hero } from "@/pages/Hero";
 import { Features } from "@/ui/Features";
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 import { UserTestimonials } from "@/ui/UserTestimonials";
 import { Footer } from "@/ui/Footer";
 
-const Home = React.memo((): React.ReactNode => {
+export const Home = React.memo((): React.ReactNode => {
   return (
     <motion.div
-      className="container"
+      className={"container"}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
@@ -20,5 +19,3 @@ const Home = React.memo((): React.ReactNode => {
     </motion.div>
   );
 });
-
-export default Home;

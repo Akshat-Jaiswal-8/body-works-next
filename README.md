@@ -1,36 +1,99 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Body Work
 
-## Getting Started
+[![Vercel](https://vercelbadge.vercel.app/api/Akshat-Jaiswal-8/body-works)](https://body-works-akshat.vercel.app/)
 
-First, run the development server:
+Welcome to **Body Works**! This platform is designed to help you find the right set of exercises for your fitness goals,
+workouts, and overall health
+progress.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Table of Contents
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- [About](#about)
+- [Features](#features)
+- [Installation](#installation)
+- [Contributing](#contributing)
+- [Body Works API](#body-works-api)
+- [Contact](#contact)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## About
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+**Body Work** is a comprehensive fitness application built with React.js and shadcnUI. Whether you are a beginner or a
+fitness enthusiast, this platform provides all the exercises you need to train your muscles , fat loss or maintaining
+consistency with the routines.
 
-## Learn More
+## Features
 
-To learn more about Next.js, take a look at the following resources:
+- **1300+ Exercises**: You can browser over **1300+** exercises and can choose the best for you.
+- **Enhanced Filtering**: You can filter the exercises based on **30+** Equipments , **20** Target Muscles and **10**
+  Body Parts.
+- **Routine**: Users get over **600+** routines bases on **1** week to **52** weeks.
+- **Routine Filters**: You can filter the routines based on multiple parameters like Workout for Men , Workout for
+  women , beginner , intermediate , etc...
+- **Responsive Design**: Fully responsive and works on all devices.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Installation
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+To run this project locally, follow these steps:
 
-## Deploy on Vercel
+1. **Clone the repository:**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+    ```bash
+    https://github.com/Akshat-Jaiswal-8/body-works.git
+    cd body-works
+    ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+2. **Install dependencies:**
+
+    ```bash
+    npm install
+    ```
+
+
+4. **Run the development server:**
+
+    ```bash
+    npm run dev
+    ```
+
+   Open [http://localhost:5173](http://localhost:5173) with your browser to see the result.
+
+
+
+## Contributing
+
+Contributions are welcome! If you have any ideas or suggestions, feel free to open an issue or submit a pull request.
+
+1. **Fork the repository**
+2. **Create a new branch:**
+
+    ```bash
+    git checkout -b feature/your-feature-name
+    ```
+
+3. **Make your changes and commit them:**
+
+    ```bash
+    git commit -m 'Add some feature'
+    ```
+
+4. **Push to the branch:**
+
+    ```bash
+    git push origin feature/your-feature-name
+    ```
+
+5. **Open a pull request**
+
+
+## Body Works API
+
+You can access the body works API for free:
+[Body Works API](https://github.com/Akshat-Jaiswal-8/body-works-api.git)
+
+
+## Contact
+
+For any inquiries, please contact:
+
+- Akshat Jaiswal - [Mail](mailto:akshatjaiswal.official@gmail.com)
+- Project Link: [Body Works](https://body-works-akshat.vercel.app)
