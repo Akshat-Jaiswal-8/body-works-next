@@ -12,7 +12,7 @@ export const Card = ({ name, image, path, searchName }: ICardProps) => {
   return (
     <div className={"transition-all duration-200 hover:scale-110"}>
       <CardContainer className="xs:max-w-62 sm:max-w-80 lg:max-w-68">
-        <CardBody className="group/card scrollbar-hide relative mt-10 overflow-hidden rounded-xl border border-black/[0.2] bg-gray-50 p-6 shadow-lg shadow-amber-900 transition-all duration-300 hover:-translate-y-6 dark:border-gray-800 dark:bg-black dark:shadow-pink-500 dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1]">
+        <CardBody className="group/card scrollbar-hide relative mt-10 overflow-hidden rounded-xl border border-black/20 bg-gray-50 p-6 shadow-lg shadow-amber-900 transition-all duration-300 hover:-translate-y-6 dark:border-gray-800 dark:bg-black dark:shadow-pink-500 dark:hover:shadow-2xl dark:hover:shadow-emerald-500/10">
           <CardItem
             translateZ="100"
             rotateX={20}
