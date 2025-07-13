@@ -1,33 +1,30 @@
 "use client";
 
-import React from "react";
 import * as motion from "motion/react-client";
+import React from "react";
 
-import Link from "next/link";
-import useDevice from "@/hooks/useDevice";
-
-import { MoveRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import Link from "next/link";
+
+import { Button } from "@/components/ui/button";
+import { MoveRight } from "lucide-react";
+
+const headingVariants = {
+  hidden: { opacity: 0, x: 0, y: 40 },
+  visible: { opacity: 1, x: 0, y: 0 },
+};
+
+const contentVariants = {
+  hidden: { opacity: 0, x: -40, y: 0 },
+  visible: { opacity: 1, x: 0, y: 0 },
+};
+
+const imageVariants = {
+  hidden: { opacity: 0, x: 0, y: 50 },
+  visible: { opacity: 1, x: 0, y: 0 },
+};
 
 export const Hero = React.memo((): React.ReactNode => {
-  const { isMobile } = useDevice();
-
-  const headingVariants = {
-    hidden: { opacity: 0, x: 0, y: 40 },
-    visible: { opacity: 1, x: 0, y: 0 },
-  };
-
-  const contentVariants = {
-    hidden: { opacity: 0, x: -40, y: 0 },
-    visible: { opacity: 1, x: 0, y: 0 },
-  };
-
-  const imageVariants = {
-    hidden: { opacity: 0, x: 0, y: 50 },
-    visible: { opacity: 1, x: 0, y: 0 },
-  };
-
   return (
     <section className="flex flex-col items-center justify-center sm:mt-16">
       <div className="h-full items-center justify-center flex flex-col md:flex-row">
