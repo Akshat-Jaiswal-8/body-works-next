@@ -6,7 +6,7 @@ import { Features } from "@/app/(home)/_components/features";
 import { Hero } from "@/app/(home)/_components/hero";
 import { UserTestimonials } from "@/app/(home)/_components/testimonials";
 
-const Home = React.memo((): React.ReactNode => {
+const Home = (): React.ReactNode => {
   return (
     <motion.div
       className="container space-y-28 pb-0!"
@@ -19,8 +19,6 @@ const Home = React.memo((): React.ReactNode => {
       <FAQ />
     </motion.div>
   );
-});
+};
 
 export default Home;
-
-Home.displayName = "Home";

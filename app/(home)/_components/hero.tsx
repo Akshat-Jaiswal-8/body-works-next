@@ -29,16 +29,16 @@ export const Hero = React.memo((): React.ReactNode => {
   };
 
   return (
-    <section className="flex flex-col items-center justify-center sm:mt-20">
+    <section className="flex flex-col items-center justify-center sm:mt-16">
       <div className="h-full items-center justify-center flex flex-col md:flex-row">
-        <div className="grid-cols-col-lg items-center justify-between gap-4 md:grid">
+        <div className="grid-cols-col-lg items-center justify-between gap-5 lg:grid">
           <div>
             <motion.h1
               variants={headingVariants}
               initial="hidden"
               animate="visible"
               transition={{ duration: 0.1, delay: 0.25 }}
-              className="xs:text-5xl font-calsans mb-8 leading-snug font-extrabold tracking-tighter text-amber-700 sm:text-6xl md:text-5xl lg:text-[4em] xl:text-[5rem] dark:text-slate-300"
+              className="xs:text-5xl font-calsans mb-8 leading-snug font-extrabold tracking-tighter text-amber-700 sm:text-6xl dark:text-slate-300"
             >
               Push
               <span
@@ -59,9 +59,10 @@ export const Hero = React.memo((): React.ReactNode => {
                   <Image
                     src={"/img.png"}
                     alt="man with dumbbell"
-                    layout="fill"
+                    fill
                     quality={100}
-                    objectFit="cover"
+                    className="object-cover "
+                    sizes="(max-width: 640px) 192px, (max-width: 768px) 256px, (max-width: 1024px) 256px, 320px"
                   />
                 </motion.div>
               </span>
@@ -108,13 +109,12 @@ export const Hero = React.memo((): React.ReactNode => {
             animate={"visible"}
             transition={{ duration: 0.2, delay: 0.8 }}
             className={
-              "mx-auto xs:hidden md:visible rounded-2xl shadow-2xl shadow-amber-600 md:h-120 xl:h-140 dark:shadow-pink-600"
+              "mx-auto xs:hidden lg:block rounded-2xl shadow-2xl shadow-amber-600 md:h-120 xl:h-140 dark:shadow-pink-600"
             }
           >
             <img
               src={"/hero.webp"}
               className={"rounded-2xl md:h-120 xl:h-140 dark:grayscale"}
-              loading={"eager"}
               alt={"man with dumbell"}
             />
           </motion.div>
