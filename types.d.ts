@@ -6,6 +6,7 @@ interface IExercise {
   bodyPart: string;
   equipment: string;
   id: string;
+  id_: string;
   blog: string;
   images: string[];
   gifUrl: string;

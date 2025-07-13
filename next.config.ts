@@ -1,7 +1,14 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  devIndicators: false,
+  images: {
+    remotePatterns: [
+      new URL("https://d2ppnttncjw8dy.cloudfront.net/assets/**"),
+    ],
+    domains: ["bodyworks.akshatjaiswal.me", "body-works-akshat.vercel.app"],
+    formats: ["image/webp", "image/avif"],
+  },
 };
 
 export default nextConfig;

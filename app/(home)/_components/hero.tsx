@@ -1,16 +1,18 @@
 "use client";
 
-import { useMediaQuery } from "@uidotdev/usehooks";
-import { Button } from "@/components/ui/button";
-import { MoveRight } from "lucide-react";
 import React from "react";
 import * as motion from "motion/react-client";
+
 import Link from "next/link";
+import useDevice from "@/hooks/useDevice";
+
+import { MoveRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
 export const Hero = React.memo((): React.ReactNode => {
-  const isSmallDevice: boolean = useMediaQuery(
-    "only screen and (max-width : 767px)"
-  );
+  const { isMobile } = useDevice();
+
   const headingVariants = {
     hidden: { opacity: 0, x: 0, y: 40 },
     visible: { opacity: 1, x: 0, y: 0 },
@@ -27,8 +29,8 @@ export const Hero = React.memo((): React.ReactNode => {
   };
 
   return (
-    <section className="mt-[calc(var(--navbar-height)+4rem)] mb-32">
-      <div className="h-full items-center justify-center md:flex">
+    <section className="flex flex-col items-center justify-center sm:mt-20">
+      <div className="h-full items-center justify-center flex flex-col md:flex-row">
         <div className="grid-cols-col-lg items-center justify-between gap-4 md:grid">
           <div>
             <motion.h1
@@ -36,25 +38,32 @@ export const Hero = React.memo((): React.ReactNode => {
               initial="hidden"
               animate="visible"
               transition={{ duration: 0.1, delay: 0.25 }}
-              className="xs:text-4xl mb-8 leading-snug font-extrabold tracking-wide text-amber-700 sm:text-6xl md:text-5xl lg:text-[4em] xl:text-[5rem] dark:text-slate-300"
+              className="xs:text-5xl font-calsans mb-8 leading-snug font-extrabold tracking-tighter text-amber-700 sm:text-6xl md:text-5xl lg:text-[4em] xl:text-[5rem] dark:text-slate-300"
             >
               Push
               <span
-                className={"leading-snug text-amber-900 dark:text-pink-500"}
+                className={
+                  "leading-snug font-poppins mx-2 mr-4 italic text-amber-900 dark:text-pink-500"
+                }
               >
-                {" "}
-                yourself harder{" "}
+                yourself harder
               </span>
               to become better
               <span className="xs:mt-4 xs:h-12 xs:w-48 inline-block overflow-hidden rounded-2xl sm:ml-4 sm:h-14 sm:w-[16rem] md:mt-2 md:w-[16rem] lg:w-80 xl:ml-4 xl:h-16">
-                <motion.img
+                <motion.div
                   initial={{ scale: 1.25 }}
                   animate={{ scale: 1 }}
                   transition={{ duration: 0.1, delay: 1 }}
-                  src={"/img.png"}
-                  className="h-full w-full object-cover transition-transform duration-300"
-                  alt="man with dumbbell"
-                />
+                  className="h-full relative w-full"
+                >
+                  <Image
+                    src={"/img.png"}
+                    alt="man with dumbbell"
+                    layout="fill"
+                    quality={100}
+                    objectFit="cover"
+                  />
+                </motion.div>
               </span>
             </motion.h1>
             <motion.div
@@ -62,7 +71,7 @@ export const Hero = React.memo((): React.ReactNode => {
               initial={"hidden"}
               animate={"visible"}
               transition={{ duration: 0.1, delay: 1 }}
-              className="xs:mb-12 text-left text-xl leading-10 font-semibold text-amber-800 md:mb-16 dark:text-slate-300"
+              className="xs:mb-12 text-left text-xl tracking-tight leading-10 font-semibold text-amber-800 md:mb-16 dark:text-slate-300"
             >
               <p>
                 Are you lagging to find the best exercises for your muscles ?
@@ -92,26 +101,27 @@ export const Hero = React.memo((): React.ReactNode => {
               </Button>
             </motion.div>
           </div>
-          {!isSmallDevice && (
-            <motion.div
-              variants={imageVariants}
-              initial={"hidden"}
-              animate={"visible"}
-              transition={{ duration: 0.2, delay: 0.8 }}
-              className={
-                "mx-auto rounded-2xl shadow-2xl shadow-amber-600 md:h-120 xl:h-140 dark:shadow-pink-600"
-              }
-            >
-              <img
-                src={"/hero.webp"}
-                className={"rounded-2xl md:h-120 xl:h-140 dark:grayscale"}
-                loading={"eager"}
-                alt={"man with dumbell"}
-              />
-            </motion.div>
-          )}
+
+          <motion.div
+            variants={imageVariants}
+            initial={"hidden"}
+            animate={"visible"}
+            transition={{ duration: 0.2, delay: 0.8 }}
+            className={
+              "mx-auto xs:hidden md:visible rounded-2xl shadow-2xl shadow-amber-600 md:h-120 xl:h-140 dark:shadow-pink-600"
+            }
+          >
+            <img
+              src={"/hero.webp"}
+              className={"rounded-2xl md:h-120 xl:h-140 dark:grayscale"}
+              loading={"eager"}
+              alt={"man with dumbell"}
+            />
+          </motion.div>
         </div>
       </div>
     </section>
   );
 });
+
+Hero.displayName = "Hero";

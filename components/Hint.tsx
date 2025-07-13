@@ -1,4 +1,9 @@
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "./ui/tooltip";
 
 interface HintProps {
   label: string | undefined;
@@ -13,7 +18,11 @@ export const Hint = ({ label, children, asChild, side, align }: HintProps) => {
     <TooltipProvider delayDuration={0}>
       <Tooltip>
         <TooltipTrigger asChild={asChild}>{children}</TooltipTrigger>
-        <TooltipContent className="bg-white text-black" side={side} align={align}>
+        <TooltipContent
+          className="bg-white text-black"
+          side={side}
+          align={align}
+        >
           <p className="font-semibold">{label}</p>
         </TooltipContent>
       </Tooltip>

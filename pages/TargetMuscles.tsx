@@ -1,13 +1,14 @@
-import useTargetMuscles from "../hooks/useTargetMuscles.tsx";
-import { cn } from "@/lib/utils.ts";
-import { SectionWrapper } from "@/components/SectionWrapper.tsx";
-import { Card } from "@/ui/Card.tsx";
+import useTargetMuscles from "../hooks/useTargetMuscles";
+import { cn } from "@/lib/utils";
+import { SectionWrapper } from "@/components/SectionWrapper";
+import { Card } from "@/ui/Card";
 import { useEffect } from "react";
-import { useErrorHandler } from "@/lib/error-utils.tsx";
-import { DataLoadingSkeleton } from "@/components/DataLoadingSkeleton.tsx";
+import { useErrorHandler } from "@/lib/error-utils";
+import { DataLoadingSkeleton } from "@/components/DataLoadingSkeleton";
 
 function TargetMuscles() {
-  const { isLoading, targetMuscle, error, refetch, isRefetching } = useTargetMuscles();
+  const { isLoading, targetMuscle, error, refetch, isRefetching } =
+    useTargetMuscles();
 
   const { handleError } = useErrorHandler();
 
@@ -23,7 +24,9 @@ function TargetMuscles() {
 
   return (
     <SectionWrapper>
-      <div className={cn("no-scrollbar container w-full overflow-y-scroll pb-4")}>
+      <div
+        className={cn("no-scrollbar container w-full overflow-y-scroll pb-4")}
+      >
         <div className={cn("w-full md:grid md:grid-cols-2 lg:grid-cols-3")}>
           {targetMuscle?.data.map((targetMuscle: ITargetMuscle) => {
             return (

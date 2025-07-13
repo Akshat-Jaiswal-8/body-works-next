@@ -1,15 +1,15 @@
 "use client";
 
 import React from "react";
-import { InfiniteMovingCards } from "./ui/infinite-moving-cards.tsx";
+import { InfiniteMovingCards } from "./ui/infinite-moving-cards";
 
 export function TestimonialCards(): React.ReactNode {
   return (
-    <div className="xs:h-50 md:h-full rounded-md flex flex-col antialiased  items-center justify-center relative overflow-hidden">
+    <div className="xs:h-90 md:h-full rounded-md flex flex-col antialiased  items-center justify-center relative overflow-hidden">
       <InfiniteMovingCards
         items={testimonials}
         direction="right"
-        speed="slow"
+        speed="normal"
       />
     </div>
   );

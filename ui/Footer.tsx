@@ -1,28 +1,31 @@
-import React from "react";
-import { FooterNavbar } from "@/ui/FooterNavbar.tsx";
-import { useMediaQuery } from "@uidotdev/usehooks";
+"use client";
 
-export const Footer = (): React.ReactNode => {
-  const isSmallDevice = useMediaQuery("only screen and (max-width : 767px)");
+import useDevice from "@/hooks/useDevice";
+import { FooterNavbar } from "@/ui/FooterNavbar";
+import React from "react";
+
+export const Footer = React.memo((): React.ReactNode => {
+  const { isMobile } = useDevice();
   const currentYear = new Date().getFullYear();
 
   return (
     <>
-      <section>
-        {isSmallDevice && (
+      <section className="mt-20">
+        {isMobile && (
           <div className={"fixed right-0 bottom-5"}>
             <FooterNavbar />
           </div>
         )}
-        {!isSmallDevice && <FooterNavbar />}
         <div
           className={
-            "xs:text-xs xs:flex-col mt-10 flex items-center justify-center border-t border-t-slate-800 py-6 text-slate-700 sm:flex-row md:text-base dark:text-slate-300"
-          }>
-          Copyright © {currentYear} BodyWorks. Made with{" "}
-          <span className={"px-2 text-2xl text-red-500"}> ♥</span> by Akshat.
+            "xs:text-base py-3 w-full border-t border-t-amber-800 dark:border-t-gray-800 border-dotted bg-transparent backdrop-blur-sm md:text-base"
+          }
+        >
+          <p className="text-center">Copyright © {currentYear} BodyWorks.</p>
         </div>
       </section>
     </>
   );
-};
+});
+
+Footer.displayName = "Footer";

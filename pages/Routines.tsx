@@ -1,5 +1,5 @@
 import RoutineCard from "@/components/RoutineCard.tsx";
-import useRoutines from "@/hooks/useRoutines.tsx";
+import useRoutines from "@/hooks/useRoutines";
 import { cn } from "@/lib/utils.ts";
 import React, { useEffect, useState } from "react";
 
@@ -11,7 +11,10 @@ import { useErrorHandler } from "@/lib/error-utils.tsx";
 function Routines(): React.ReactNode {
   const [page, setPage] = useState(1);
   const { handleError } = useErrorHandler();
-  const { isLoading, routines, error, refetch, isRefetching } = useRoutines(9, page);
+  const { isLoading, routines, error, refetch, isRefetching } = useRoutines(
+    9,
+    page
+  );
 
   useEffect(() => {
     if (error) {
@@ -31,7 +34,9 @@ function Routines(): React.ReactNode {
 
   return (
     <SectionWrapper>
-      <div className={cn("no-scrollbar container w-full overflow-y-scroll pb-4")}>
+      <div
+        className={cn("no-scrollbar container w-full overflow-y-scroll pb-4")}
+      >
         <div className={cn("w-full lg:grid lg:grid-cols-2 2xl:grid-cols-3")}>
           {routines?.map((eachroutine: IRoutine) => {
             return (
@@ -46,7 +51,10 @@ function Routines(): React.ReactNode {
           })}
         </div>
       </div>
-      <PaginationProvidor handleNextPage={handleNextPage} handlePreviousPage={handlePreviousPage} />
+      <PaginationProvidor
+        handleNextPage={handleNextPage}
+        handlePreviousPage={handlePreviousPage}
+      />
     </SectionWrapper>
   );
 }
