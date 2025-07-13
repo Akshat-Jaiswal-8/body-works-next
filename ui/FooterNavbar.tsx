@@ -10,7 +10,7 @@ export const FooterNavbar = (): React.ReactNode => {
     { title: "Home", icon: <Home />, href: "/" },
   ];
   return (
-    <div className="flex w-full items-center   xs:justify-end md:h-48 md:justify-center">
+    <div className="flex w-full items-center xs:justify-end md:h-48 md:justify-center">
       <FloatingDock items={footerNavItems} />
     </div>
   );

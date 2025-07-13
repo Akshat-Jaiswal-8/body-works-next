@@ -9,8 +9,18 @@ import {
   useSpring,
   useTransform,
 } from "motion/react";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
 
 import { useRef, useState } from "react";
+import Link from "next/link";
+import { Button } from "./button";
 
 export const FloatingDock = ({
   items,
@@ -36,50 +46,35 @@ const FloatingDockMobile = ({
   items: { title: string; icon: React.ReactNode; href: string }[];
   className?: string;
 }) => {
-  const [open, setOpen] = useState(false);
   return (
-    <div className={cn("relative block md:hidden", className)}>
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            layoutId="nav"
-            className="absolute inset-x-0 bottom-full mb-2 flex flex-col gap-2"
-          >
-            {items.map((item, idx) => (
-              <motion.div
-                key={item.title}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{
-                  opacity: 1,
-                  y: 0,
-                }}
-                exit={{
-                  opacity: 0,
-                  y: 10,
-                  transition: {
-                    delay: idx * 0.05,
-                  },
-                }}
-                transition={{ delay: (items.length - 1 - idx) * 0.05 }}
-              >
-                <a
+    <div className={cn("relative block right-2 md:hidden", className)}>
+      <Drawer>
+        <DrawerTrigger asChild>
+          <Button className="flex h-10 w-10 items-center justify-center rounded-full bg-amber-50 border shadow-amber-700 dark:shadow-pink-500 dark:bg-neutral-800">
+            <IconLayoutNavbarCollapse className="h-5 w-5 text-neutral-800 dark:text-neutral-400" />
+          </Button>
+        </DrawerTrigger>
+        <DrawerContent>
+          <DrawerHeader>
+            <DrawerTitle className="dark:text-pink-500 text-amber-700">
+              Body Works
+            </DrawerTitle>
+          </DrawerHeader>
+          <div className="grid grid-cols-3 gap-4 p-4">
+            {items.map((item) => (
+              <DrawerClose key={item.title} asChild>
+                <Link
                   href={item.href}
-                  key={item.title}
-                  className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-50 dark:bg-neutral-900"
+                  className="flex flex-col items-center justify-center gap-2 rounded-lg bg-gray-50 p-4 transition-colors hover:bg-gray-100 dark:bg-neutral-900 dark:hover:bg-neutral-800"
                 >
-                  <div className="h-4 w-4">{item.icon}</div>
-                </a>
-              </motion.div>
+                  <div className="h-6 w-6">{item.icon}</div>
+                  <span className="text-xs text-center">{item.title}</span>
+                </Link>
+              </DrawerClose>
             ))}
-          </motion.div>
-        )}
-      </AnimatePresence>
-      <button
-        onClick={() => setOpen(!open)}
-        className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-50 dark:bg-neutral-800"
-      >
-        <IconLayoutNavbarCollapse className="h-5 w-5 text-neutral-500 dark:text-neutral-400" />
-      </button>
+          </div>
+        </DrawerContent>
+      </Drawer>
     </div>
   );
 };
@@ -162,7 +157,7 @@ function IconContainer({
   const [hovered, setHovered] = useState(false);
 
   return (
-    <a href={href}>
+    <Link href={href}>
       <motion.div
         ref={ref}
         style={{ width, height }}
@@ -189,6 +184,6 @@ function IconContainer({
           {icon}
         </motion.div>
       </motion.div>
-    </a>
+    </Link>
   );
 }
