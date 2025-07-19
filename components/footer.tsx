@@ -1,7 +1,7 @@
 "use client";
 
 import useDevice from "@/hooks/useDevice";
-import { FooterNavbar } from "@/ui/FooterNavbar";
+import { FooterNavbar } from "@/components/footer-navbar";
 import React from "react";
 
 export const Footer = React.memo((): React.ReactNode => {
@@ -10,7 +10,7 @@ export const Footer = React.memo((): React.ReactNode => {
 
   return (
     <>
-      <section className="mt-20">
+      <section className="h-[3rem]">
         {isMobile && (
           <div className={"fixed right-0 bottom-5"}>
             <FooterNavbar />

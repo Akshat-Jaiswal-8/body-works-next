@@ -1,26 +1,80 @@
 import {
   Pagination,
   PaginationContent,
+  PaginationEllipsis,
   PaginationItem,
+  PaginationLink,
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
 
 export const PaginationProvidor = ({
-  handleNextPage,
-  handlePreviousPage,
+  currentPage,
+  totalPages,
 }: {
-  handleNextPage: () => void;
-  handlePreviousPage: () => void;
+  currentPage: number;
+  totalPages: number;
 }) => {
+  const blockSize = 3;
+  const currentBlock = Math.floor((currentPage - 1) / blockSize);
+  const startPage = currentBlock * blockSize + 1;
+  const endPage = Math.min(startPage + blockSize - 1, totalPages);
+  const pages = [];
+  for (let i = startPage; i <= endPage; i++) {
+    pages.push(i);
+  }
+
   return (
     <Pagination className={"mt-10"}>
       <PaginationContent>
         <PaginationItem>
-          <PaginationPrevious onClick={handlePreviousPage} />
+          <PaginationPrevious
+            href={{
+              query: {
+                page: `${startPage - blockSize > 0 ? startPage - blockSize : 1}`,
+              },
+            }}
+            aria-disabled={startPage === 1}
+            className={
+              startPage === 1
+                ? "pointer-events-none opacity-50"
+                : "cursor-pointer"
+            }
+          />
         </PaginationItem>
+        {pages.map((page) => (
+          <PaginationItem key={page}>
+            <PaginationLink
+              isActive={page === currentPage}
+              href={{
+                query: {
+                  page,
+                },
+              }}
+            >
+              {page}
+            </PaginationLink>
+          </PaginationItem>
+        ))}
+        {endPage < totalPages && (
+          <PaginationItem>
+            <PaginationEllipsis />
+          </PaginationItem>
+        )}
         <PaginationItem>
-          <PaginationNext onClick={handleNextPage} />
+          <PaginationNext
+            href={{
+              query: {
+                page: `${endPage + 1 <= totalPages ? endPage + 1 : totalPages}`,
+              },
+            }}
+            aria-disabled={endPage === totalPages}
+            className={
+              endPage === totalPages
+                ? "pointer-events-none opacity-50"
+                : "cursor-pointer"
+            }
+          />
         </PaginationItem>
       </PaginationContent>
     </Pagination>

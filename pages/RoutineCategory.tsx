@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils.ts";
 import { SectionWrapper } from "@/components/SectionWrapper.tsx";
 import { useRoutinesCategory } from "@/hooks/useRoutinesCategory";
-import { Card } from "@/ui/Card.tsx";
+import { Card } from "@/components/exercise-card";
 import { DataLoadingSkeleton } from "@/components/DataLoadingSkeleton.tsx";
 import { useEffect } from "react";
 import { useErrorHandler } from "@/lib/error-utils.tsx";

@@ -1,7 +1,7 @@
 import useTargetMuscles from "../hooks/useTargetMuscles";
 import { cn } from "@/lib/utils";
 import { SectionWrapper } from "@/components/SectionWrapper";
-import { Card } from "@/ui/Card";
+import { Card } from "@/components/exercise-card";
 import { useEffect } from "react";
 import { useErrorHandler } from "@/lib/error-utils";
 import { DataLoadingSkeleton } from "@/components/DataLoadingSkeleton";

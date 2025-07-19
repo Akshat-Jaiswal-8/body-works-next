@@ -84,12 +84,16 @@ export const Hero = React.memo((): React.ReactNode => {
               animate={"visible"}
               transition={{ duration: 0.1, delay: 1 }}
             >
-              <Button className="group transform-gpu bg-amber-700 px-4 py-4 text-xl font-medium text-slate-100 hover:scale-110 hover:bg-amber-800 dark:bg-pink-700 dark:text-slate-200 dark:hover:bg-pink-800">
+              <Button className="group transform-gpu bg-amber-700 px-4 py-4 text-lg font-semibold text-slate-100 hover:scale-110 hover:bg-amber-800 dark:bg-pink-700 dark:text-slate-200 dark:hover:bg-pink-800">
                 <Link href={"/exercises"}>
-                  <span className={"flex items-center justify-center gap-x-2"}>
+                  <span
+                    className={
+                      "flex items-center group-hover:scale-95 justify-center gap-x-2"
+                    }
+                  >
                     Explore for free{" "}
                     <MoveRight
-                      className={"animate-bounce-right"}
+                      className={"group-hover:animate-bounce-right"}
                       size={20}
                       strokeWidth={2.5}
                       absoluteStrokeWidth

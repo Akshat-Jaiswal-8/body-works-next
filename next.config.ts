@@ -6,7 +6,6 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       new URL("https://d2ppnttncjw8dy.cloudfront.net/assets/**"),
     ],
-    domains: ["bodyworks.akshatjaiswal.me", "body-works-akshat.vercel.app"],
     formats: ["image/webp", "image/avif"],
   },
 };

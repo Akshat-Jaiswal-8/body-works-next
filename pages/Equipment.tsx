@@ -6,7 +6,7 @@ import { PaginationProvidor } from "@/components/PaginationProvidor";
 import { SectionWrapper } from "@/components/SectionWrapper";
 import { DataLoadingSkeleton } from "@/components/DataLoadingSkeleton";
 import { useErrorHandler } from "@/lib/error-utils";
-import { DescriptedCard } from "@/ui/DescriptedCard";
+import { DescriptedCard } from "@/components/DescriptedCard";
 
 function Equipment() {
   const params = useParams();

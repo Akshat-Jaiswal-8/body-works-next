@@ -12,16 +12,38 @@ import useTargetMuscles from "@/hooks/useTargetMuscles";
 import { FeatureContent } from "@/app/(home)/_components/features-content";
 import { HeadingPrimary } from "@/app/(home)/_components/heading-primary";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Button } from "@/components/ui/button";
 
 export const Features = React.memo((): React.ReactNode => {
   const itemsCount = 3;
 
-  const { exercises, isLoading: exercisesLoading } = useExercises(itemsCount);
-  const { bodyParts, isLoading: bodyPartsLoading } = useBodyParts(itemsCount);
-  const { equipments, isLoading: equipmentsLoading } =
-    useEquipments(itemsCount);
-  const { targetMuscle, isLoading: targetMuscleLoading } =
-    useTargetMuscles(itemsCount);
+  const {
+    exercises,
+    isLoading: exercisesLoading,
+    refetch: refetchExercises,
+  } = useExercises(itemsCount);
+  const {
+    bodyParts,
+    isLoading: bodyPartsLoading,
+    refetch: refetchBodyParts,
+  } = useBodyParts(itemsCount);
+  const {
+    equipments,
+    isLoading: equipmentsLoading,
+    refetch: refetchEquipments,
+  } = useEquipments(itemsCount);
+  const {
+    targetMuscle,
+    isLoading: targetMuscleLoading,
+    refetch: refetchTargetMuscle,
+  } = useTargetMuscles(itemsCount);
+
+  const refetchAll = () => {
+    refetchExercises();
+    refetchBodyParts();
+    refetchEquipments();
+    refetchTargetMuscle();
+  };
 
   const isLoading =
     exercisesLoading ||
@@ -59,26 +81,51 @@ export const Features = React.memo((): React.ReactNode => {
         <LoadingSkeleton />
       ) : (
         <>
-          <FeatureContent
-            type="exercises"
-            data={exercises?.data || []}
-            heading="1300+ Exercises"
-          />
-          <FeatureContent
-            type="bodyParts"
-            data={bodyParts?.data || []}
-            heading="10+ Body Parts"
-          />
-          <FeatureContent
-            type="targetMuscles"
-            data={targetMuscle?.data || []}
-            heading="20+ Target Muscles"
-          />
-          <FeatureContent
-            type="equipments"
-            data={equipments?.data || []}
-            heading="30+ Equipments"
-          />
+          {!exercises && !bodyParts && !targetMuscle && !equipments ? (
+            <div className="flex flex-col items-center justify-center py-10 text-center space-y-8 text-gray-500">
+              <h1 className="xl:text-2xl xs:text-xl font-semibold mb-2">
+                Oops! Something went wrong while fetching the features.
+              </h1>
+              <p className="mb-4">
+                Please check your internet connection and try again. If the
+                problem persists, contact support.
+              </p>
+              <Button onClick={refetchAll} variant="outline">
+                Retry
+              </Button>
+            </div>
+          ) : (
+            <>
+              {exercises && (
+                <FeatureContent
+                  type="exercises"
+                  data={exercises?.data || []}
+                  heading="1300+ Exercises"
+                />
+              )}
+              {bodyParts && (
+                <FeatureContent
+                  type="bodyParts"
+                  data={bodyParts?.data || []}
+                  heading="10+ Body Parts"
+                />
+              )}
+              {targetMuscle && (
+                <FeatureContent
+                  type="targetMuscles"
+                  data={targetMuscle?.data || []}
+                  heading="20+ Target Muscles"
+                />
+              )}
+              {equipments && (
+                <FeatureContent
+                  type="equipments"
+                  data={equipments?.data || []}
+                  heading="30+ Equipments"
+                />
+              )}
+            </>
+          )}
         </>
       )}
     </motion.section>

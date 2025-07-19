@@ -1,6 +1,6 @@
 import { SectionWrapper } from "@/components/SectionWrapper";
 import { useBodyParts } from "@/hooks/useBodyParts";
-import { Card } from "@/ui/Card";
+import { Card } from "@/components/exercise-card";
 import { useErrorHandler } from "@/lib/error-utils";
 import { useEffect } from "react";
 import { DataLoadingSkeleton } from "@/components/DataLoadingSkeleton";

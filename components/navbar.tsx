@@ -3,7 +3,9 @@
 import * as React from "react";
 import { ModeToggle } from "@/components/mode-toggle";
 import useDevice from "@/hooks/useDevice";
-import logo from "@/public/logo.webp";
+import Image from "next/image";
+import Link from "next/link";
+
 import {
   BicepsFlexed,
   CalendarCheck2,
@@ -11,8 +13,6 @@ import {
   PersonStanding,
   Zap,
 } from "lucide-react";
-import Link from "next/link";
-
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -21,8 +21,8 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
-import Image from "next/image";
 
+import logo from "@/public/logo.webp";
 interface NavItemProps {
   title: string;
   icon: React.ReactElement;

@@ -9,7 +9,7 @@ import { UserTestimonials } from "@/app/(home)/_components/testimonials";
 const Home = (): React.ReactNode => {
   return (
     <motion.div
-      className="container space-y-28 pb-0!"
+      className="container space-y-28 mb-[7rem] pb-0!"
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >

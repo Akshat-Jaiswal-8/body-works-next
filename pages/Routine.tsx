@@ -1,11 +1,11 @@
-import WorkoutSummaryTable from "@/ui/WorkoutSummaryTable";
+import WorkoutSummaryTable from "@/components/workout-summary-table";
 import { markdownToHtml } from "@/actions/markdown-to-html";
 import { useParams } from "next/navigation";
 import useRoutine from "@/hooks/useRoutine";
 import { useErrorHandler } from "@/lib/error-utils";
 import { useEffect } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Footer } from "@/ui/Footer";
+import { Footer } from "@/components/footer";
 
 function Routine() {
   const params = useParams();

@@ -3,7 +3,7 @@ import { useEffect, useState, useRef } from "react";
 import { useTargetMuscle } from "@/hooks/useTargetMuscle";
 import { PaginationProvidor } from "@/components/PaginationProvidor";
 import { SectionWrapper } from "@/components/SectionWrapper";
-import { DescriptedCard } from "@/ui/DescriptedCard";
+import { DescriptedCard } from "@/components/DescriptedCard";
 import { useErrorHandler } from "@/lib/error-utils";
 import { DataLoadingSkeleton } from "@/components/DataLoadingSkeleton";
 import { cn } from "@/lib/utils";

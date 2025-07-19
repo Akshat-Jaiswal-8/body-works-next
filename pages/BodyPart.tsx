@@ -5,7 +5,7 @@ import { DataLoadingSkeleton } from "@/components/DataLoadingSkeleton";
 import { useParams } from "next/navigation";
 import { useErrorHandler } from "@/lib/error-utils";
 import { SectionWrapper } from "@/components/SectionWrapper";
-import { DescriptedCard } from "@/ui/DescriptedCard";
+import { DescriptedCard } from "@/components/DescriptedCard";
 
 function BodyPart() {
   const [page, setPage] = useState(1);

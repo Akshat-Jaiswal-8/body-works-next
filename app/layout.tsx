@@ -3,8 +3,8 @@ import type { Metadata } from "next";
 import { Open_Sans, Poppins, Roboto, Rubik, Urbanist } from "next/font/google";
 import "./globals.css";
 import Providers from "./providor";
-import { Navbar } from "@/ui/navbar";
-import { Footer } from "@/ui/Footer";
+import { Navbar } from "@/components/navbar";
+import { Footer } from "@/components/footer";
 
 const urbanist = Urbanist({
   subsets: ["latin"],

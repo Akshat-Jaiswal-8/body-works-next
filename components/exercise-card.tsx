@@ -1,7 +1,7 @@
-import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card";
-import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+
+import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card";
 
 interface ICardProps {
   name: string;

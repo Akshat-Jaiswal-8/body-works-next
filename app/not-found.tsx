@@ -1,10 +1,9 @@
-import { Footer } from "@/ui/Footer";
 import Link from "next/link";
 
 const NotFound = () => {
   return (
-    <section className="container flex h-screen flex-col justify-between overflow-x-hidden">
-      <div className="flex grow items-center justify-center px-4 pt-32">
+    <section className="container flex h-[calc(100vh-var(--navbar-height)-3.1rem)] flex-col justify-between overflow-x-hidden">
+      <div className="flex grow items-center justify-center px-4">
         <div className="max-w-md text-center">
           <h2 className="mb-4 text-[48px] font-extrabold text-amber-700 dark:text-white sm:text-[64px] md:text-[80px] lg:text-[96px]">
             404
@@ -20,13 +19,12 @@ const NotFound = () => {
 
           <Link
             href="/"
-            className="rounded-lg border px-8 py-3 text-center text-base  transition"
+            className="rounded-lg border hover:shadow hover:shadow-amber-700 dark:hover:shadow-pink-500 px-8 py-3 text-center text-base transition"
           >
             Go to Home
           </Link>
         </div>
       </div>
-      <Footer />
     </section>
   );
 };
