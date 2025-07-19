@@ -4,7 +4,7 @@ import { apiCaller } from "@/lib/apiCaller";
 const getRoutines = async (
   limit: number,
   page: number
-): Promise<IRoutine[]> => {
+): Promise<IRoutinesResponse> => {
   const routines = await apiCaller.get<IRoutinesResponse>("routines", {
     params: {
       limit,
@@ -12,9 +12,7 @@ const getRoutines = async (
     },
   });
 
-  console.log(routines);
-
-  return routines?.data?.data;
+  return routines?.data;
 };
 
 export const useRoutines = (limit: number, page: number) => {

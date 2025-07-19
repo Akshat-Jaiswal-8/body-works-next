@@ -61,7 +61,7 @@ export default function ExerciseClient() {
                 />
                 <ExerciseHeaders
                   title={"Muscle Worked"}
-                  content={exercise?.["muscles worked"]}
+                  content={exercise?.["muscles_worked"]}
                 />
               </div>
             </div>

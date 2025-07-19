@@ -2,7 +2,7 @@ interface IExercise {
   name: string;
   title: string;
   target: string;
-  "muscles worked": string;
+  muscles_worked: string;
   bodyPart: string;
   equipment: string;
   id: string;
@@ -84,6 +84,7 @@ interface IRoutine {
       TargetGender: string;
     };
   };
+  id_: number;
   id: number;
 }
 

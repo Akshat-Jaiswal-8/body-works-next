@@ -2,7 +2,7 @@ import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { apiCaller } from "@/lib/apiCaller";
 
 const getEquipments = async (limit?: number): Promise<IEquipmentData> => {
-  const equipments = await apiCaller.get<IEquipmentData>(`equipments/`, {
+  const equipments = await apiCaller.get<IEquipmentData>("equipments", {
     params: {
       limit,
     },

@@ -1,15 +1,19 @@
-import WorkoutSummaryTable from "@/components/workout-summary-table";
-import { markdownToHtml } from "@/actions/markdown-to-html";
+"use client";
+
+import { useEffect } from "react";
 import { useParams } from "next/navigation";
 import useRoutine from "@/hooks/useRoutine";
 import { useErrorHandler } from "@/lib/error-utils";
-import { useEffect } from "react";
+
+import WorkoutSummaryTable from "@/components/workout-summary-table";
+import { markdownToHtml } from "@/actions/markdown-to-html";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Footer } from "@/components/footer";
+import Image from "next/image";
+import Link from "next/link";
 
 function Routine() {
   const params = useParams();
-  const routineId = params?.id as string;
+  const routineId = params?.routine as string;
   const { isLoading, routine, error, refetch, isRefetching } = useRoutine({
     routineId,
   });
@@ -33,7 +37,6 @@ function Routine() {
           <Skeleton className={"h-20 w-1/2"} />
           <Skeleton className={"mt-10 min-h-[60vh] w-full"} />
         </div>
-        <Footer />
       </div>
     );
 
@@ -41,7 +44,9 @@ function Routine() {
     return (
       routine && (
         <div
-          className={"container relative mt-10 h-full w-full overflow-x-hidden"}
+          className={
+            "container min-h-screen relative mt-10 h-full w-full overflow-x-hidden"
+          }
         >
           <div className="mt-16 grid justify-center gap-5 md:mb-12 lg:mb-28 lg:grid-cols-2">
             <div className="col-span-1 gap-16 border-b border-t border-double border-amber-900 dark:border-pink-500 xs:py-6 md:py-12">
@@ -56,8 +61,10 @@ function Routine() {
             </div>
 
             <div className="mx-auto flex justify-between xs:my-10 md:col-span-full lg:col-span-1 lg:my-20">
-              <img
-                loading={"lazy"}
+              <Image
+                height={1000}
+                width={1000}
+                quality={100}
                 alt="exercise gif"
                 className="rounded-3xl shadow-sm shadow-amber-900 drop-shadow-2xl"
                 src={routine.routine.routine_imageUrl}
@@ -67,13 +74,13 @@ function Routine() {
           <div className="flex w-full justify-evenly gap-x-5 overflow-x-auto text-nowrap border-b border-t border-dotted border-amber-900 dark:border-gray-500 xs:mb-16 xs:text-xs sm:text-sm md:mb-20 xl:text-xl">
             {routine.category.map((eachCategory: string) => {
               return (
-                <a
+                <Link
                   href={`/routines/${eachCategory}`}
                   key={eachCategory}
                   className="my-6 bg-linear-to-r from-amber-800 to-amber-600 bg-clip-text text-transparent dark:from-pink-600 dark:to-violet-400"
                 >
                   {eachCategory}
-                </a>
+                </Link>
               );
             })}
           </div>
@@ -116,7 +123,6 @@ function Routine() {
               )
             )}
           </div>
-          <Footer />
         </div>
       )
     );

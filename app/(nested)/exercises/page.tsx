@@ -64,7 +64,7 @@ function Exercises() {
         {exercises?.data.map((exercise: IExercise) => {
           return (
             <DescriptedCard
-              key={exercise.id}
+              key={exercise.id_}
               id={exercise.id_}
               gif={exercise.gifUrl}
               title={exercise.title}

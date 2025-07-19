@@ -1,0 +1,41 @@
+"use client";
+import { useEffect } from "react";
+import { useErrorHandler } from "@/lib/error-utils";
+import useTargetMuscles from "@/hooks/useTargetMuscles";
+
+import { DataLoadingSkeleton } from "@/components/DataLoadingSkeleton";
+import { Card } from "@/components/exercise-card";
+
+function TargetMuscles() {
+  const { isLoading, targetMuscle, error, refetch, isRefetching } =
+    useTargetMuscles();
+
+  const { handleError } = useErrorHandler();
+
+  useEffect(() => {
+    if (error) {
+      handleError(error, refetch);
+    }
+  }, [error]);
+
+  if (isLoading || isRefetching) {
+    return <DataLoadingSkeleton />;
+  }
+
+  return (
+    <div className={"w-full md:grid md:grid-cols-2 lg:grid-cols-3"}>
+      {targetMuscle?.data.map((targetMuscle: ITargetMuscle) => {
+        return (
+          <Card
+            name={targetMuscle.targetMuscle}
+            image={targetMuscle.imageUrl}
+            key={targetMuscle.targetMuscle}
+            path={"target-muscles"}
+          />
+        );
+      })}
+    </div>
+  );
+}
+
+export default TargetMuscles;

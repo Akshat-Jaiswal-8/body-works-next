@@ -52,7 +52,7 @@ export const exerciseNavItems: NavItemProps[] = [
   {
     title: "Target Muscles",
     icon: <Zap className="h-4 w-4" />,
-    href: "/target-muscle",
+    href: "/target-muscles",
     description:
       "Find exercises that target specific muscles for focused training.",
   },

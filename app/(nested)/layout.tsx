@@ -7,7 +7,7 @@ const NestedRouteLayout = ({ children }: { children: React.ReactNode }) => {
         "relative container mt-[calc(var(--navbar-height)+2rem)] h-full w-full overflow-x-hidden"
       }
     >
-      <main className={"my-10 min-h-[50vh]"}>{children}</main>
+      <main className={"min-h-[50vh]"}>{children}</main>
     </div>
   );
 };

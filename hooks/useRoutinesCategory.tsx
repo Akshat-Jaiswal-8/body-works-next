@@ -6,8 +6,6 @@ const getRoutineCategories = async (): Promise<IRoutineCategory[]> => {
     "routines/filters?filter=category"
   );
 
-  console.log(routineCategory);
-
   return routineCategory.data.data.category;
 };
 

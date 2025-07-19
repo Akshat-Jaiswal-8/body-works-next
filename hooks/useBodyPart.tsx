@@ -5,15 +5,16 @@ const getBodyPart = async (
   bodyPart: string | undefined,
   limit: number,
   page: number
-): Promise<IExercise> => {
-  const bodypart = await apiCaller.get<IExerciseResponse>("exercises", {
+): Promise<IExerciseData> => {
+  const bodypart = await apiCaller.get<IExerciseData>("exercises", {
     params: {
       bodyPart,
       limit,
       page,
     },
   });
-  return bodypart.data.data;
+
+  return bodypart.data;
 };
 
 export const useBodyPart = (

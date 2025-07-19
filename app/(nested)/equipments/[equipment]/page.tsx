@@ -1,23 +1,23 @@
 "use client";
-import { useEffect } from "react";
-import { useBodyPart } from "@/hooks/useBodyPart";
-import { useErrorHandler } from "@/lib/error-utils";
-import { useParams, useSearchParams } from "next/navigation";
 
 import { DataLoadingSkeleton } from "@/components/DataLoadingSkeleton";
 import { DescriptedCard } from "@/components/DescriptedCard";
 import { PaginationProvidor } from "@/components/PaginationProvidor";
+import { useEquipment } from "@/hooks/useEquipment";
+import { useErrorHandler } from "@/lib/error-utils";
+import { useParams, useSearchParams } from "next/navigation";
+import { useEffect } from "react";
 
-function BodyPart() {
+function Equipment() {
   const { handleError } = useErrorHandler();
   const params = useParams();
   const searchParams = useSearchParams();
 
-  const bodypart = params?.["body-part"] as string;
   const page = Number(searchParams?.get("page")) || 1;
+  const searchedEquipment = params?.equipment as string;
 
-  const { isLoading, bodyPart, error, refetch, isRefetching } = useBodyPart(
-    bodypart,
+  const { equipment, isLoading, error, refetch, isRefetching } = useEquipment(
+    searchedEquipment,
     9,
     page
   );
@@ -32,25 +32,25 @@ function BodyPart() {
 
   return (
     <section className="space-y-12 mb-12">
-      <div className="grid w-full lg:grid-cols-2 xl:grid-cols-3">
-        {bodyPart?.data.map((bodyPart: IExercise) => {
+      <div className={"w-full lg:grid lg:grid-cols-2 2xl:grid-cols-3"}>
+        {equipment?.data.map((Equipment: IExercise) => {
           return (
             <DescriptedCard
-              id={bodyPart.id_}
-              key={bodyPart.id_}
-              gif={bodyPart.gifUrl}
-              title={bodyPart.title}
-              blog={bodyPart.blog}
+              id={Equipment.id_}
+              key={Equipment.id_}
+              gif={Equipment.gifUrl}
+              title={Equipment.title}
+              blog={Equipment.blog}
             />
           );
         })}
       </div>
       <PaginationProvidor
         currentPage={page}
-        totalPages={bodyPart?.totalPages || 0}
+        totalPages={equipment?.totalPages || 0}
       />
     </section>
   );
 }
 
-export default BodyPart;
+export default Equipment;

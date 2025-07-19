@@ -6,8 +6,10 @@ type IRoutinesProps = {
 };
 
 const getRoutine = async ({ routineId }: IRoutinesProps): Promise<IRoutine> => {
-  const routine = await apiCaller.get<IRoutine>(`routines/${routineId}`);
-  return routine.data;
+  const routine = await apiCaller.get<{ data: IRoutine }>(
+    `routines/${routineId}`
+  );
+  return routine.data.data;
 };
 
 type routineId = {

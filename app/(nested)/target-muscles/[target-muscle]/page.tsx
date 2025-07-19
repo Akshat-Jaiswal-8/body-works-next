@@ -1,6 +1,6 @@
 "use client";
 import { useEffect } from "react";
-import { useBodyPart } from "@/hooks/useBodyPart";
+import { useTargetMuscle } from "@/hooks/useTargetMuscle";
 import { useErrorHandler } from "@/lib/error-utils";
 import { useParams, useSearchParams } from "next/navigation";
 
@@ -8,19 +8,16 @@ import { DataLoadingSkeleton } from "@/components/DataLoadingSkeleton";
 import { DescriptedCard } from "@/components/DescriptedCard";
 import { PaginationProvidor } from "@/components/PaginationProvidor";
 
-function BodyPart() {
-  const { handleError } = useErrorHandler();
+function TargetMuscle() {
   const params = useParams();
   const searchParams = useSearchParams();
+  const searchTargetMuscle = params?.["target-muscle"] as string;
+  const { handleError } = useErrorHandler();
 
-  const bodypart = params?.["body-part"] as string;
   const page = Number(searchParams?.get("page")) || 1;
 
-  const { isLoading, bodyPart, error, refetch, isRefetching } = useBodyPart(
-    bodypart,
-    9,
-    page
-  );
+  const { targetMuscle, isLoading, error, refetch, isRefetching } =
+    useTargetMuscle(searchTargetMuscle, 9, page);
 
   useEffect(() => {
     if (error) {
@@ -33,24 +30,24 @@ function BodyPart() {
   return (
     <section className="space-y-12 mb-12">
       <div className="grid w-full lg:grid-cols-2 xl:grid-cols-3">
-        {bodyPart?.data.map((bodyPart: IExercise) => {
+        {targetMuscle?.data.map((targetMuscle: IExercise) => {
           return (
             <DescriptedCard
-              id={bodyPart.id_}
-              key={bodyPart.id_}
-              gif={bodyPart.gifUrl}
-              title={bodyPart.title}
-              blog={bodyPart.blog}
+              id={targetMuscle.id_}
+              key={targetMuscle.id_}
+              gif={targetMuscle.gifUrl}
+              title={targetMuscle.title}
+              blog={targetMuscle.blog}
             />
           );
         })}
       </div>
       <PaginationProvidor
         currentPage={page}
-        totalPages={bodyPart?.totalPages || 0}
+        totalPages={targetMuscle?.totalPages || 0}
       />
     </section>
   );
 }
 
-export default BodyPart;
+export default TargetMuscle;
