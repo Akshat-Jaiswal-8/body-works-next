@@ -1,12 +1,21 @@
 "use client";
-import { markdownToHtml } from "@/actions/markdown-to-html";
-import ExerciseHeaders from "@/components/ExerciseHeaders";
-import { Skeleton } from "@/components/ui/skeleton";
+
+import Image from "next/image";
+import { useParams } from "next/navigation";
 import { useExercise } from "@/hooks/useExercise";
 import { useErrorHandler } from "@/lib/error-utils";
-import { Footer } from "@/components/footer";
-import { useParams } from "next/navigation";
-import ReactPlayer from "react-player";
+import { markdownToHtml } from "@/actions/markdown-to-html";
+
+import ExerciseHeaders from "@/app/exercises/_components/exercise-header";
+import { Skeleton } from "@/components/ui/skeleton";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import useDevice from "@/hooks/useDevice";
 
 export default function ExerciseClient() {
   const params = useParams();
@@ -14,6 +23,8 @@ export default function ExerciseClient() {
 
   const { exercise, isLoading, error, refetch, isRefetching } =
     useExercise(exerciseId);
+
+  const { isMobile } = useDevice();
 
   const { handleError } = useErrorHandler();
 
@@ -38,14 +49,13 @@ export default function ExerciseClient() {
   return (
     <>
       {exercise && (
-        <div
-          className={"container relative mt-10 h-full w-full overflow-x-hidden"}
-        >
-          <div className="mt-16 justify-center gap-5 xs:mx-6 xs:mb-20 md:mb-20 lg:mb-28 lg:grid lg:grid-cols-2">
-            <div className="col-span-1 gap-16 border-b border-t border-double border-amber-900 dark:border-pink-500 xs:py-6 md:py-12">
-              <div className="flex flex-col md:gap-4 lg:gap-8">
-                <h1 className="mb-4 bg-linear-to-r from-amber-800 to-amber-500 bg-clip-text text-left font-poppins font-bold text-transparent dark:from-pink-500 dark:to-violet-700 xs:text-3xl md:text-4xl xl:text-5xl">
-                  {exercise?.title}
+        <div className={"sm:space-y-40 space-y-20 h-full w-full "}>
+          <div className="mt-16 justify-center gap-5 lg:grid lg:grid-cols-2">
+            <div className="col-span-1 py-10 border-b border-t border-double border-amber-900 dark:border-pink-500 ">
+              <div className="flex flex-col justify-center h-full xs:gap-8 md:gap-4 lg:gap-8">
+                <h1 className="bg-linear-to-r from-amber-800 to-amber-500 bg-clip-text font-bold text-transparent dark:from-pink-500 dark:to-violet-700 xs:text-3xl md:text-4xl xl:text-5xl">
+                  {exercise?.title?.charAt(0).toUpperCase() +
+                    exercise?.title?.slice(1)}
                 </h1>
                 <ExerciseHeaders
                   title={"Target Muscle"}
@@ -65,63 +75,96 @@ export default function ExerciseClient() {
                 />
               </div>
             </div>
-            <div className="mx-auto flex justify-between xs:my-10 lg:col-span-1 lg:my-20">
-              <img
-                loading={"lazy"}
-                alt="exercise gif"
-                className="rounded-3xl shadow-sm shadow-amber-900 drop-shadow-2xl"
+            <div className="mx-auto py-10 flex justify-between lg:col-span-1">
+              <Image
                 src={exercise?.gifUrl}
+                height={1000}
+                width={1000}
+                quality={100}
+                className="rounded-3xl h-80 sm:h-96 md:w-full w-fit mx-auto drop-shadow-2xl"
+                alt="exercise gif"
               />
             </div>
           </div>
           {exercise.images?.length > 0 && (
-            <div className="mx-16 mb-12 xs:mx-6">
-              <h1 className="font-bold text-amber-700 underline decoration-amber-500 underline-offset-8 dark:text-gray-200 dark:decoration-gray-200 xs:text-xl lg:text-3xl">
+            <div className="space-y-6 px-8 md:space-y-10">
+              <h1 className="font-bold underline underline-offset-4 md:underline-offset-8 dark:text-gray-200 text-lg xs:text-xl md:text-2xl lg:text-3xl">
                 Reference Images
-                <span className="ml-2">:</span>
               </h1>
-              <div className="custom-scrollbar overflow-x-scroll">
-                <div className="mb-10 grid grid-cols-5 justify-between gap-5 overflow-x-auto xs:w-[350vw] md:w-[200vw] xl:w-[150vw]">
+              <Carousel
+                className="w-full xs:mt-20 xs:mx-auto lg:mx-0"
+                orientation={isMobile ? "vertical" : "horizontal"}
+                opts={{
+                  align: "start",
+                }}
+              >
+                <CarouselContent className="w-full h-[24rem]">
                   {exercise?.images?.map((image: string) => (
-                    <div key={image} className="mt-10 px-4">
-                      <img
-                        loading={"lazy"}
-                        key={image}
+                    <CarouselItem
+                      className="basis-full sm:basis-1/2 md:basis-1/2 lg:basis-1/3 inline-flex justify-center"
+                      key={image}
+                    >
+                      <Image
                         src={image}
-                        className="h-60 w-80 rounded-3xl"
+                        quality={100}
+                        height={1000}
+                        width={1000}
+                        objectFit="contain"
+                        className="rounded-2xl border-2 md:rounded-3xl h-[23rem] object-contain"
                         alt={"exercise image"}
                       />
-                    </div>
+                    </CarouselItem>
                   ))}
-                </div>
-              </div>
+                </CarouselContent>
+                <CarouselPrevious className="sm:flex" />
+                <CarouselNext className="sm:flex" />
+              </Carousel>
             </div>
           )}
           {exercise.videos?.length > 0 && (
-            <div className="mx-16 mb-12 xs:mx-6">
-              <h1 className="font-bold text-amber-700 underline decoration-amber-500 underline-offset-8 dark:text-gray-200 dark:decoration-gray-200 xs:text-xl lg:text-3xl">
+            <div className="space-y-6 px-8 md:space-y-10">
+              <h1 className="font-bold underline underline-offset-4 md:underline-offset-8 dark:text-gray-200 text-lg xs:text-xl md:text-2xl lg:text-3xl">
                 Reference Videos
-                <span className="ml-2">:</span>
               </h1>
-              <div className="custom-scrollbar overflow-x-scroll">
-                <div className="my-12 grid grid-cols-5 justify-between gap-10 overflow-x-auto xs:w-[350vw] md:w-[200vw] xl:w-[150vw]">
+              <Carousel
+                className="w-full xs:mt-20 xs:mx-auto lg:mx-0"
+                orientation={isMobile ? "vertical" : "horizontal"}
+                opts={{
+                  align: "start",
+                }}
+              >
+                <CarouselContent className="w-full h-[24rem]">
                   {exercise?.videos?.map((video: string) => (
-                    <ReactPlayer
+                    <CarouselItem
+                      className="basis-full sm:basis-1/2 md:basis-1/2 lg:basis-1/3 inline-flex justify-center"
                       key={video}
-                      volume={100}
-                      width="100"
-                      height={250}
-                      src={video}
-                      controls
-                    />
+                    >
+                      <iframe
+                        key={video}
+                        className="h-[23rem] border-2 w-full rounded-lg md:rounded-xl"
+                        src={
+                          video.includes("youtube.com/watch")
+                            ? video.replace(
+                                /youtube\.com\/watch\?v=([^&]+)/,
+                                "youtube.com/embed/$1"
+                              )
+                            : video
+                        }
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                      />
+                    </CarouselItem>
                   ))}
-                </div>
-              </div>
+                </CarouselContent>
+                <CarouselPrevious />
+                <CarouselNext />
+              </Carousel>
             </div>
           )}
-          <div className="mb-16 text-left xs:mx-6">
+
+          <div className="mb-16 text-left">
             <div
-              className="[all-unset] markdown-content rounded-2xl border border-amber-700 p-4 text-amber-800 dark:border-gray-700 dark:text-gray-200"
+              className="markdown-content rounded-2xl border border-amber-700 p-4 text-amber-800 dark:border-gray-700 dark:text-gray-200"
               dangerouslySetInnerHTML={{
                 __html: markdownToHtml(exercise?.blog),
               }}

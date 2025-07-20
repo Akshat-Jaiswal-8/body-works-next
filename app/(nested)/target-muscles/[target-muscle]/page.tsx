@@ -6,7 +6,7 @@ import { useParams, useSearchParams } from "next/navigation";
 
 import { DataLoadingSkeleton } from "@/components/DataLoadingSkeleton";
 import { DescriptedCard } from "@/components/DescriptedCard";
-import { PaginationProvidor } from "@/components/PaginationProvidor";
+import { PaginationProvidor } from "@/components/pagination-providor";
 
 function TargetMuscle() {
   const params = useParams();

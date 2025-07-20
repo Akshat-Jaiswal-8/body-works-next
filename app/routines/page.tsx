@@ -7,8 +7,8 @@ import { useErrorHandler } from "@/lib/error-utils";
 import { useSearchParams } from "next/navigation";
 
 import { DataLoadingSkeleton } from "@/components/DataLoadingSkeleton";
-import { PaginationProvidor } from "@/components/PaginationProvidor";
-import RoutineCard from "@/components/RoutineCard";
+import { PaginationProvidor } from "@/components/pagination-providor";
+import RoutineCard from "@/components/routine-card";
 
 function Routines(): React.ReactNode {
   const { handleError } = useErrorHandler();

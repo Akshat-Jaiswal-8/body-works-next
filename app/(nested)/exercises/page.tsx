@@ -7,7 +7,7 @@ import useExercises from "@/hooks/useExercises";
 import { useErrorHandler } from "@/lib/error-utils";
 import { DataLoadingSkeleton } from "@/components/DataLoadingSkeleton";
 import { DescriptedCard } from "@/components/DescriptedCard";
-import { PaginationProvidor } from "@/components/PaginationProvidor";
+import { PaginationProvidor } from "@/components/pagination-providor";
 import { SearchBar } from "@/components/search-bar";
 
 function Exercises() {

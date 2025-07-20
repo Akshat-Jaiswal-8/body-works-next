@@ -50,7 +50,7 @@ const FloatingDockMobile = ({
     <div className={cn("relative block right-2 md:hidden", className)}>
       <Drawer>
         <DrawerTrigger asChild>
-          <Button className="flex h-10 w-10 items-center justify-center rounded-full bg-amber-50 border shadow-amber-700 dark:shadow-pink-500 dark:bg-neutral-800">
+          <Button className="flex h-10 w-10 z-999 items-center justify-center rounded-full bg-accent border shadow-amber-700 dark:shadow-pink-500 dark:bg-neutral-800">
             <IconLayoutNavbarCollapse className="h-5 w-5 text-neutral-800 dark:text-neutral-400" />
           </Button>
         </DrawerTrigger>
