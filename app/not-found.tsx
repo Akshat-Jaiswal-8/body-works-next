@@ -10,7 +10,7 @@ const NotFound = () => {
           </h2>
 
           <h4 className="mb-4 text-lg font-medium text-gray-900 dark:text-gray-300 sm:text-xl lg:text-2xl">
-            Oops! That page can't be found.
+            Oops! That page can&apos;t be found.
           </h4>
           <p className="mb-8 text-sm text-gray-700 dark:text-gray-400 sm:text-base lg:text-lg">
             The page you are looking for might have been removed or is

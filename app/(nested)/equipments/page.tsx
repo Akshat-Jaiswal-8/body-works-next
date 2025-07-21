@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import useEquipments from "@/hooks/useEquipments";
 import { useErrorHandler } from "@/lib/error-utils";
 import { Card } from "@/components/exercise-card";
-import { DataLoadingSkeleton } from "@/components/DataLoadingSkeleton";
+import { DataLoadingSkeleton } from "@/components/data-loading-skeleton";
 
 function Equipments() {
   const { equipments, isLoading, error, refetch, isRefetching } =

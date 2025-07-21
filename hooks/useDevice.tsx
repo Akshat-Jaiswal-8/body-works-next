@@ -1,6 +1,28 @@
 "use client";
 
-import { useMediaQuery } from "@uidotdev/usehooks";
+import { useEffect, useState } from "react";
+
+// Custom SSR-safe media query hook
+const useMediaQuery = (query: string): boolean => {
+  const [matches, setMatches] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    if (typeof window === "undefined") return;
+
+    const media = window.matchMedia(query);
+    setMatches(media.matches);
+
+    const listener = (e: MediaQueryListEvent) => setMatches(e.matches);
+    media.addEventListener("change", listener);
+
+    return () => media.removeEventListener("change", listener);
+  }, [query]);
+
+  // Return false during SSR and before hydration
+  return mounted ? matches : false;
+};
 
 const useDevice = (queries?: string | string[]) => {
   const isMobile = useMediaQuery("only screen and (max-width : 767px)");
@@ -13,11 +35,11 @@ const useDevice = (queries?: string | string[]) => {
   const isDesktopLarge = useMediaQuery("only screen and (min-width : 2380px)");
 
   const singleQuery =
-    typeof queries === "string" ? useMediaQuery(queries) : undefined;
+    typeof queries === "string" ? useMediaQuery(queries) : false;
 
   const multipleQueries = Array.isArray(queries)
     ? queries.map((query) => useMediaQuery(query))
-    : undefined;
+    : [];
 
   return {
     isMobile,

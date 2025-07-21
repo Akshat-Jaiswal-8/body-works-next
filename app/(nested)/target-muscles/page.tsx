@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useErrorHandler } from "@/lib/error-utils";
 import useTargetMuscles from "@/hooks/useTargetMuscles";
 
-import { DataLoadingSkeleton } from "@/components/DataLoadingSkeleton";
+import { DataLoadingSkeleton } from "@/components/data-loading-skeleton";
 import { Card } from "@/components/exercise-card";
 
 function TargetMuscles() {

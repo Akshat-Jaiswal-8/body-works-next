@@ -1,14 +1,14 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, Suspense } from "react";
 import { useBodyPart } from "@/hooks/useBodyPart";
 import { useErrorHandler } from "@/lib/error-utils";
 import { useParams, useSearchParams } from "next/navigation";
 
-import { DataLoadingSkeleton } from "@/components/DataLoadingSkeleton";
-import { DescriptedCard } from "@/components/DescriptedCard";
+import { DataLoadingSkeleton } from "@/components/data-loading-skeleton";
+import { DescriptedCard } from "@/components/descripted-card";
 import { PaginationProvidor } from "@/components/pagination-providor";
 
-function BodyPart() {
+function BodyPartContent() {
   const { handleError } = useErrorHandler();
   const params = useParams();
   const searchParams = useSearchParams();
@@ -50,6 +50,14 @@ function BodyPart() {
         totalPages={bodyPart?.totalPages || 0}
       />
     </section>
+  );
+}
+
+function BodyPart() {
+  return (
+    <Suspense fallback={<DataLoadingSkeleton />}>
+      <BodyPartContent />
+    </Suspense>
   );
 }
 

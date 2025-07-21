@@ -1,5 +1,4 @@
 import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card";
-import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { memo } from "react";
@@ -32,14 +31,12 @@ export const DescriptedCard = memo(
               rotateZ={-10}
               className="mt-4 w-full"
             >
-              <img
+              <Image
                 src={gif}
                 height={1000}
                 width={1000}
                 className="h-60 w-full rounded-xl object-cover group-hover/card:shadow-xl"
                 alt="thumbnail"
-                loading="lazy"
-                decoding="async"
               />
             </CardItem>
             <CardItem
@@ -55,3 +52,5 @@ export const DescriptedCard = memo(
     );
   }
 );
+
+DescriptedCard.displayName = "DescriptedCard";

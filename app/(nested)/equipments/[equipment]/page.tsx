@@ -1,14 +1,14 @@
 "use client";
 
-import { DataLoadingSkeleton } from "@/components/DataLoadingSkeleton";
-import { DescriptedCard } from "@/components/DescriptedCard";
+import { DataLoadingSkeleton } from "@/components/data-loading-skeleton";
+import { DescriptedCard } from "@/components/descripted-card";
 import { PaginationProvidor } from "@/components/pagination-providor";
 import { useEquipment } from "@/hooks/useEquipment";
 import { useErrorHandler } from "@/lib/error-utils";
 import { useParams, useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, Suspense } from "react";
 
-function Equipment() {
+function EquipmentContent() {
   const { handleError } = useErrorHandler();
   const params = useParams();
   const searchParams = useSearchParams();
@@ -50,6 +50,14 @@ function Equipment() {
         totalPages={equipment?.totalPages || 0}
       />
     </section>
+  );
+}
+
+function Equipment() {
+  return (
+    <Suspense fallback={<DataLoadingSkeleton />}>
+      <EquipmentContent />
+    </Suspense>
   );
 }
 

@@ -1,14 +1,14 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, Suspense } from "react";
 import { useTargetMuscle } from "@/hooks/useTargetMuscle";
 import { useErrorHandler } from "@/lib/error-utils";
 import { useParams, useSearchParams } from "next/navigation";
 
-import { DataLoadingSkeleton } from "@/components/DataLoadingSkeleton";
-import { DescriptedCard } from "@/components/DescriptedCard";
+import { DataLoadingSkeleton } from "@/components/data-loading-skeleton";
+import { DescriptedCard } from "@/components/descripted-card";
 import { PaginationProvidor } from "@/components/pagination-providor";
 
-function TargetMuscle() {
+function TargetMuscleContent() {
   const params = useParams();
   const searchParams = useSearchParams();
   const searchTargetMuscle = params?.["target-muscle"] as string;
@@ -47,6 +47,14 @@ function TargetMuscle() {
         totalPages={targetMuscle?.totalPages || 0}
       />
     </section>
+  );
+}
+
+function TargetMuscle() {
+  return (
+    <Suspense fallback={<DataLoadingSkeleton />}>
+      <TargetMuscleContent />
+    </Suspense>
   );
 }
 

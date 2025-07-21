@@ -1,16 +1,16 @@
 "use client";
-import { useCallback, useEffect, useState } from "react";
+import { Suspense, useCallback, useEffect } from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import useExercises from "@/hooks/useExercises";
 
 import { useErrorHandler } from "@/lib/error-utils";
-import { DataLoadingSkeleton } from "@/components/DataLoadingSkeleton";
-import { DescriptedCard } from "@/components/DescriptedCard";
+import { DataLoadingSkeleton } from "@/components/data-loading-skeleton";
+import { DescriptedCard } from "@/components/descripted-card";
 import { PaginationProvidor } from "@/components/pagination-providor";
 import { SearchBar } from "@/components/search-bar";
 
-function Exercises() {
+function ExercisesContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathName = usePathname();
@@ -81,4 +81,13 @@ function Exercises() {
     </>
   );
 }
+
+function Exercises() {
+  return (
+    <Suspense fallback={<DataLoadingSkeleton />}>
+      <ExercisesContent />
+    </Suspense>
+  );
+}
+
 export default Exercises;

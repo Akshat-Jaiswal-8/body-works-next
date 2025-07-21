@@ -2,7 +2,7 @@
 import { cn } from "@/lib/utils";
 import { useRoutinesCategory } from "@/hooks/useRoutinesCategory";
 import { Card } from "@/components/exercise-card";
-import { DataLoadingSkeleton } from "@/components/DataLoadingSkeleton";
+import { DataLoadingSkeleton } from "@/components/data-loading-skeleton";
 import { useEffect } from "react";
 import { useErrorHandler } from "@/lib/error-utils";
 

@@ -5,7 +5,7 @@ import * as motion from "motion/react-client";
 import { type Easing } from "motion/react";
 import Link from "next/link";
 import { Card } from "@/components/exercise-card";
-import { DescriptedCard } from "@/components/DescriptedCard";
+import { DescriptedCard } from "@/components/descripted-card";
 
 type FeatureContentProps =
   | { type: "exercises"; data: IExercise[]; heading: string }

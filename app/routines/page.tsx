@@ -1,16 +1,16 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { Suspense, useEffect } from "react";
 import Link from "next/link";
 import useRoutines from "@/hooks/useRoutines";
 import { useErrorHandler } from "@/lib/error-utils";
 import { useSearchParams } from "next/navigation";
 
-import { DataLoadingSkeleton } from "@/components/DataLoadingSkeleton";
+import { DataLoadingSkeleton } from "@/components/data-loading-skeleton";
 import { PaginationProvidor } from "@/components/pagination-providor";
 import RoutineCard from "@/components/routine-card";
 
-function Routines(): React.ReactNode {
+function RoutinesContent(): React.ReactNode {
   const { handleError } = useErrorHandler();
   const searchParams = useSearchParams();
 
@@ -51,6 +51,14 @@ function Routines(): React.ReactNode {
         totalPages={routines?.totalPages || 0}
       />
     </section>
+  );
+}
+
+function Routines(): React.ReactNode {
+  return (
+    <Suspense fallback={<DataLoadingSkeleton />}>
+      <RoutinesContent />
+    </Suspense>
   );
 }
 
