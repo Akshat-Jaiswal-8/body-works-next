@@ -5,6 +5,8 @@ import "./globals.css";
 import Providers from "./providor";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/next";
 
 const urbanist = Urbanist({
   subsets: ["latin"],
@@ -231,6 +233,8 @@ export default function RootLayout({
           <Navbar />
           <div className="mt-[calc(var(--navbar-height))]">{children}</div>
           <Footer />
+          <SpeedInsights />
+          <Analytics />
         </Providers>
         <Toaster />
       </body>
