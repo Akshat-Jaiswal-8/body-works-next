@@ -56,8 +56,8 @@ export const FeatureContent = memo(
           const exercisesData = displayedData as IExercise[];
           return exercisesData.map((exercise) => (
             <DescriptedCard
-              key={exercise.id}
-              id={exercise.id}
+              key={exercise.id_}
+              id={exercise.id_}
               gif={exercise.gifUrl}
               title={exercise.title}
               blog={exercise.blog}
