@@ -19,7 +19,7 @@ function ExercisesContent() {
   const page = Number(searchParams?.get("page")) || 1;
 
   const { isLoading, exercises, error, refetch, isRefetching } = useExercises(
-    50,
+    9,
     page
   );
 

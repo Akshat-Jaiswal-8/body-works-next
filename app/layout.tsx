@@ -1,39 +1,27 @@
+import { Footer } from "@/components/footer";
+import { Navbar } from "@/components/navbar";
 import { Toaster } from "@/components/ui/sonner";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
-import { Open_Sans, Poppins, Roboto, Rubik, Urbanist } from "next/font/google";
+import { Poppins, Urbanist } from "next/font/google";
 import "./globals.css";
 import Providers from "./providor";
-import { Navbar } from "@/components/navbar";
-import { Footer } from "@/components/footer";
-import { SpeedInsights } from "@vercel/speed-insights/next";
-import { Analytics } from "@vercel/analytics/next";
 
 const urbanist = Urbanist({
   subsets: ["latin"],
   variable: "--font-urbanist",
   weight: ["400", "500", "600", "700"],
+  display: "swap",
+  preload: true,
 });
 
 const poppins = Poppins({
   subsets: ["latin"],
   variable: "--font-poppins",
   weight: ["400", "500", "600", "700"],
-});
-
-const roboto = Roboto({
-  subsets: ["latin"],
-  variable: "--font-roboto",
-  weight: ["400", "500", "700"],
-});
-
-const rubik = Rubik({
-  subsets: ["latin"],
-  variable: "--font-rubik",
-});
-
-const openSans = Open_Sans({
-  subsets: ["latin"],
-  variable: "--font-opensans",
+  display: "swap",
+  preload: true,
 });
 
 export const metadata: Metadata = {
@@ -139,6 +127,9 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <link rel="preload" href="/hero.webp" as="image" type="image/webp" />
+        <link rel="preload" href="/img.webp" as="image" type="image/webp" />
+
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link
           rel="icon"
@@ -227,7 +218,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${poppins.variable} ${roboto.variable} ${rubik.variable} ${openSans.variable} ${urbanist.variable} font-urbanist antialiased`}
+        className={`${poppins.variable} ${urbanist.variable} font-urbanist antialiased`}
       >
         <Providers>
           <Navbar />

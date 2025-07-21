@@ -10,18 +10,18 @@ import { Button } from "@/components/ui/button";
 import { MoveRight } from "lucide-react";
 
 const headingVariants = {
-  hidden: { opacity: 0, x: 0, y: 40 },
-  visible: { opacity: 1, x: 0, y: 0 },
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 },
 };
 
 const contentVariants = {
-  hidden: { opacity: 0, x: -40, y: 0 },
-  visible: { opacity: 1, x: 0, y: 0 },
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 },
 };
 
 const imageVariants = {
-  hidden: { opacity: 0, x: 0, y: 50 },
-  visible: { opacity: 1, x: 0, y: 0 },
+  hidden: { opacity: 0, scale: 0.95 },
+  visible: { opacity: 1, scale: 1 },
 };
 
 export const Hero = React.memo((): React.ReactNode => {
@@ -34,8 +34,12 @@ export const Hero = React.memo((): React.ReactNode => {
               variants={headingVariants}
               initial="hidden"
               animate="visible"
-              transition={{ duration: 0.1, delay: 0.25 }}
-              className="xs:text-5xl font-calsans mb-8 leading-snug font-extrabold tracking-tighter text-amber-700 sm:text-6xl dark:text-slate-300"
+              transition={{
+                duration: 0.6,
+                delay: 0.1,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+              className="xs:text-5xl mb-8 leading-snug font-extrabold tracking-tighter text-amber-700 sm:text-6xl dark:text-slate-300"
             >
               Push
               <span
@@ -48,16 +52,21 @@ export const Hero = React.memo((): React.ReactNode => {
               to become better
               <span className="xs:mt-4 xs:h-12 xs:w-48 inline-block overflow-hidden rounded-2xl sm:ml-4 sm:h-14 sm:w-[16rem] md:mt-2 md:w-[16rem] lg:w-80 xl:ml-4 xl:h-16">
                 <motion.div
-                  initial={{ scale: 1.25 }}
+                  initial={{ scale: 1.1 }}
                   animate={{ scale: 1 }}
-                  transition={{ duration: 0.1, delay: 1 }}
+                  transition={{
+                    duration: 0.6,
+                    delay: 0.8,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
                   className="h-full relative w-full"
                 >
                   <Image
                     src={"/img.webp"}
                     alt="man with dumbbell"
                     fill
-                    quality={80}
+                    priority
+                    quality={85}
                     className="object-cover"
                     sizes="(max-width: 640px) 192px, (max-width: 768px) 256px, (max-width: 1024px) 256px, 320px"
                   />
@@ -68,7 +77,11 @@ export const Hero = React.memo((): React.ReactNode => {
               variants={contentVariants}
               initial={"hidden"}
               animate={"visible"}
-              transition={{ duration: 0.1, delay: 1 }}
+              transition={{
+                duration: 0.6,
+                delay: 0.3,
+                ease: [0.16, 1, 0.3, 1],
+              }}
               className="xs:mb-12 text-left text-xl tracking-tight leading-10 font-semibold text-amber-800 md:mb-16 dark:text-slate-300"
             >
               <p>
@@ -82,18 +95,24 @@ export const Hero = React.memo((): React.ReactNode => {
               variants={contentVariants}
               initial={"hidden"}
               animate={"visible"}
-              transition={{ duration: 0.1, delay: 1 }}
+              transition={{
+                duration: 0.6,
+                delay: 0.5,
+                ease: [0.16, 1, 0.3, 1],
+              }}
             >
-              <Button className="group transform-gpu bg-amber-700 px-4 py-4 text-lg font-semibold text-slate-100 hover:scale-110 hover:bg-amber-800 dark:bg-pink-700 dark:text-slate-200 dark:hover:bg-pink-800">
+              <Button className="group bg-amber-700 px-4 py-4 text-lg font-semibold text-slate-100 transition-all duration-200 ease-out hover:bg-amber-800 active:scale-95 dark:bg-pink-700 dark:text-slate-200 dark:hover:bg-pink-800">
                 <Link href={"/exercises"}>
                   <span
                     className={
-                      "flex items-center group-hover:scale-95 justify-center gap-x-2"
+                      "flex items-center justify-center gap-x-2 transition-transform duration-150 group-hover:scale-95"
                     }
                   >
                     Explore for free{" "}
                     <MoveRight
-                      className={"group-hover:animate-bounce-right"}
+                      className={
+                        "transition-transform duration-200 group-hover:translate-x-1"
+                      }
                       size={20}
                       strokeWidth={2.5}
                       absoluteStrokeWidth
@@ -108,7 +127,11 @@ export const Hero = React.memo((): React.ReactNode => {
             variants={imageVariants}
             initial={"hidden"}
             animate={"visible"}
-            transition={{ duration: 0.2, delay: 0.8 }}
+            transition={{
+              duration: 0.8,
+              delay: 0.2,
+              ease: [0.16, 1, 0.3, 1],
+            }}
             className={
               "mx-auto xs:hidden lg:block lg:relative rounded-2xl shadow-2xl shadow-amber-600 w-80 xl:w-96 md:h-120 xl:h-140 dark:shadow-pink-600"
             }
@@ -119,8 +142,10 @@ export const Hero = React.memo((): React.ReactNode => {
                 "rounded-2xl lg:w-80 xl:w-96 md:h-120 xl:h-140 dark:grayscale"
               }
               fill
-              quality={100}
+              priority
+              quality={90}
               alt={"man with dumbell"}
+              sizes="(max-width: 1024px) 0px, (max-width: 1280px) 320px, 384px"
             />
           </motion.div>
         </div>
