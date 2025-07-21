@@ -1,6 +1,6 @@
 # Body Work
 
-[![Vercel](https://vercelbadge.vercel.app/api/Akshat-Jaiswal-8/body-works)](https://body-works-akshat.vercel.app/)
+[![Vercel](https://vercelbadge.vercel.app/api/Akshat-Jaiswal-8/body-works-next)](https://bodyworks.akshatjaiswal.me/)
 
 Welcome to **Body Works**! This platform is designed to help you find the right set of exercises for your fitness goals,
 workouts, and overall health
@@ -38,24 +38,24 @@ To run this project locally, follow these steps:
 1. **Clone the repository:**
 
     ```bash
-    https://github.com/Akshat-Jaiswal-8/body-works.git
-    cd body-works
+    https://github.com/Akshat-Jaiswal-8/body-works-next.git
+    cd body-works-next
     ```
 
 2. **Install dependencies:**
 
     ```bash
-    npm install
+    bun install
     ```
 
 
 4. **Run the development server:**
 
     ```bash
-    npm run dev
+    bun run dev
     ```
 
-   Open [http://localhost:5173](http://localhost:5173) with your browser to see the result.
+   Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 
 
@@ -96,4 +96,4 @@ You can access the body works API for free:
 For any inquiries, please contact:
 
 - Akshat Jaiswal - [Mail](mailto:akshatjaiswal.official@gmail.com)
-- Project Link: [Body Works](https://body-works-akshat.vercel.app)
+- Project Link: [Body Works](https://bodyworks.akshatjaiswal.me)
