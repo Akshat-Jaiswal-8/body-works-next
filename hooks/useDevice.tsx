@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 
-// Custom SSR-safe media query hook
 const useMediaQuery = (query: string): boolean => {
   const [matches, setMatches] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -20,7 +19,6 @@ const useMediaQuery = (query: string): boolean => {
     return () => media.removeEventListener("change", listener);
   }, [query]);
 
-  // Return false during SSR and before hydration
   return mounted ? matches : false;
 };
 

@@ -54,11 +54,11 @@ export const Hero = React.memo((): React.ReactNode => {
                   className="h-full relative w-full"
                 >
                   <Image
-                    src={"/img.png"}
+                    src={"/img.webp"}
                     alt="man with dumbbell"
                     fill
-                    quality={100}
-                    className="object-cover "
+                    quality={80}
+                    className="object-cover"
                     sizes="(max-width: 640px) 192px, (max-width: 768px) 256px, (max-width: 1024px) 256px, 320px"
                   />
                 </motion.div>
@@ -110,12 +110,16 @@ export const Hero = React.memo((): React.ReactNode => {
             animate={"visible"}
             transition={{ duration: 0.2, delay: 0.8 }}
             className={
-              "mx-auto xs:hidden lg:block rounded-2xl shadow-2xl shadow-amber-600 md:h-120 xl:h-140 dark:shadow-pink-600"
+              "mx-auto xs:hidden lg:block lg:relative rounded-2xl shadow-2xl shadow-amber-600 w-80 xl:w-96 md:h-120 xl:h-140 dark:shadow-pink-600"
             }
           >
-            <img
+            <Image
               src={"/hero.webp"}
-              className={"rounded-2xl md:h-120 xl:h-140 dark:grayscale"}
+              className={
+                "rounded-2xl lg:w-80 xl:w-96 md:h-120 xl:h-140 dark:grayscale"
+              }
+              fill
+              quality={100}
               alt={"man with dumbell"}
             />
           </motion.div>
