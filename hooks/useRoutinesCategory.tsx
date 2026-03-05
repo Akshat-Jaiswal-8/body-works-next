@@ -1,9 +1,9 @@
-import { useQuery } from "@tanstack/react-query";
-import { apiCaller } from "@/lib/apiCaller";
+import { apiCaller } from '@/lib/apiCaller';
+import { useQuery } from '@tanstack/react-query';
 
 const getRoutineCategories = async (): Promise<IRoutineCategory[]> => {
   const routineCategory = await apiCaller.get<IRoutineCategoryResponse>(
-    "routines/filters?filter=category"
+    'routines/filters?filter=category',
   );
 
   return routineCategory.data.data.category;
@@ -17,7 +17,7 @@ export const useRoutinesCategory = () => {
     refetch,
     isRefetching,
   } = useQuery({
-    queryKey: ["routine-categories"],
+    queryKey: ['routine-categories'],
     queryFn: getRoutineCategories,
   });
   return { isLoading, routineCategory, error, refetch, isRefetching };

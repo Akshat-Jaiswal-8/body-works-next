@@ -1,12 +1,12 @@
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { apiCaller } from "@/lib/apiCaller";
+import { apiCaller } from '@/lib/apiCaller';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
 const getBodyPart = async (
   bodyPart: string | undefined,
   limit: number,
-  page: number
+  page: number,
 ): Promise<IExerciseData> => {
-  const bodypart = await apiCaller.get<IExerciseData>("exercises", {
+  const bodypart = await apiCaller.get<IExerciseData>('exercises', {
     params: {
       bodyPart,
       limit,
@@ -17,11 +17,7 @@ const getBodyPart = async (
   return bodypart.data;
 };
 
-export const useBodyPart = (
-  bodypart: string | undefined,
-  limit: number,
-  page: number
-) => {
+export const useBodyPart = (bodypart: string | undefined, limit: number, page: number) => {
   const {
     isLoading,
     data: bodyPart,
@@ -29,7 +25,7 @@ export const useBodyPart = (
     refetch,
     isRefetching,
   } = useQuery({
-    queryKey: ["body-part", limit, page],
+    queryKey: ['body-part', limit, page],
     queryFn: () => getBodyPart(bodypart, limit, page),
     placeholderData: keepPreviousData,
   });

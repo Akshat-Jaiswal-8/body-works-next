@@ -1,14 +1,14 @@
-"use client";
-import { Suspense, useCallback, useEffect } from "react";
-import { useSearchParams, useRouter, usePathname } from "next/navigation";
-import { cn } from "@/lib/utils";
-import useExercises from "@/hooks/useExercises";
+'use client';
+import useExercises from '@/hooks/useExercises';
+import { cn } from '@/lib/utils';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { Suspense, useCallback, useEffect } from 'react';
 
-import { useErrorHandler } from "@/lib/error-utils";
-import { DataLoadingSkeleton } from "@/components/data-loading-skeleton";
-import { DescriptedCard } from "@/components/descripted-card";
-import { PaginationProvidor } from "@/components/pagination-providor";
-import { SearchBar } from "@/components/search-bar";
+import { DataLoadingSkeleton } from '@/components/data-loading-skeleton';
+import { DescriptedCard } from '@/components/descripted-card';
+import { PaginationProvidor } from '@/components/pagination-providor';
+import { SearchBar } from '@/components/search-bar';
+import { useErrorHandler } from '@/lib/error-utils';
 
 function ExercisesContent() {
   const router = useRouter();
@@ -16,12 +16,9 @@ function ExercisesContent() {
   const pathName = usePathname();
   const { handleError } = useErrorHandler();
 
-  const page = Number(searchParams?.get("page")) || 1;
+  const page = Number(searchParams?.get('page')) || 1;
 
-  const { isLoading, exercises, error, refetch, isRefetching } = useExercises(
-    9,
-    page
-  );
+  const { isLoading, exercises, error, refetch, isRefetching } = useExercises(9, page);
 
   useEffect(() => {
     if (error) {
@@ -31,8 +28,6 @@ function ExercisesContent() {
 
   const getSearchQuery = useCallback(
     (query: string) => {
-      console.log("rendered on the page change.");
-
       if (query) {
         router.push(`/exercises?search=${query}`);
       } else {
@@ -40,7 +35,7 @@ function ExercisesContent() {
         router.push(url);
       }
     },
-    [router, pathName, searchParams]
+    [router, pathName, searchParams],
   );
 
   if (isLoading || isRefetching) {
@@ -49,10 +44,8 @@ function ExercisesContent() {
 
   if (exercises && exercises.data.length === 0) {
     return (
-      <div className="flex h-full w-full items-center justify-center">
-        <h1 className="text-2xl font-bold text-gray-500">
-          No exercises found.
-        </h1>
+      <div className='flex h-full w-full items-center justify-center'>
+        <h1 className='text-2xl font-bold text-gray-500'>No exercises found.</h1>
       </div>
     );
   }
@@ -60,7 +53,7 @@ function ExercisesContent() {
   return (
     <>
       <SearchBar getQuery={getSearchQuery} />
-      <div className={cn("w-full lg:grid lg:grid-cols-2 2xl:grid-cols-3")}>
+      <div className={cn('w-full lg:grid lg:grid-cols-2 2xl:grid-cols-3')}>
         {exercises?.data.map((exercise: IExercise) => {
           return (
             <DescriptedCard
@@ -74,10 +67,7 @@ function ExercisesContent() {
         })}
       </div>
 
-      <PaginationProvidor
-        currentPage={page}
-        totalPages={exercises?.totalPages || 0}
-      />
+      <PaginationProvidor currentPage={page} totalPages={exercises?.totalPages || 0} />
     </>
   );
 }

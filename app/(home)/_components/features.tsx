@@ -1,18 +1,18 @@
-"use client";
-import React from "react";
+'use client';
+import React from 'react';
 
-import type { Easing } from "motion/react";
-import * as motion from "motion/react-client";
+import type { Easing } from 'motion/react';
+import * as motion from 'motion/react-client';
 
-import { useBodyParts } from "@/hooks/useBodyParts";
-import useEquipments from "@/hooks/useEquipments";
-import useExercises from "@/hooks/useExercises";
-import useTargetMuscles from "@/hooks/useTargetMuscles";
+import { useBodyParts } from '@/hooks/useBodyParts';
+import useEquipments from '@/hooks/useEquipments';
+import useExercises from '@/hooks/useExercises';
+import useTargetMuscles from '@/hooks/useTargetMuscles';
 
-import { FeatureContent } from "@/app/(home)/_components/features-content";
-import { HeadingPrimary } from "@/app/(home)/_components/heading-primary";
-import { Skeleton } from "@/components/ui/skeleton";
-import { Button } from "@/components/ui/button";
+import { FeatureContent } from '@/app/(home)/_components/features-content';
+import { HeadingPrimary } from '@/app/(home)/_components/heading-primary';
+import { Button } from '@/components/ui/button';
+import { Skeleton } from '@/components/ui/skeleton';
 
 export const Features = React.memo((): React.ReactNode => {
   const itemsCount = 3;
@@ -46,10 +46,7 @@ export const Features = React.memo((): React.ReactNode => {
   };
 
   const isLoading =
-    exercisesLoading ||
-    equipmentsLoading ||
-    bodyPartsLoading ||
-    targetMuscleLoading;
+    exercisesLoading || equipmentsLoading || bodyPartsLoading || targetMuscleLoading;
 
   const sectionVariants = {
     initial: { opacity: 0, y: 100 },
@@ -57,17 +54,17 @@ export const Features = React.memo((): React.ReactNode => {
     transition: {
       delay: 0.2,
       duration: 0.5,
-      ease: "easeInOut" as Easing | Easing[] | undefined,
+      ease: 'easeInOut' as Easing | Easing[] | undefined,
     },
   };
 
   const LoadingSkeleton = () => {
     return (
-      <div className="space-y-8 mt-5">
-        <Skeleton className="h-16 w-1/2" />
-        <div className="grid xs:grid-cols-1 md:grid-cols-3 gap-4">
+      <div className='mt-5 space-y-8'>
+        <Skeleton className='h-16 w-1/2' />
+        <div className='xs:grid-cols-1 grid gap-4 md:grid-cols-3'>
           {[...Array(3)].map((_, index) => (
-            <Skeleton key={index} className="xs:h-40 md:h-80 w-full" />
+            <Skeleton key={index} className='xs:h-40 w-full md:h-80' />
           ))}
         </div>
       </div>
@@ -76,21 +73,21 @@ export const Features = React.memo((): React.ReactNode => {
 
   return (
     <motion.section {...sectionVariants}>
-      <HeadingPrimary heading="Body Works at a glance" />
+      <HeadingPrimary heading='Body Works at a glance' />
       {isLoading ? (
         <LoadingSkeleton />
       ) : (
         <>
           {!exercises && !bodyParts && !targetMuscle && !equipments ? (
-            <div className="flex flex-col items-center justify-center py-10 text-center space-y-8 text-gray-500">
-              <h1 className="xl:text-2xl xs:text-xl font-semibold mb-2">
+            <div className='flex flex-col items-center justify-center space-y-8 py-10 text-center text-gray-500'>
+              <h1 className='xs:text-xl mb-2 font-semibold xl:text-2xl'>
                 Oops! Something went wrong while fetching the features.
               </h1>
-              <p className="mb-4">
-                Please check your internet connection and try again. If the
-                problem persists, contact support.
+              <p className='mb-4'>
+                Please check your internet connection and try again. If the problem persists,
+                contact support.
               </p>
-              <Button onClick={refetchAll} variant="outline">
+              <Button onClick={refetchAll} variant='outline'>
                 Retry
               </Button>
             </div>
@@ -98,30 +95,30 @@ export const Features = React.memo((): React.ReactNode => {
             <>
               {exercises && (
                 <FeatureContent
-                  type="exercises"
+                  type='exercises'
                   data={exercises?.data || []}
-                  heading="1300+ Exercises"
+                  heading='1300+ Exercises'
                 />
               )}
               {bodyParts && (
                 <FeatureContent
-                  type="bodyParts"
+                  type='bodyParts'
                   data={bodyParts?.data || []}
-                  heading="10+ Body Parts"
+                  heading='10+ Body Parts'
                 />
               )}
               {targetMuscle && (
                 <FeatureContent
-                  type="targetMuscles"
+                  type='targetMuscles'
                   data={targetMuscle?.data || []}
-                  heading="20+ Target Muscles"
+                  heading='20+ Target Muscles'
                 />
               )}
               {equipments && (
                 <FeatureContent
-                  type="equipments"
+                  type='equipments'
                   data={equipments?.data || []}
-                  heading="30+ Equipments"
+                  heading='30+ Equipments'
                 />
               )}
             </>
@@ -132,4 +129,4 @@ export const Features = React.memo((): React.ReactNode => {
   );
 });
 
-Features.displayName = "Features";
+Features.displayName = 'Features';

@@ -1,10 +1,7 @@
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { apiCaller } from "@/lib/apiCaller";
+import { apiCaller } from '@/lib/apiCaller';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
-const getExercises = async (
-  limit: number,
-  page: number
-): Promise<IExerciseData> => {
+const getExercises = async (limit: number, page: number): Promise<IExerciseData> => {
   const exercises = await apiCaller.get<IExerciseData>(`/exercises`, {
     params: {
       limit,
@@ -22,7 +19,7 @@ const useExercises = (limit: number = 9, page: number = 1) => {
     refetch,
     isRefetching,
   } = useQuery({
-    queryKey: ["exercises", limit, page],
+    queryKey: ['exercises', limit, page],
     queryFn: () => getExercises(limit, page),
     placeholderData: keepPreviousData,
   });

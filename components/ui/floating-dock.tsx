@@ -1,14 +1,4 @@
-"use client";
-import { cn } from "@/lib/utils";
-import { IconLayoutNavbarCollapse } from "@tabler/icons-react";
-import {
-  AnimatePresence,
-  MotionValue,
-  motion,
-  useMotionValue,
-  useSpring,
-  useTransform,
-} from "motion/react";
+'use client';
 import {
   Drawer,
   DrawerClose,
@@ -16,11 +6,21 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "@/components/ui/drawer";
+} from '@/components/ui/drawer';
+import { cn } from '@/lib/utils';
+import { IconLayoutNavbarCollapse } from '@tabler/icons-react';
+import {
+  AnimatePresence,
+  MotionValue,
+  motion,
+  useMotionValue,
+  useSpring,
+  useTransform,
+} from 'motion/react';
 
-import { useRef, useState } from "react";
-import Link from "next/link";
-import { Button } from "./button";
+import Link from 'next/link';
+import { useRef, useState } from 'react';
+import { Button } from './button';
 
 export const FloatingDock = ({
   items,
@@ -47,28 +47,26 @@ const FloatingDockMobile = ({
   className?: string;
 }) => {
   return (
-    <div className={cn("relative block right-2 md:hidden", className)}>
+    <div className={cn('relative right-2 block md:hidden', className)}>
       <Drawer>
         <DrawerTrigger asChild>
-          <Button className="flex h-10 w-10 z-999 items-center justify-center rounded-full bg-accent border shadow-amber-700 dark:shadow-pink-500 dark:bg-neutral-800">
-            <IconLayoutNavbarCollapse className="h-5 w-5 text-neutral-800 dark:text-neutral-400" />
+          <Button className='bg-accent z-999 flex h-10 w-10 items-center justify-center rounded-full border shadow-amber-700 dark:bg-neutral-800 dark:shadow-pink-500'>
+            <IconLayoutNavbarCollapse className='h-5 w-5 text-neutral-800 dark:text-neutral-400' />
           </Button>
         </DrawerTrigger>
         <DrawerContent>
           <DrawerHeader>
-            <DrawerTitle className="dark:text-pink-500 text-amber-700">
-              Body Works
-            </DrawerTitle>
+            <DrawerTitle className='text-amber-700 dark:text-pink-500'>Body Works</DrawerTitle>
           </DrawerHeader>
-          <div className="grid grid-cols-3 gap-4 p-4">
+          <div className='grid grid-cols-3 gap-4 p-4'>
             {items.map((item) => (
               <DrawerClose key={item.title} asChild>
                 <Link
                   href={item.href}
-                  className="flex flex-col items-center justify-center gap-2 rounded-lg bg-gray-50 p-4 transition-colors hover:bg-gray-100 dark:bg-neutral-900 dark:hover:bg-neutral-800"
+                  className='flex flex-col items-center justify-center gap-2 rounded-lg bg-gray-50 p-4 transition-colors hover:bg-gray-100 dark:bg-neutral-900 dark:hover:bg-neutral-800'
                 >
-                  <div className="h-6 w-6">{item.icon}</div>
-                  <span className="text-xs text-center">{item.title}</span>
+                  <div className='h-6 w-6'>{item.icon}</div>
+                  <span className='text-center text-xs'>{item.title}</span>
                 </Link>
               </DrawerClose>
             ))}
@@ -92,8 +90,8 @@ const FloatingDockDesktop = ({
       onMouseMove={(e) => mouseX.set(e.pageX)}
       onMouseLeave={() => mouseX.set(Infinity)}
       className={cn(
-        "mx-auto hidden h-16 items-end gap-4 rounded-2xl bg-gray-50 px-4 pb-3 md:flex dark:bg-neutral-900",
-        className
+        'mx-auto hidden h-16 items-end gap-4 rounded-2xl bg-gray-50 px-4 pb-3 md:flex dark:bg-neutral-900',
+        className,
       )}
     >
       {items.map((item) => (
@@ -125,16 +123,8 @@ function IconContainer({
   const widthTransform = useTransform(distance, [-150, 0, 150], [40, 80, 40]);
   const heightTransform = useTransform(distance, [-150, 0, 150], [40, 80, 40]);
 
-  const widthTransformIcon = useTransform(
-    distance,
-    [-150, 0, 150],
-    [20, 40, 20]
-  );
-  const heightTransformIcon = useTransform(
-    distance,
-    [-150, 0, 150],
-    [20, 40, 20]
-  );
+  const widthTransformIcon = useTransform(distance, [-150, 0, 150], [20, 40, 20]);
+  const heightTransformIcon = useTransform(distance, [-150, 0, 150], [20, 40, 20]);
 
   const width = useSpring(widthTransform, {
     mass: 0.1,
@@ -167,15 +157,15 @@ function IconContainer({
         style={{ width, height }}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
-        className="relative flex aspect-square items-center justify-center rounded-full bg-gray-200 dark:bg-neutral-800"
+        className='relative flex aspect-square items-center justify-center rounded-full bg-gray-200 dark:bg-neutral-800'
       >
         <AnimatePresence>
           {hovered && (
             <motion.div
-              initial={{ opacity: 0, y: 10, x: "-50%" }}
-              animate={{ opacity: 1, y: 0, x: "-50%" }}
-              exit={{ opacity: 0, y: 2, x: "-50%" }}
-              className="absolute -top-8 left-1/2 w-fit rounded-md border border-gray-200 bg-gray-100 px-2 py-0.5 text-xs whitespace-pre text-neutral-700 dark:border-neutral-900 dark:bg-neutral-800 dark:text-white"
+              initial={{ opacity: 0, y: 10, x: '-50%' }}
+              animate={{ opacity: 1, y: 0, x: '-50%' }}
+              exit={{ opacity: 0, y: 2, x: '-50%' }}
+              className='absolute -top-8 left-1/2 w-fit rounded-md border border-gray-200 bg-gray-100 px-2 py-0.5 text-xs whitespace-pre text-neutral-700 dark:border-neutral-900 dark:bg-neutral-800 dark:text-white'
             >
               {title}
             </motion.div>
@@ -183,7 +173,7 @@ function IconContainer({
         </AnimatePresence>
         <motion.div
           style={{ width: widthIcon, height: heightIcon }}
-          className="flex items-center justify-center"
+          className='flex items-center justify-center'
         >
           {icon}
         </motion.div>

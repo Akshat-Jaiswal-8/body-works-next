@@ -1,11 +1,8 @@
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { apiCaller } from "@/lib/apiCaller";
+import { apiCaller } from '@/lib/apiCaller';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
-const getRoutines = async (
-  limit: number,
-  page: number
-): Promise<IRoutinesResponse> => {
-  const routines = await apiCaller.get<IRoutinesResponse>("routines", {
+const getRoutines = async (limit: number, page: number): Promise<IRoutinesResponse> => {
+  const routines = await apiCaller.get<IRoutinesResponse>('routines', {
     params: {
       limit,
       page,
@@ -23,7 +20,7 @@ export const useRoutines = (limit: number, page: number) => {
     refetch,
     isRefetching,
   } = useQuery({
-    queryKey: ["routines", limit, page],
+    queryKey: ['routines', limit, page],
     queryFn: () => getRoutines(limit, page),
     placeholderData: keepPreviousData,
   });

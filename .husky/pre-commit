@@ -1,0 +1,21 @@
+STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep -E '\.(ts|tsx|js|jsx|mdx)$' || true)
+
+if [ -n "$STAGED_FILES" ]; then
+  echo "Formatting staged files..."
+  echo "$STAGED_FILES" | xargs prettier --write --cache
+  echo "$STAGED_FILES" | xargs git add
+fi
+
+
+if [ -n "$STAGED_FILES" ]; then
+  FILES_WITH_CONSOLE=$(echo "$STAGED_FILES" | xargs grep -l 'console\.log' 2>/dev/null || true)
+  if [ -n "$FILES_WITH_CONSOLE" ]; then
+    echo "Error: console.log statements found in the following files:"
+    echo "$FILES_WITH_CONSOLE"
+    echo "Please remove them before committing."
+    exit 1
+  fi
+fi
+
+bun run lint
+bun run build

@@ -1,14 +1,13 @@
-"use client";
-import { useEffect } from "react";
-import { useErrorHandler } from "@/lib/error-utils";
-import useTargetMuscles from "@/hooks/useTargetMuscles";
+'use client';
+import useTargetMuscles from '@/hooks/useTargetMuscles';
+import { useErrorHandler } from '@/lib/error-utils';
+import { useEffect } from 'react';
 
-import { DataLoadingSkeleton } from "@/components/data-loading-skeleton";
-import { Card } from "@/components/exercise-card";
+import { DataLoadingSkeleton } from '@/components/data-loading-skeleton';
+import { Card } from '@/components/exercise-card';
 
 function TargetMuscles() {
-  const { isLoading, targetMuscle, error, refetch, isRefetching } =
-    useTargetMuscles();
+  const { isLoading, targetMuscle, error, refetch, isRefetching } = useTargetMuscles();
 
   const { handleError } = useErrorHandler();
 
@@ -23,14 +22,14 @@ function TargetMuscles() {
   }
 
   return (
-    <div className={"w-full md:grid md:grid-cols-2 lg:grid-cols-3"}>
+    <div className={'w-full md:grid md:grid-cols-2 lg:grid-cols-3'}>
       {targetMuscle?.data.map((targetMuscle: ITargetMuscle) => {
         return (
           <Card
             name={targetMuscle.targetMuscle}
             image={targetMuscle.imageUrl}
             key={targetMuscle.targetMuscle}
-            path={"target-muscles"}
+            path={'target-muscles'}
           />
         );
       })}

@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import useDevice from "@/hooks/useDevice";
-import { FooterNavbar } from "@/components/footer-navbar";
-import React from "react";
+import { FooterNavbar } from '@/components/footer-navbar';
+import useDevice from '@/hooks/useDevice';
+import React from 'react';
 
 export const Footer = React.memo((): React.ReactNode => {
   const { isMobile } = useDevice();
@@ -10,22 +10,22 @@ export const Footer = React.memo((): React.ReactNode => {
 
   return (
     <>
-      <section className="h-[3rem]">
+      <section className='h-[3rem]'>
         {isMobile && (
-          <div className={"fixed right-0 bottom-5"}>
+          <div className={'fixed right-0 bottom-5'}>
             <FooterNavbar />
           </div>
         )}
         <div
           className={
-            "xs:text-base py-3 w-full border-t border-t-amber-800 dark:border-t-gray-800 border-dotted bg-transparent backdrop-blur-sm md:text-base"
+            'xs:text-base w-full border-t border-dotted border-t-amber-800 bg-transparent py-3 backdrop-blur-sm md:text-base dark:border-t-gray-800'
           }
         >
-          <p className="text-center">Copyright © {currentYear} BodyWorks.</p>
+          <p className='text-center'>Copyright © {currentYear} BodyWorks.</p>
         </div>
       </section>
     </>
   );
 });
 
-Footer.displayName = "Footer";
+Footer.displayName = 'Footer';

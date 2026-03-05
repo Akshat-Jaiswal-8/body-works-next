@@ -1,8 +1,8 @@
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { apiCaller } from "@/lib/apiCaller";
+import { apiCaller } from '@/lib/apiCaller';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
 const getBodyParts = async (limit?: number): Promise<IBodyPartData> => {
-  const bodyParts = await apiCaller.get<IBodyPartData>("bodyParts", {
+  const bodyParts = await apiCaller.get<IBodyPartData>('bodyParts', {
     params: {
       limit,
     },
@@ -18,7 +18,7 @@ export const useBodyParts = (limit?: number) => {
     refetch,
     isRefetching,
   } = useQuery({
-    queryKey: ["body-parts", limit],
+    queryKey: ['body-parts', limit],
     queryFn: () => getBodyParts(limit),
     placeholderData: keepPreviousData,
   });

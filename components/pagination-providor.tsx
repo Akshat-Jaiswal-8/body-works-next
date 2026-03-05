@@ -6,7 +6,7 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "@/components/ui/pagination";
+} from '@/components/ui/pagination';
 
 export const PaginationProvidor = ({
   currentPage,
@@ -25,7 +25,7 @@ export const PaginationProvidor = ({
   }
 
   return (
-    <Pagination className={"mt-10"}>
+    <Pagination className={'mt-10'}>
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious
@@ -35,11 +35,7 @@ export const PaginationProvidor = ({
               },
             }}
             aria-disabled={startPage === 1}
-            className={
-              startPage === 1
-                ? "pointer-events-none opacity-50"
-                : "cursor-pointer"
-            }
+            className={startPage === 1 ? 'pointer-events-none opacity-50' : 'cursor-pointer'}
           />
         </PaginationItem>
         {pages.map((page) => (
@@ -69,11 +65,7 @@ export const PaginationProvidor = ({
               },
             }}
             aria-disabled={endPage === totalPages}
-            className={
-              endPage === totalPages
-                ? "pointer-events-none opacity-50"
-                : "cursor-pointer"
-            }
+            className={endPage === totalPages ? 'pointer-events-none opacity-50' : 'cursor-pointer'}
           />
         </PaginationItem>
       </PaginationContent>

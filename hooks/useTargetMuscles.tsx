@@ -1,15 +1,12 @@
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { apiCaller } from "@/lib/apiCaller";
+import { apiCaller } from '@/lib/apiCaller';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
 const getTargetMuscles = async (limit?: number): Promise<ITargetMuscleData> => {
-  const targetMuscles = await apiCaller.get<ITargetMuscleData>(
-    "targetMuscles",
-    {
-      params: {
-        limit,
-      },
-    }
-  );
+  const targetMuscles = await apiCaller.get<ITargetMuscleData>('targetMuscles', {
+    params: {
+      limit,
+    },
+  });
   return targetMuscles.data;
 };
 
@@ -21,7 +18,7 @@ const useTargetMuscles = (limit?: number) => {
     refetch,
     isRefetching,
   } = useQuery({
-    queryKey: ["target-muscle", limit],
+    queryKey: ['target-muscle', limit],
     queryFn: () => getTargetMuscles(limit),
     placeholderData: keepPreviousData,
   });

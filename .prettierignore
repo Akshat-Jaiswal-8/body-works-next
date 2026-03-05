@@ -1,0 +1,13 @@
+webDist/
+distWeb/
+distLambda/
+goldstackLocal/
+coverage/
+node_modules/
+.next/
+*.tfstate
+*.tfstate.backup
+.pnp.js
+*.json
+.yarn/
+.idea

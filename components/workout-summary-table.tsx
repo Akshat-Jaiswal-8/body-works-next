@@ -10,22 +10,20 @@ interface IworkoutSummary {
 }
 
 const WorkoutSummaryTable = ({ data }: { data: IworkoutSummary }) => {
-  const keys: (keyof IworkoutSummary)[] = Object.keys(
-    data
-  ) as (keyof IworkoutSummary)[];
+  const keys: (keyof IworkoutSummary)[] = Object.keys(data) as (keyof IworkoutSummary)[];
 
   return (
-    <table className="w-full xl:text-xl">
+    <table className='w-full xl:text-xl'>
       <tbody>
         {keys.map((key) => (
           <tr
-            className="border-b last:border-none border-dashed border-amber-900 dark:border-gray-600"
+            className='border-b border-dashed border-amber-900 last:border-none dark:border-gray-600'
             key={key}
           >
-            <td className="p-4 border-r border-dashed dark:text-gray-200 text-amber-700 font-semibold font-montserrat dark:border-gray-600 border-amber-900">
+            <td className='font-montserrat border-r border-dashed border-amber-900 p-4 font-semibold text-amber-700 dark:border-gray-600 dark:text-gray-200'>
               {key}
             </td>
-            <td className="p-4 text-amber-70 text-amber-700 dark:text-gray-200 font-semibold font-montserrat">
+            <td className='text-amber-70 font-montserrat p-4 font-semibold text-amber-700 dark:text-gray-200'>
               {data[key]}
             </td>
           </tr>

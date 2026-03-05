@@ -1,8 +1,8 @@
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { apiCaller } from "@/lib/apiCaller";
+import { apiCaller } from '@/lib/apiCaller';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
 const getEquipments = async (limit?: number): Promise<IEquipmentData> => {
-  const equipments = await apiCaller.get<IEquipmentData>("equipments", {
+  const equipments = await apiCaller.get<IEquipmentData>('equipments', {
     params: {
       limit,
     },
@@ -18,7 +18,7 @@ const useEquipments = (limit?: number) => {
     refetch,
     isRefetching,
   } = useQuery({
-    queryKey: ["equipments", limit],
+    queryKey: ['equipments', limit],
     queryFn: () => getEquipments(limit),
     placeholderData: keepPreviousData,
   });

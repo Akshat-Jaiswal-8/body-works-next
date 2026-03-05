@@ -1,25 +1,22 @@
-"use client";
+'use client';
 
-import React, { Suspense, useEffect } from "react";
-import Link from "next/link";
-import useRoutines from "@/hooks/useRoutines";
-import { useErrorHandler } from "@/lib/error-utils";
-import { useSearchParams } from "next/navigation";
+import useRoutines from '@/hooks/useRoutines';
+import { useErrorHandler } from '@/lib/error-utils';
+import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
+import React, { Suspense, useEffect } from 'react';
 
-import { DataLoadingSkeleton } from "@/components/data-loading-skeleton";
-import { PaginationProvidor } from "@/components/pagination-providor";
-import RoutineCard from "@/components/routine-card";
+import { DataLoadingSkeleton } from '@/components/data-loading-skeleton';
+import { PaginationProvidor } from '@/components/pagination-providor';
+import RoutineCard from '@/components/routine-card';
 
 function RoutinesContent(): React.ReactNode {
   const { handleError } = useErrorHandler();
   const searchParams = useSearchParams();
 
-  const page = Number(searchParams?.get("page")) || 1;
+  const page = Number(searchParams?.get('page')) || 1;
 
-  const { isLoading, routines, error, refetch, isRefetching } = useRoutines(
-    9,
-    page
-  );
+  const { isLoading, routines, error, refetch, isRefetching } = useRoutines(9, page);
 
   useEffect(() => {
     if (error) {
@@ -30,8 +27,8 @@ function RoutinesContent(): React.ReactNode {
   if (isLoading || isRefetching) return <DataLoadingSkeleton />;
 
   return (
-    <section className="space-y-12 mb-12">
-      <div className={"w-full lg:grid lg:grid-cols-2 2xl:grid-cols-3"}>
+    <section className='mb-12 space-y-12'>
+      <div className={'w-full lg:grid lg:grid-cols-2 2xl:grid-cols-3'}>
         {routines?.data.map((eachroutine: IRoutine) => {
           return (
             <Link key={eachroutine.id_} href={`/routines/${eachroutine.id_}`}>
@@ -46,10 +43,7 @@ function RoutinesContent(): React.ReactNode {
         })}
       </div>
 
-      <PaginationProvidor
-        currentPage={page}
-        totalPages={routines?.totalPages || 0}
-      />
+      <PaginationProvidor currentPage={page} totalPages={routines?.totalPages || 0} />
     </section>
   );
 }

@@ -1,8 +1,8 @@
-import React from "react";
-import * as motion from "motion/react-client";
+import * as motion from 'motion/react-client';
+import React from 'react';
 
-import { TestimonialCards } from "@/components/testimonial-card";
-import { HeadingPrimary } from "@/app/(home)/_components/heading-primary";
+import { HeadingPrimary } from '@/app/(home)/_components/heading-primary';
+import { TestimonialCards } from '@/components/testimonial-card';
 
 export const UserTestimonials = React.memo((): React.ReactNode => {
   return (
@@ -12,15 +12,15 @@ export const UserTestimonials = React.memo((): React.ReactNode => {
       transition={{
         delay: 0.2,
         duration: 0.5,
-        ease: "easeInOut",
+        ease: 'easeInOut',
       }}
-      className={"md:h-[50vh]"}
+      className={'md:h-[50vh]'}
     >
-      <HeadingPrimary heading="See what our users say" />
+      <HeadingPrimary heading='See what our users say' />
 
       <TestimonialCards />
     </motion.section>
   );
 });
 
-UserTestimonials.displayName = "UserTestimonials";
+UserTestimonials.displayName = 'UserTestimonials';
