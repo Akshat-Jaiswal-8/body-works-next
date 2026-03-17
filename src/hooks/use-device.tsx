@@ -22,17 +22,45 @@ const useMediaQuery = (query: string): boolean => {
   return mounted ? matches : false;
 };
 
+const useMediaQueries = (queries: string[]): boolean[] => {
+  const [matches, setMatches] = useState<boolean[]>([]);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      setMatches(queries.map(() => false));
+      return;
+    }
+
+    const mediaQueries = queries.map((query) => window.matchMedia(query));
+    const updateMatches = () => {
+      setMatches(mediaQueries.map((mediaQuery) => mediaQuery.matches));
+    };
+
+    updateMatches();
+
+    mediaQueries.forEach((mediaQuery) => {
+      mediaQuery.addEventListener('change', updateMatches);
+    });
+
+    return () => {
+      mediaQueries.forEach((mediaQuery) => {
+        mediaQuery.removeEventListener('change', updateMatches);
+      });
+    };
+  }, [queries]);
+
+  return matches;
+};
+
 const useDevice = (queries?: string | string[]) => {
   const isMobile = useMediaQuery('only screen and (max-width : 767px)');
   const isTablet = useMediaQuery('only screen and (min-width : 768px) and (max-width : 1024px)');
   const isDesktop = useMediaQuery('only screen and (min-width : 1025px) and (max-width : 2379px)');
   const isDesktopLarge = useMediaQuery('only screen and (min-width : 2380px)');
 
-  const singleQuery = typeof queries === 'string' ? useMediaQuery(queries) : false;
+  const singleQuery = useMediaQuery(typeof queries === 'string' ? queries : 'not all');
 
-  const multipleQueries = Array.isArray(queries)
-    ? queries.map((query) => useMediaQuery(query))
-    : [];
+  const multipleQueries = useMediaQueries(Array.isArray(queries) ? queries : []);
 
   return {
     isMobile,

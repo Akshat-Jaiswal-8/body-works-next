@@ -16,7 +16,7 @@ import {
 } from '@/components/ui/navigation-menu';
 import { BicepsFlexed, CalendarCheck2, Dumbbell, PersonStanding, Zap } from 'lucide-react';
 
-import logo from '@/public/logo.webp';
+import logo from '../../public/logo.webp';
 interface NavItemProps {
   title: string;
   icon: React.ReactElement;
