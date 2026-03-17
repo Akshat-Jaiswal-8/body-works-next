@@ -2,7 +2,7 @@
 import { DataLoadingSkeleton } from '@/components/data-loading-skeleton';
 import { DescriptedCard } from '@/components/descripted-card';
 import { PaginationProvidor } from '@/components/pagination-providor';
-import { useTargetMuscle } from '@/hooks/use-target-muscle';
+import { useTargetMuscle } from '@/features/target-muscles/services/use-get-target-muscle';
 import { useErrorHandler } from '@/lib/error-utils';
 import { useParams, useSearchParams } from 'next/navigation';
 import { Suspense, useEffect } from 'react';

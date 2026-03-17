@@ -4,10 +4,10 @@ import React from 'react';
 import type { Easing } from 'motion/react';
 import * as motion from 'motion/react-client';
 
-import useEquipments from '@/hooks/use-equipments';
-import { useBodyParts } from '@/hooks/use-get-body-parts';
-import useExercises from '@/hooks/use-get-exercises';
-import useTargetMuscles from '@/hooks/use-target-muscles';
+import { useBodyParts } from '@/features/body-parts/services/use-get-body-parts';
+import useEquipments from '@/features/equipments/services/use-get-equipments';
+import useExercises from '@/features/exercises/services/use-get-exercises';
+import useTargetMuscles from '@/features/target-muscles/services/use-get-target-muscles';
 
 import { FeatureContent } from '@/app/(home)/_components/features-content';
 import { HeadingPrimary } from '@/app/(home)/_components/heading-primary';

@@ -3,7 +3,7 @@
 import { markdownToHtml } from '@/actions/markdown-to-html';
 import { Skeleton } from '@/components/ui/skeleton';
 import WorkoutSummaryTable from '@/components/workout-summary-table';
-import useRoutine from '@/hooks/use-routine';
+import useRoutine from '@/features/routines/services/use-get-routine';
 import { useErrorHandler } from '@/lib/error-utils';
 import Image from 'next/image';
 import Link from 'next/link';

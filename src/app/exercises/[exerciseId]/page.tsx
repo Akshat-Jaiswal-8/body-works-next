@@ -10,8 +10,8 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel';
 import { Skeleton } from '@/components/ui/skeleton';
+import { useExercise } from '@/features/exercises/services/use-get-exercise';
 import useDevice from '@/hooks/use-device';
-import { useExercise } from '@/hooks/use-exercise';
 import { useErrorHandler } from '@/lib/error-utils';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';

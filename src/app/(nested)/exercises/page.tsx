@@ -3,7 +3,7 @@ import { DataLoadingSkeleton } from '@/components/data-loading-skeleton';
 import { DescriptedCard } from '@/components/descripted-card';
 import { PaginationProvidor } from '@/components/pagination-providor';
 import { SearchBar } from '@/components/search-bar';
-import useExercises from '@/hooks/use-get-exercises';
+import useExercises from '@/features/exercises/services/use-get-exercises';
 import { useErrorHandler } from '@/lib/error-utils';
 import { cn } from '@/lib/utils';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';

@@ -1,7 +1,7 @@
 'use client';
 import { DataLoadingSkeleton } from '@/components/data-loading-skeleton';
 import { Card } from '@/components/exercise-card';
-import { useRoutinesCategory } from '@/hooks/use-routines-category';
+import { useRoutinesCategory } from '@/features/routines/services/use-get-routines-category';
 import { useErrorHandler } from '@/lib/error-utils';
 import { cn } from '@/lib/utils';
 import { useEffect } from 'react';

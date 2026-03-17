@@ -3,7 +3,7 @@
 import { DataLoadingSkeleton } from '@/components/data-loading-skeleton';
 import { PaginationProvidor } from '@/components/pagination-providor';
 import RoutineCard from '@/components/routine-card';
-import useRoutines from '@/hooks/use-routines';
+import useRoutines from '@/features/routines/services/use-get-routines';
 import { useErrorHandler } from '@/lib/error-utils';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
