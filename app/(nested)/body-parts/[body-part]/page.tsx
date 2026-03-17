@@ -1,12 +1,12 @@
 'use client';
-import { useBodyPart } from '@/hooks/useBodyPart';
-import { useErrorHandler } from '@/lib/error-utils';
-import { useParams, useSearchParams } from 'next/navigation';
-import { Suspense, useEffect } from 'react';
 
 import { DataLoadingSkeleton } from '@/components/data-loading-skeleton';
 import { DescriptedCard } from '@/components/descripted-card';
 import { PaginationProvidor } from '@/components/pagination-providor';
+import { useBodyPart } from '@/hooks/use-get-body-part';
+import { useErrorHandler } from '@/lib/error-utils';
+import { useParams, useSearchParams } from 'next/navigation';
+import { Suspense, useEffect } from 'react';
 
 function BodyPartContent() {
   const { handleError } = useErrorHandler();

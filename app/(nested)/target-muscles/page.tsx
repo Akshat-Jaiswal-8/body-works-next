@@ -1,10 +1,9 @@
 'use client';
-import useTargetMuscles from '@/hooks/useTargetMuscles';
-import { useErrorHandler } from '@/lib/error-utils';
-import { useEffect } from 'react';
-
 import { DataLoadingSkeleton } from '@/components/data-loading-skeleton';
 import { Card } from '@/components/exercise-card';
+import useTargetMuscles from '@/hooks/use-target-muscles';
+import { useErrorHandler } from '@/lib/error-utils';
+import { useEffect } from 'react';
 
 function TargetMuscles() {
   const { isLoading, targetMuscle, error, refetch, isRefetching } = useTargetMuscles();

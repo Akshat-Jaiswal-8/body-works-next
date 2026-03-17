@@ -1,7 +1,7 @@
 'use client';
 
 import { ModeToggle } from '@/components/mode-toggle';
-import useDevice from '@/hooks/useDevice';
+import useDevice from '@/hooks/use-device';
 import Image from 'next/image';
 import Link from 'next/link';
 import * as React from 'react';

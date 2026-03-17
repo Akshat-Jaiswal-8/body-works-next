@@ -3,7 +3,7 @@
 import { DataLoadingSkeleton } from '@/components/data-loading-skeleton';
 import { DescriptedCard } from '@/components/descripted-card';
 import { PaginationProvidor } from '@/components/pagination-providor';
-import { useEquipment } from '@/hooks/useEquipment';
+import { useEquipment } from '@/hooks/use-get-equipment';
 import { useErrorHandler } from '@/lib/error-utils';
 import { useParams, useSearchParams } from 'next/navigation';
 import { Suspense, useEffect } from 'react';

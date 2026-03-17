@@ -1,12 +1,11 @@
 'use client';
-import { useTargetMuscle } from '@/hooks/useTargetMuscle';
-import { useErrorHandler } from '@/lib/error-utils';
-import { useParams, useSearchParams } from 'next/navigation';
-import { Suspense, useEffect } from 'react';
-
 import { DataLoadingSkeleton } from '@/components/data-loading-skeleton';
 import { DescriptedCard } from '@/components/descripted-card';
 import { PaginationProvidor } from '@/components/pagination-providor';
+import { useTargetMuscle } from '@/hooks/use-target-muscle';
+import { useErrorHandler } from '@/lib/error-utils';
+import { useParams, useSearchParams } from 'next/navigation';
+import { Suspense, useEffect } from 'react';
 
 function TargetMuscleContent() {
   const params = useParams();

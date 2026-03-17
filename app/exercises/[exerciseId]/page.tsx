@@ -1,11 +1,6 @@
 'use client';
 
 import { markdownToHtml } from '@/actions/markdown-to-html';
-import { useExercise } from '@/hooks/useExercise';
-import { useErrorHandler } from '@/lib/error-utils';
-import Image from 'next/image';
-import { useParams } from 'next/navigation';
-
 import ExerciseHeaders from '@/app/exercises/_components/exercise-header';
 import {
   Carousel,
@@ -15,7 +10,11 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel';
 import { Skeleton } from '@/components/ui/skeleton';
-import useDevice from '@/hooks/useDevice';
+import useDevice from '@/hooks/use-device';
+import { useExercise } from '@/hooks/use-exercise';
+import { useErrorHandler } from '@/lib/error-utils';
+import Image from 'next/image';
+import { useParams } from 'next/navigation';
 
 export default function ExerciseClient() {
   const params = useParams();

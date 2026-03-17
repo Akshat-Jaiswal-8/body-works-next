@@ -1,10 +1,10 @@
 'use client';
-import { useBodyParts } from '@/hooks/useBodyParts';
-import { useErrorHandler } from '@/lib/error-utils';
-import { useEffect } from 'react';
 
 import { DataLoadingSkeleton } from '@/components/data-loading-skeleton';
 import { Card } from '@/components/exercise-card';
+import { useBodyParts } from '@/hooks/use-get-body-parts';
+import { useErrorHandler } from '@/lib/error-utils';
+import { useEffect } from 'react';
 
 function BodyParts() {
   const { isLoading, bodyParts, error, isRefetching, refetch } = useBodyParts();

@@ -1,15 +1,14 @@
 'use client';
 
-import useRoutine from '@/hooks/useRoutine';
-import { useErrorHandler } from '@/lib/error-utils';
-import { useParams } from 'next/navigation';
-import { useEffect } from 'react';
-
 import { markdownToHtml } from '@/actions/markdown-to-html';
 import { Skeleton } from '@/components/ui/skeleton';
 import WorkoutSummaryTable from '@/components/workout-summary-table';
+import useRoutine from '@/hooks/use-routine';
+import { useErrorHandler } from '@/lib/error-utils';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
+import { useEffect } from 'react';
 
 function Routine() {
   const params = useParams();

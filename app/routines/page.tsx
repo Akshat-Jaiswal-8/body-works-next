@@ -1,14 +1,13 @@
 'use client';
 
-import useRoutines from '@/hooks/useRoutines';
+import { DataLoadingSkeleton } from '@/components/data-loading-skeleton';
+import { PaginationProvidor } from '@/components/pagination-providor';
+import RoutineCard from '@/components/routine-card';
+import useRoutines from '@/hooks/use-routines';
 import { useErrorHandler } from '@/lib/error-utils';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import React, { Suspense, useEffect } from 'react';
-
-import { DataLoadingSkeleton } from '@/components/data-loading-skeleton';
-import { PaginationProvidor } from '@/components/pagination-providor';
-import RoutineCard from '@/components/routine-card';
 
 function RoutinesContent(): React.ReactNode {
   const { handleError } = useErrorHandler();

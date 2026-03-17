@@ -1,7 +1,7 @@
 'use client';
 
 import { FooterNavbar } from '@/components/footer-navbar';
-import useDevice from '@/hooks/useDevice';
+import useDevice from '@/hooks/use-device';
 import React from 'react';
 
 export const Footer = React.memo((): React.ReactNode => {

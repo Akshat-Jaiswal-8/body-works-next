@@ -2,7 +2,7 @@
 
 import { DataLoadingSkeleton } from '@/components/data-loading-skeleton';
 import { Card } from '@/components/exercise-card';
-import useEquipments from '@/hooks/useEquipments';
+import useEquipments from '@/hooks/use-equipments';
 import { useErrorHandler } from '@/lib/error-utils';
 import { useEffect } from 'react';
 
