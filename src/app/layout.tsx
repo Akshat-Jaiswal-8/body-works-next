@@ -200,7 +200,6 @@ export default function RootLayout({
             }),
           }}
         />
-        <title></title>
       </head>
       <body className={`${poppins.variable} ${urbanist.variable} font-urbanist antialiased`}>
         <Providers>

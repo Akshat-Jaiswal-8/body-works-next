@@ -1,9 +1,11 @@
+import { memo } from 'react';
+
 interface IExerciseHeadersProps {
   title: string;
   content: string;
 }
 
-const ExerciseHeaders = ({ title, content }: IExerciseHeadersProps) => {
+export const ExerciseHeader = memo(({ title, content }: IExerciseHeadersProps) => {
   return (
     <h2 className='xs:text-lg text-gray-200 xl:text-xl'>
       <span className='mr-2 inline-flex items-center font-bold text-amber-800 dark:text-white'>
@@ -15,6 +17,6 @@ const ExerciseHeaders = ({ title, content }: IExerciseHeadersProps) => {
       </span>
     </h2>
   );
-};
+});
 
-export default ExerciseHeaders;
+ExerciseHeader.displayName = 'ExerciseHeader';

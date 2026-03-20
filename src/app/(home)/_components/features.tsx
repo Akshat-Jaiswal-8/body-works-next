@@ -6,7 +6,7 @@ import * as motion from 'motion/react-client';
 
 import { useBodyParts } from '@/features/body-parts/services/use-get-body-parts';
 import useEquipments from '@/features/equipments/services/use-get-equipments';
-import useExercises from '@/features/exercises/services/use-get-exercises';
+import { useExercises } from '@/features/exercises/services/use-get-exercises';
 import useTargetMuscles from '@/features/target-muscles/services/use-get-target-muscles';
 
 import { FeatureContent } from '@/app/(home)/_components/features-content';

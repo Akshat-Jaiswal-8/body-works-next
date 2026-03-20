@@ -29,6 +29,7 @@ export const DescriptedCard = memo(({ gif, title, blog, id }: IDescriptedCardPro
               sizes='(max-width:640px)100vw,320px'
               className='h-60 w-full rounded-xl object-cover group-hover/card:shadow-xl'
               alt='thumbnail'
+              unoptimized
             />
           </CardItem>
           <CardItem

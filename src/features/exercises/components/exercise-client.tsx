@@ -1,7 +1,5 @@
 'use client';
 
-import { markdownToHtml } from '@/actions/markdown-to-html';
-import ExerciseHeaders from '@/app/exercises/_components/exercise-header';
 import {
   Carousel,
   CarouselContent,
@@ -10,17 +8,19 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel';
 import { Skeleton } from '@/components/ui/skeleton';
+import { ExerciseHeader } from '@/features/exercises/components/exercise-header';
 import { useExercise } from '@/features/exercises/services/use-get-exercise';
 import useDevice from '@/hooks/use-device';
 import { useErrorHandler } from '@/lib/error-utils';
+import { markdownToHtml } from '@/lib/markdown-to-html';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
 
 export default function ExerciseClient() {
   const params = useParams();
-  const exerciseId = params?.exerciseId as string;
+  const exerciseId = params?.['exercise-id'] as string;
 
-  const { exercise, isLoading, error, refetch, isRefetching } = useExercise(exerciseId);
+  const { exercise, isLoading, refetch, error, isRefetching } = useExercise(exerciseId);
 
   const { isMobile } = useDevice();
 
@@ -41,7 +41,7 @@ export default function ExerciseClient() {
     );
   }
   return (
-    <>
+    <section className='container'>
       {exercise && (
         <div className={'h-full w-full space-y-20 sm:space-y-40'}>
           <div className='mt-16 justify-center gap-5 lg:grid lg:grid-cols-2'>
@@ -50,20 +50,21 @@ export default function ExerciseClient() {
                 <h1 className='xs:text-3xl bg-linear-to-r from-amber-800 to-amber-500 bg-clip-text font-bold text-transparent md:text-4xl xl:text-5xl dark:from-pink-500 dark:to-violet-700'>
                   {exercise?.title?.charAt(0).toUpperCase() + exercise?.title?.slice(1)}
                 </h1>
-                <ExerciseHeaders title={'Target Muscle'} content={exercise?.target} />
-                <ExerciseHeaders title={'Body Part'} content={exercise?.bodyPart} />
-                <ExerciseHeaders title={'Equipment'} content={exercise?.equipment} />
-                <ExerciseHeaders title={'Muscle Worked'} content={exercise?.['muscles_worked']} />
+                <ExerciseHeader title={'Target Muscle'} content={exercise?.target} />
+                <ExerciseHeader title={'Body Part'} content={exercise?.bodyPart} />
+                <ExerciseHeader title={'Equipment'} content={exercise?.equipment} />
+                <ExerciseHeader title={'Muscle Worked'} content={exercise?.['muscles_worked']} />
               </div>
             </div>
             <div className='mx-auto flex justify-between py-10 lg:col-span-1'>
               <Image
                 src={exercise?.gifUrl}
+                alt='exercise gif'
+                className='mx-auto h-80 w-fit rounded-3xl drop-shadow-2xl sm:h-96 md:w-full'
                 height={1000}
                 width={1000}
                 quality={100}
-                className='mx-auto h-80 w-fit rounded-3xl drop-shadow-2xl sm:h-96 md:w-full'
-                alt='exercise gif'
+                unoptimized
               />
             </div>
           </div>
@@ -87,12 +88,11 @@ export default function ExerciseClient() {
                     >
                       <Image
                         src={image}
-                        quality={100}
+                        alt={'exercise image'}
+                        className='h-[23rem] rounded-2xl border-2 object-contain md:rounded-3xl'
                         height={1000}
                         width={1000}
-                        objectFit='contain'
-                        className='h-[23rem] rounded-2xl border-2 object-contain md:rounded-3xl'
-                        alt={'exercise image'}
+                        quality={100}
                       />
                     </CarouselItem>
                   ))}
@@ -153,6 +153,6 @@ export default function ExerciseClient() {
           </div>
         </div>
       )}
-    </>
+    </section>
   );
 }

@@ -1,82 +1,26 @@
-'use client';
-import { DataLoadingSkeleton } from '@/components/data-loading-skeleton';
-import { DescriptedCard } from '@/components/descripted-card';
-import { PaginationProvidor } from '@/components/pagination-providor';
-import { SearchBar } from '@/components/search-bar';
-import useExercises from '@/features/exercises/services/use-get-exercises';
-import { useErrorHandler } from '@/lib/error-utils';
-import { cn } from '@/lib/utils';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { Suspense, useCallback, useEffect } from 'react';
+import { ExercisesClient } from '@/features/exercises/components/exercises-client';
+import { exercisesQueryKey, getExercises } from '@/features/exercises/services/use-get-exercises';
+import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 
-function ExercisesContent() {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const pathName = usePathname();
-  const { handleError } = useErrorHandler();
+type SearchParams = {
+  page?: string;
+};
 
-  const page = Number(searchParams?.get('page')) || 1;
+const ExercisesPage = async ({ searchParams }: { searchParams: Promise<SearchParams> }) => {
+  const queryClient = new QueryClient();
+  const { page } = await searchParams;
+  const pageNumber = Number(page) || 1;
 
-  const { isLoading, exercises, error, refetch, isRefetching } = useExercises(9, page);
-
-  useEffect(() => {
-    if (error) {
-      handleError(error, refetch);
-    }
-  }, [error]);
-
-  const getSearchQuery = useCallback(
-    (query: string) => {
-      if (query) {
-        router.push(`/exercises?search=${query}`);
-      } else {
-        const url = `${pathName}?${searchParams}`;
-        router.push(url);
-      }
-    },
-    [router, pathName, searchParams],
-  );
-
-  if (isLoading || isRefetching) {
-    return <DataLoadingSkeleton />;
-  }
-
-  if (exercises && exercises.data.length === 0) {
-    return (
-      <div className='flex h-full w-full items-center justify-center'>
-        <h1 className='text-2xl font-bold text-gray-500'>No exercises found.</h1>
-      </div>
-    );
-  }
+  await queryClient.prefetchQuery({
+    queryKey: exercisesQueryKey(9, pageNumber + 1),
+    queryFn: () => getExercises(9, pageNumber + 1),
+  });
 
   return (
-    <>
-      <SearchBar getQuery={getSearchQuery} />
-      <div className={cn('w-full lg:grid lg:grid-cols-2 2xl:grid-cols-3')}>
-        {exercises?.data.map((exercise: IExercise) => {
-          return (
-            <DescriptedCard
-              key={exercise.id_}
-              id={exercise.id_}
-              gif={exercise.gifUrl}
-              title={exercise.title}
-              blog={exercise.blog}
-            />
-          );
-        })}
-      </div>
-
-      <PaginationProvidor currentPage={page} totalPages={exercises?.totalPages || 0} />
-    </>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <ExercisesClient />
+    </HydrationBoundary>
   );
-}
+};
 
-function Exercises() {
-  return (
-    <Suspense fallback={<DataLoadingSkeleton />}>
-      <ExercisesContent />
-    </Suspense>
-  );
-}
-
-export default Exercises;
+export default ExercisesPage;

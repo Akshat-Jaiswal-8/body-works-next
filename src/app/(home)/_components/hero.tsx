@@ -1,13 +1,9 @@
-'use client';
-
-import { motion } from 'motion/react';
-import React from 'react';
-
-import Image from 'next/image';
-import Link from 'next/link';
-
 import { Button } from '@/components/ui/button';
 import { MoveRight } from 'lucide-react';
+import * as motion from 'motion/react-client';
+import Image from 'next/image';
+import Link from 'next/link';
+import React, { memo } from 'react';
 
 const headingVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -24,7 +20,7 @@ const imageVariants = {
   visible: { opacity: 1, scale: 1 },
 };
 
-export const Hero = React.memo((): React.ReactNode => {
+export const Hero = memo((): React.ReactNode => {
   return (
     <section className='flex flex-col items-center justify-center sm:mt-16'>
       <div className='flex h-full flex-col items-center justify-center md:flex-row'>
@@ -99,7 +95,10 @@ export const Hero = React.memo((): React.ReactNode => {
                 ease: [0.16, 1, 0.3, 1],
               }}
             >
-              <Button className='group bg-amber-700 px-4 py-4 text-lg font-semibold text-slate-100 transition-all duration-200 ease-out hover:bg-amber-800 active:scale-95 dark:bg-pink-700 dark:text-slate-200 dark:hover:bg-pink-800'>
+              <Button
+                asChild
+                className='group bg-amber-700 px-4 py-4 text-lg font-semibold text-slate-100 transition-all duration-200 ease-out hover:bg-amber-800 active:scale-95 dark:bg-pink-700 dark:text-slate-200 dark:hover:bg-pink-800'
+              >
                 <Link href={'/exercises'}>
                   <span
                     className={

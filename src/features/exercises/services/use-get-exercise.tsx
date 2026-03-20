@@ -1,12 +1,8 @@
 import { apiCaller } from '@/lib/api-caller';
 import { useQuery } from '@tanstack/react-query';
-import { toast } from 'sonner';
 
-const getExercise = async (exerciseId: string | undefined): Promise<IExercise> => {
-  if (!exerciseId)
-    toast.error('Exercise ID is required', {
-      description: 'Please provide an exercise ID',
-    });
+export const getExercise = async (exerciseId: string | undefined): Promise<IExercise> => {
+  if (!exerciseId) throw new Error('Exercise ID is required');
   const exercise = await apiCaller.get<IExerciseResponse>(`exercises/${exerciseId}`);
   return exercise.data.data;
 };

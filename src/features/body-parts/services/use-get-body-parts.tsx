@@ -1,7 +1,7 @@
 import { apiCaller } from '@/lib/api-caller';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
-const getBodyParts = async (limit?: number): Promise<IBodyPartData> => {
+export const getBodyParts = async (limit?: number): Promise<IBodyPartData> => {
   const bodyParts = await apiCaller.get<IBodyPartData>('bodyParts', {
     params: {
       limit,
