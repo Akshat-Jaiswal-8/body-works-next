@@ -25,10 +25,25 @@ type Params = {
 };
 
 export const generateMetadata = async ({ params }: { params: Promise<Params> }) => {
-  const exerciseId = (await params)?.['exercise-id'];
+  const resolvedParams = await params;
+  const exerciseId = resolvedParams?.['exercise-id'];
 
-  const exercise: IExercise = await getExercise(exerciseId);
+  if (!exerciseId) {
+    return {
+      title: 'Exercise Not Found',
+      description: 'This exercise could not be found.',
+    };
+  }
 
+  let exercise: IExercise | null = null;
+  try {
+    exercise = await getExercise(exerciseId);
+  } catch {
+   return {
+      title: 'Exercise Not Found',
+      description: 'This exercise could not be found.',
+    };
+  }
   if (!exercise || !exercise.title) {
     return {
       title: 'Exercise Not Found',
