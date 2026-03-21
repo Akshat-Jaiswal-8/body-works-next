@@ -6,7 +6,9 @@ type IRoutinesProps = {
   routineId: string | undefined;
 };
 
-const getRoutine = async ({ routineId }: IRoutinesProps): Promise<IRoutine> => {
+export const routineQueryKey = (routineId: string | undefined) => ['routine', routineId] as const;
+
+export const getRoutine = async ({ routineId }: IRoutinesProps): Promise<IRoutine> => {
   const routine = await apiCaller.get<{ data: IRoutine }>(`routines/${routineId}`);
   return routine.data.data;
 };
@@ -23,7 +25,7 @@ function useRoutine({ routineId }: routineId) {
     refetch,
     isRefetching,
   } = useQuery({
-    queryKey: ['routine'],
+    queryKey: routineQueryKey(routineId),
     queryFn: () => getRoutine({ routineId }),
   });
   return { isLoading, routine, error, refetch, isRefetching };

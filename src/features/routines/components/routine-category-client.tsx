@@ -1,39 +1,30 @@
 'use client';
 
-import { DataLoadingSkeleton } from '@/components/data-loading-skeleton';
-import { Card } from '@/components/exercise-card';
+import { withTaxonomyCardsClient } from '@/components/with-taxonomy-cards-client';
 import { useRoutinesCategory } from '@/features/routines/services/use-get-routines-category';
-import { useErrorHandler } from '@/lib/error-utils';
-import { cn } from '@/lib/utils';
-import { useEffect } from 'react';
+import type { IRoutineCategory } from '@/features/routines/types';
 
-export default function RoutineCategoryClient() {
+const useRoutineCategoriesData = () => {
   const { routineCategory, isLoading, error, refetch, isRefetching } = useRoutinesCategory();
-  const { handleError } = useErrorHandler();
 
-  useEffect(() => {
-    if (error) {
-      handleError(error, refetch);
-    }
-  }, [error]);
+  return {
+    items: routineCategory,
+    isLoading,
+    isRefetching,
+    error,
+    refetch,
+  };
+};
 
-  if (isLoading || isRefetching) return <DataLoadingSkeleton />;
+const RoutineCategoryClient = withTaxonomyCardsClient<IRoutineCategory>({
+  useData: useRoutineCategoriesData,
+  getKey: (item) => item.title,
+  getName: (item) => item.title,
+  getImage: (item) => item.imageUrl,
+  getSearchName: (item) => item.title,
+  path: 'routines',
+  wrapperClassName: 'no-scrollbar container w-full overflow-y-scroll pb-4',
+  gridClassName: 'lg:grid lg:grid-cols-2 2xl:grid-cols-3',
+});
 
-  return (
-    <div className={cn('no-scrollbar container w-full overflow-y-scroll pb-4')}>
-      <div className={cn('w-full lg:grid lg:grid-cols-2 2xl:grid-cols-3')}>
-        {routineCategory?.map((routineCategory: { title: string; imageUrl: string }) => {
-          return (
-            <Card
-              key={routineCategory.title}
-              name={routineCategory.title}
-              image={routineCategory.imageUrl}
-              searchName={routineCategory.title}
-              path={'routines'}
-            />
-          );
-        })}
-      </div>
-    </div>
-  );
-}
+export default RoutineCategoryClient;

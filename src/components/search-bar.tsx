@@ -21,16 +21,14 @@ export const SearchBar = memo(
     };
 
     return (
-      <>
-        <div className={'mx-auto items-center justify-center'}>
-          <Input
-            placeholder='Search by name'
-            className='font-poppins xs:text-xs xs:placeholder:text-xs mx-auto h-10 max-w-lg bg-transparent py-3 focus:outline-hidden md:text-base md:placeholder:text-base'
-            value={searchQuery}
-            onChange={onSearchChange}
-          />
-        </div>
-      </>
+      <div className={'mx-auto items-center justify-center'}>
+        <Input
+          placeholder='Search by name'
+          className='font-poppins xs:text-xs xs:placeholder:text-xs mx-auto h-10 max-w-lg bg-transparent py-3 focus:outline-hidden md:text-base md:placeholder:text-base'
+          value={searchQuery}
+          onChange={onSearchChange}
+        />
+      </div>
     );
   },
 );

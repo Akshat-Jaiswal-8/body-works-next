@@ -2,27 +2,22 @@
 
 import { DataLoadingSkeleton } from '@/components/data-loading-skeleton';
 import { PaginationProvidor } from '@/components/pagination-providor';
-import RoutineCard from '@/components/routine-card';
+import { RoutineCard } from '@/components/routine-card';
 import useRoutines from '@/features/routines/services/use-get-routines';
 import type { IRoutine } from '@/features/routines/types';
-import { useErrorHandler } from '@/lib/error-utils';
+import { useQueryErrorHandler } from '@/hooks/use-query-error-handler';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
-import React, { Suspense, useEffect } from 'react';
+import React, { Suspense } from 'react';
 
 function RoutinesContent(): React.ReactNode {
-  const { handleError } = useErrorHandler();
   const searchParams = useSearchParams();
 
   const page = Number(searchParams?.get('page')) || 1;
 
   const { isLoading, routines, error, refetch, isRefetching } = useRoutines(9, page);
 
-  useEffect(() => {
-    if (error) {
-      handleError(error, refetch);
-    }
-  }, [error]);
+  useQueryErrorHandler(error, refetch);
 
   if (isLoading || isRefetching) return <DataLoadingSkeleton />;
 

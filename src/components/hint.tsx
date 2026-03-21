@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './ui/tooltip';
 
 interface HintProps {
@@ -8,7 +9,7 @@ interface HintProps {
   align?: 'center' | 'end' | 'start';
 }
 
-export const Hint = ({ label, children, asChild, side, align }: HintProps) => {
+export const Hint = memo(({ label, children, asChild, side, align }: HintProps) => {
   return (
     <TooltipProvider delayDuration={0}>
       <Tooltip>
@@ -19,4 +20,6 @@ export const Hint = ({ label, children, asChild, side, align }: HintProps) => {
       </Tooltip>
     </TooltipProvider>
   );
-};
+});
+
+Hint.displayName = 'Hint';

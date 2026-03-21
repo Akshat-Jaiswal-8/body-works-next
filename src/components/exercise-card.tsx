@@ -1,7 +1,7 @@
+import { CardBody, CardContainer, CardItem } from '@/components/ui/3d-card';
 import Image from 'next/image';
 import Link from 'next/link';
-
-import { CardBody, CardContainer, CardItem } from '@/components/ui/3d-card';
+import { memo } from 'react';
 
 interface ICardProps {
   name: string;
@@ -10,7 +10,7 @@ interface ICardProps {
   searchName?: string;
 }
 
-export const Card = ({ name, image, path, searchName }: ICardProps) => {
+export const Card = memo(({ name, image, path, searchName }: ICardProps) => {
   return (
     <Link href={`/${path}/${searchName ? searchName : name}`}>
       <div className={'transition-all duration-200 hover:scale-110'}>
@@ -35,4 +35,6 @@ export const Card = ({ name, image, path, searchName }: ICardProps) => {
       </div>
     </Link>
   );
-};
+});
+
+Card.displayName = 'Card';

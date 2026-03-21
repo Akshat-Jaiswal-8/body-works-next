@@ -2,9 +2,9 @@
 
 import { FooterNavbar } from '@/components/footer-navbar';
 import useDevice from '@/hooks/use-device';
-import React from 'react';
+import React, { memo } from 'react';
 
-export const Footer = React.memo((): React.ReactNode => {
+export const Footer = memo((): React.ReactNode => {
   const { isMobile } = useDevice();
   const currentYear = new Date().getFullYear();
 

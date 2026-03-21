@@ -1,9 +1,9 @@
 import { FloatingDock } from '@/components/ui/floating-dock';
 import { Home } from 'lucide-react';
-import React from 'react';
+import React, { memo } from 'react';
 import { exerciseNavItems, routineNavItems } from './navbar';
 
-export const FooterNavbar = (): React.ReactNode => {
+export const FooterNavbar = memo((): React.ReactNode => {
   const footerNavItems = [
     ...exerciseNavItems,
     ...routineNavItems,
@@ -14,4 +14,6 @@ export const FooterNavbar = (): React.ReactNode => {
       <FloatingDock items={footerNavItems} />
     </div>
   );
-};
+});
+
+FooterNavbar.displayName = 'FooterNavbar';

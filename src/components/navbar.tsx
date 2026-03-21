@@ -1,11 +1,6 @@
 'use client';
 
 import { ModeToggle } from '@/components/mode-toggle';
-import useDevice from '@/hooks/use-device';
-import Image from 'next/image';
-import Link from 'next/link';
-import * as React from 'react';
-
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -14,9 +9,13 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from '@/components/ui/navigation-menu';
+import useDevice from '@/hooks/use-device';
 import { BicepsFlexed, CalendarCheck2, Dumbbell, PersonStanding, Zap } from 'lucide-react';
-
+import Image from 'next/image';
+import Link from 'next/link';
+import React from 'react';
 import logo from '../../public/logo.webp';
+
 interface NavItemProps {
   title: string;
   icon: React.ReactElement;
@@ -66,7 +65,7 @@ export const routineNavItems: NavItemProps[] = [
   },
 ];
 
-export function Navbar() {
+export const Navbar = React.memo(() => {
   const { isMobile, customQuery: showLogoText } = useDevice('only screen and (max-width : 540px)');
 
   return (
@@ -155,4 +154,6 @@ export function Navbar() {
       </div>
     </section>
   );
-}
+});
+
+Navbar.displayName = 'Navbar';

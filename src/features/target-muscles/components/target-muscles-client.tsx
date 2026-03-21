@@ -1,39 +1,28 @@
 'use client';
 
-import { DataLoadingSkeleton } from '@/components/data-loading-skeleton';
-import { Card } from '@/components/exercise-card';
+import { withTaxonomyCardsClient } from '@/components/with-taxonomy-cards-client';
 import useTargetMuscles from '@/features/target-muscles/services/use-get-target-muscles';
 import type { ITargetMuscle } from '@/features/target-muscles/types';
-import { useErrorHandler } from '@/lib/error-utils';
-import { useEffect } from 'react';
 
-export default function TargetMusclesClient() {
+const useTargetMusclesData = () => {
   const { isLoading, targetMuscle, error, refetch, isRefetching } = useTargetMuscles();
 
-  const { handleError } = useErrorHandler();
+  return {
+    items: targetMuscle?.data,
+    isLoading,
+    isRefetching,
+    error,
+    refetch,
+  };
+};
 
-  useEffect(() => {
-    if (error) {
-      handleError(error, refetch);
-    }
-  }, [error]);
+const TargetMusclesClient = withTaxonomyCardsClient<ITargetMuscle>({
+  useData: useTargetMusclesData,
+  getKey: (item) => item.targetMuscle,
+  getName: (item) => item.targetMuscle,
+  getImage: (item) => item.imageUrl,
+  path: 'target-muscles',
+  gridClassName: 'md:grid md:grid-cols-2 lg:grid-cols-3',
+});
 
-  if (isLoading || isRefetching) {
-    return <DataLoadingSkeleton />;
-  }
-
-  return (
-    <div className={'w-full md:grid md:grid-cols-2 lg:grid-cols-3'}>
-      {targetMuscle?.data.map((targetMuscle: ITargetMuscle) => {
-        return (
-          <Card
-            name={targetMuscle.targetMuscle}
-            image={targetMuscle.imageUrl}
-            key={targetMuscle.targetMuscle}
-            path={'target-muscles'}
-          />
-        );
-      })}
-    </div>
-  );
-}
+export default TargetMusclesClient;

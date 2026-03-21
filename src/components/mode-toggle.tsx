@@ -4,8 +4,9 @@ import { Moon, Sun } from 'lucide-react';
 import { useTheme } from 'next-themes';
 
 import { Button } from '@/components/ui/button';
+import { memo } from 'react';
 
-export function ModeToggle() {
+export const ModeToggle = memo(() => {
   const { setTheme, theme } = useTheme();
 
   return (
@@ -19,4 +20,6 @@ export function ModeToggle() {
       <Moon className='absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0' />
     </Button>
   );
-}
+});
+
+ModeToggle.displayName = 'ModeToggle';

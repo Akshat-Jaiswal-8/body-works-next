@@ -2,7 +2,13 @@ import type { IExerciseData } from '@/features/exercises/types';
 import { apiCaller } from '@/lib/api-caller';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
-const getEquipment = async (
+export const equipmentExercisesQueryKey = (
+  searchedEquipment: string | undefined,
+  limit: number,
+  page: number,
+) => ['equipment', searchedEquipment, limit, page] as const;
+
+export const getEquipmentExercises = async (
   searchedEquipment: string | undefined,
   limit: number,
   page: number,
@@ -25,8 +31,8 @@ export const useEquipment = (
     refetch,
     isRefetching,
   } = useQuery({
-    queryKey: ['equipment', limit, page],
-    queryFn: () => getEquipment(searchedEquipment, limit, page),
+    queryKey: equipmentExercisesQueryKey(searchedEquipment, limit, page),
+    queryFn: () => getEquipmentExercises(searchedEquipment, limit, page),
     placeholderData: keepPreviousData,
   });
   return { isLoading, equipment, error, refetch, isRefetching };

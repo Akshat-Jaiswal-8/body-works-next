@@ -1,3 +1,5 @@
+import { memo } from 'react';
+
 interface IworkoutSummary {
   MainGoal: string;
   WorkoutType: string;
@@ -9,7 +11,7 @@ interface IworkoutSummary {
   TargetGender: string;
 }
 
-const WorkoutSummaryTable = ({ data }: { data: IworkoutSummary }) => {
+export const WorkoutSummaryTable = memo(({ data }: { data: IworkoutSummary }) => {
   const keys: (keyof IworkoutSummary)[] = Object.keys(data) as (keyof IworkoutSummary)[];
 
   return (
@@ -31,6 +33,6 @@ const WorkoutSummaryTable = ({ data }: { data: IworkoutSummary }) => {
       </tbody>
     </table>
   );
-};
+});
 
-export default WorkoutSummaryTable;
+WorkoutSummaryTable.displayName = 'WorkoutSummaryTable';

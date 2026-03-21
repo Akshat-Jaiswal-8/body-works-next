@@ -2,7 +2,13 @@ import type { IExerciseData } from '@/features/exercises/types';
 import { apiCaller } from '@/lib/api-caller';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
-const getTargetMuscle = async (
+export const targetMuscleExercisesQueryKey = (
+  searchTargetMuscle: string | undefined,
+  limit: number,
+  page: number,
+) => ['target-muscle', searchTargetMuscle, limit, page] as const;
+
+export const getTargetMuscleExercises = async (
   searchTargetMuscle: string | undefined,
   limit: number,
   page: number,
@@ -29,8 +35,8 @@ export const useTargetMuscle = (
     refetch,
     isRefetching,
   } = useQuery({
-    queryKey: ['target-muscle', limit, page],
-    queryFn: () => getTargetMuscle(searchTargetMuscle, limit, page),
+    queryKey: targetMuscleExercisesQueryKey(searchTargetMuscle, limit, page),
+    queryFn: () => getTargetMuscleExercises(searchTargetMuscle, limit, page),
     placeholderData: keepPreviousData,
   });
   return { isLoading, targetMuscle, error, refetch, isRefetching };

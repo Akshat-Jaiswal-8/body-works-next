@@ -22,3 +22,22 @@ export const generateOpenGraphMetadata = ({ title, description, image }: IOpenGr
     },
   };
 };
+
+export const safeDecode = (value?: string) => {
+  if (!value) {
+    return undefined;
+  }
+
+  try {
+    return decodeURIComponent(value);
+  } catch {
+    return value;
+  }
+};
+
+export const toTitleCase = (value: string) => {
+  return value
+    .split(' ')
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+};

@@ -2,7 +2,9 @@ import type { IRoutineCategory, IRoutineCategoryResponse } from '@/features/rout
 import { apiCaller } from '@/lib/api-caller';
 import { useQuery } from '@tanstack/react-query';
 
-const getRoutineCategories = async (): Promise<IRoutineCategory[]> => {
+export const routineCategoriesQueryKey = () => ['routine-categories'] as const;
+
+export const getRoutineCategories = async (): Promise<IRoutineCategory[]> => {
   const routineCategory = await apiCaller.get<IRoutineCategoryResponse>(
     'routines/filters?filter=category',
   );
@@ -18,7 +20,7 @@ export const useRoutinesCategory = () => {
     refetch,
     isRefetching,
   } = useQuery({
-    queryKey: ['routine-categories'],
+    queryKey: routineCategoriesQueryKey(),
     queryFn: getRoutineCategories,
   });
   return { isLoading, routineCategory, error, refetch, isRefetching };

@@ -2,6 +2,8 @@ import type { ITargetMuscleData } from '@/features/target-muscles/types';
 import { apiCaller } from '@/lib/api-caller';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
+export const targetMusclesQueryKey = (limit?: number) => ['target-muscle', limit] as const;
+
 export const getTargetMuscles = async (limit?: number): Promise<ITargetMuscleData> => {
   const targetMuscles = await apiCaller.get<ITargetMuscleData>('targetMuscles', {
     params: {
@@ -19,7 +21,7 @@ const useTargetMuscles = (limit?: number) => {
     refetch,
     isRefetching,
   } = useQuery({
-    queryKey: ['target-muscle', limit],
+    queryKey: targetMusclesQueryKey(limit),
     queryFn: () => getTargetMuscles(limit),
     placeholderData: keepPreviousData,
   });

@@ -1,7 +1,8 @@
 import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/lib/utils';
+import { memo } from 'react';
 
-export const DataLoadingSkeleton = () => {
+export const DataLoadingSkeleton = memo(() => {
   return (
     <div
       className={cn(
@@ -13,4 +14,6 @@ export const DataLoadingSkeleton = () => {
       ))}
     </div>
   );
-};
+});
+
+DataLoadingSkeleton.displayName = 'DataLoadingSkeleton';

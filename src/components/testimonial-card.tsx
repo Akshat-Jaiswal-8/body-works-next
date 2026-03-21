@@ -1,15 +1,17 @@
 'use client';
 
-import React from 'react';
+import React, { memo } from 'react';
 import { InfiniteMovingCards } from './ui/infinite-moving-cards';
 
-export function TestimonialCards(): React.ReactNode {
+export const TestimonialCards = memo((): React.ReactNode => {
   return (
     <div className='xs:h-90 relative flex flex-col items-center justify-center overflow-hidden rounded-md antialiased md:h-full'>
       <InfiniteMovingCards items={testimonials} direction='right' speed='normal' />
     </div>
   );
-}
+});
+
+TestimonialCards.displayName = 'TestimonialCards';
 
 const testimonials: {
   quote: string;

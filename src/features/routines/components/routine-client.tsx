@@ -1,14 +1,13 @@
 'use client';
 
 import { Skeleton } from '@/components/ui/skeleton';
-import WorkoutSummaryTable from '@/components/workout-summary-table';
+import { WorkoutSummaryTable } from '@/components/workout-summary-table';
 import useRoutine from '@/features/routines/services/use-get-routine';
-import { useErrorHandler } from '@/lib/error-utils';
+import { useQueryErrorHandler } from '@/hooks/use-query-error-handler';
 import { markdownToHtml } from '@/lib/markdown-to-html';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
-import { useEffect } from 'react';
 
 export default function RoutineClient() {
   const params = useParams();
@@ -17,13 +16,7 @@ export default function RoutineClient() {
     routineId,
   });
 
-  const { handleError } = useErrorHandler();
-
-  useEffect(() => {
-    if (error) {
-      handleError(error, refetch);
-    }
-  }, [error]);
+  useQueryErrorHandler(error, refetch);
 
   if (isLoading || isRefetching)
     return (

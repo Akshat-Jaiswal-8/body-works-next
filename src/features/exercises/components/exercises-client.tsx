@@ -1,30 +1,26 @@
 'use client';
+
 import { DataLoadingSkeleton } from '@/components/data-loading-skeleton';
 import { DescriptedCard } from '@/components/descripted-card';
 import { PaginationProvidor } from '@/components/pagination-providor';
 import { SearchBar } from '@/components/search-bar';
 import { useExercises } from '@/features/exercises/services/use-get-exercises';
 import type { IExercise } from '@/features/exercises/types';
-import { useErrorHandler } from '@/lib/error-utils';
+import { useQueryErrorHandler } from '@/hooks/use-query-error-handler';
 import { cn } from '@/lib/utils';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useCallback, useEffect } from 'react';
+import { useCallback } from 'react';
 
 export const ExercisesClient = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathName = usePathname();
-  const { handleError } = useErrorHandler();
 
   const page = Number(searchParams?.get('page')) || 1;
 
   const { isLoading, exercises, error, refetch, isRefetching } = useExercises(9, page);
 
-  useEffect(() => {
-    if (error) {
-      handleError(error, refetch);
-    }
-  }, [error]);
+  useQueryErrorHandler(error, refetch);
 
   const getSearchQuery = useCallback(
     (query: string) => {

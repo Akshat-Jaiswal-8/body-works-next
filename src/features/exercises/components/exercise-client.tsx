@@ -11,7 +11,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { ExerciseHeader } from '@/features/exercises/components/exercise-header';
 import { useExercise } from '@/features/exercises/services/use-get-exercise';
 import useDevice from '@/hooks/use-device';
-import { useErrorHandler } from '@/lib/error-utils';
+import { useQueryErrorHandler } from '@/hooks/use-query-error-handler';
 import { markdownToHtml } from '@/lib/markdown-to-html';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
@@ -24,11 +24,7 @@ export default function ExerciseClient() {
 
   const { isMobile } = useDevice();
 
-  const { handleError } = useErrorHandler();
-
-  if (error) {
-    handleError(error, refetch);
-  }
+  useQueryErrorHandler(error, refetch);
 
   if (isLoading || isRefetching) {
     return (
