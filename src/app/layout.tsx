@@ -1,6 +1,7 @@
 import { Footer } from '@/components/footer';
 import { Navbar } from '@/components/navbar';
 import { Toaster } from '@/components/ui/sonner';
+import { siteUrl } from '@/constants';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { Metadata } from 'next';
@@ -27,52 +28,34 @@ const poppins = Poppins({
 
 export const metadata: Metadata = {
   title: {
-    default: 'BodyWorks - Your Ultimate Fitness Exercise Guide | 1300+ Exercises',
-    template: '%s | BodyWorks - Fitness Exercise Guide',
+    default: 'BodyWorks - Fitness Exercise Guide',
+    template: '%s | BodyWorks',
   },
   description:
-    'Discover 1300+ exercises, 600+ workout routines, and comprehensive fitness guidance. Filter by body parts, target muscles, and equipment. Your complete fitness companion for all levels.',
+    'Discover exercises, workout routines, and fitness guidance filtered by body parts, muscles, and equipment.',
   keywords: [
-    'fitness exercises',
+    'fitness exercise guide',
     'workout routines',
     'gym exercises',
-    'bodybuilding',
+    'home workouts',
     'strength training',
-    'muscle building',
-    'exercise guide',
-    'fitness app',
-    'workout plans',
-    'target muscles',
-    'body parts',
+    'body part workouts',
+    'target muscle exercises',
     'equipment workouts',
-    'beginner workouts',
-    'advanced training',
-    'exercise database',
-    'fitness tracker',
-    'free fitness app',
-    'exercise instructions',
-    'workout planner',
-    'fitness companion',
-    'muscle targeting',
-    'gym workout',
-    'home workout',
-    'fitness journey',
-    'exercise library',
   ],
   authors: [{ name: 'Akshat Jaiswal' }],
   creator: 'Akshat Jaiswal',
   publisher: 'BodyWorks',
-  metadataBase: new URL('https://bodyworks.akshatjaiswal.me'),
+  metadataBase: new URL(siteUrl),
   alternates: {
     canonical: '/',
   },
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://bodyworks.akshatjaiswal.me',
-    title: 'BodyWorks - Your Ultimate Fitness Exercise Guide',
-    description:
-      'Discover 1300+ exercises, 600+ workout routines, and comprehensive fitness guidance. Filter by body parts, target muscles, and equipment.',
+    url: siteUrl,
+    title: 'BodyWorks - Fitness Exercise Guide',
+    description: 'Discover exercises, workout routines, and fitness guidance.',
     siteName: 'BodyWorks',
     images: [
       {
@@ -85,9 +68,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'BodyWorks - Your Ultimate Fitness Exercise Guide',
-    description:
-      'Discover 1300+ exercises, 600+ workout routines, and comprehensive fitness guidance.',
+    title: 'BodyWorks - Fitness Exercise Guide',
+    description: 'Discover exercises, workout routines, and fitness guidance.',
     images: ['/hero.webp'],
     creator: '@bodyworks',
   },
@@ -106,12 +88,6 @@ export const metadata: Metadata = {
   classification: 'Health & Fitness',
   applicationName: 'BodyWorks',
   referrer: 'origin-when-cross-origin',
-  generator: 'Next.js',
-  other: {
-    'mobile-web-app-capable': 'yes',
-    'apple-mobile-web-app-capable': 'yes',
-    'apple-mobile-web-app-status-bar-style': 'default',
-  },
 };
 
 export default function RootLayout({
@@ -124,14 +100,13 @@ export default function RootLayout({
       <head>
         <link rel='preload' href='/hero.webp' as='image' type='image/webp' />
         <link rel='preload' href='/img.webp' as='image' type='image/webp' />
-        <link rel='preconnect' href='https://api.bodyworks.akshatjaiswal.me/api/v1' />
+        <link rel='preconnect' href='https://api.bodyworks.akshatjaiswal.me' />
         <link rel='icon' href='/favicon.ico' sizes='any' />
         <link rel='icon' href='/favicon-16x16.png' type='image/png' sizes='16x16' />
         <link rel='icon' href='/favicon-32x32.png' type='image/png' sizes='32x32' />
         <link rel='apple-touch-icon' href='/apple-touch-icon.png' />
         <link rel='manifest' href='/site.webmanifest' />
         <meta name='theme-color' content='#d97706' />
-        <meta name='viewport' content='width=device-width, initial-scale=1' />
         <script
           type='application/ld+json'
           dangerouslySetInnerHTML={{
@@ -139,9 +114,8 @@ export default function RootLayout({
               '@context': 'https://schema.org',
               '@type': 'WebApplication',
               name: 'BodyWorks',
-              description:
-                'Discover 1300+ exercises, 600+ workout routines, and comprehensive fitness guidance. Filter by body parts, target muscles, and equipment.',
-              url: 'https://body-works-akshat.vercel.app',
+              description: 'Discover exercises, workout routines, and fitness guidance.',
+              url: siteUrl,
               applicationCategory: 'HealthApplication',
               operatingSystem: 'Web',
               offers: {
@@ -152,23 +126,7 @@ export default function RootLayout({
               creator: {
                 '@type': 'Person',
                 name: 'Akshat Jaiswal',
-                email: 'akshatjaiswal.official@gmail.com',
               },
-              aggregateRating: {
-                '@type': 'AggregateRating',
-                ratingValue: '4.8',
-                ratingCount: '150',
-              },
-              featureList: [
-                '1300+ Exercise Database',
-                '600+ Workout Routines',
-                '30+ Equipment Filters',
-                '20+ Target Muscle Groups',
-                '10+ Body Part Categories',
-                'Beginner to Advanced Levels',
-                'Free Access',
-                'Mobile Responsive',
-              ],
               potentialAction: {
                 '@type': 'SearchAction',
                 target: 'https://bodyworks.akshatjaiswal.me/exercises?search={search_term_string}',
@@ -184,10 +142,9 @@ export default function RootLayout({
               '@context': 'https://schema.org',
               '@type': 'Organization',
               name: 'BodyWorks',
-              url: 'https://body-works-akshat.vercel.app',
-              logo: 'https://body-works-akshat.vercel.app/logo.webp',
-              description:
-                'Your Ultimate Fitness Exercise Guide with 1300+ exercises and 600+ workout routines',
+              url: siteUrl,
+              logo: `${siteUrl}/logo.webp`,
+              description: 'Fitness exercise guide and workout routine library.',
               contactPoint: {
                 '@type': 'ContactPoint',
                 contactType: 'Customer Support',

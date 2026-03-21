@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "skills": {
+    "seo-content-brief": {
+      "source": "inferen-sh/skills",
+      "sourceType": "github",
+      "computedHash": "36a3cf9a457463ada0365111d9a61931d0239991570d4eeaed1b5db663ab6928"
+    },
+    "seo-content-writer": {
+      "source": "aaron-he-zhu/seo-geo-claude-skills",
+      "sourceType": "github",
+      "computedHash": "b078e3ceabb08bc4ee0b67a2949863d0bc6a4b7cdf04cce9c325175ab40c05a0"
+    },
+    "seo-schema": {
+      "source": "agricidaniel/claude-seo",
+      "sourceType": "github",
+      "computedHash": "54ee683cb385beed789dc38c5cd9f3c79343f870fa7798bce72244fdff6c6d8d"
+    },
+    "technical-seo-checker": {
+      "source": "aaron-he-zhu/seo-geo-claude-skills",
+      "sourceType": "github",
+      "computedHash": "4a9702f07c6a9176d0fb3113d3cc1664b80ed803ac1200ad0ac048e1ccc52837"
+    },
+    "vercel-react-best-practices": {
+      "source": "vercel-labs/agent-skills",
+      "sourceType": "github",
+      "computedHash": "c858d2d9023e73edb4e5504868cb0e36313e58fd56af12ef888b43c5634a3c17"
+    }
+  }
+}

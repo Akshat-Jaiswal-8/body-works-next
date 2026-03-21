@@ -1,3 +1,4 @@
+import { siteUrl } from '@/constants';
 import ExerciseClient from '@/features/exercises/components/exercise-client';
 import { getExercise } from '@/features/exercises/services/use-get-exercise';
 import { getExercises } from '@/features/exercises/services/use-get-exercises';
@@ -36,8 +37,17 @@ export const generateMetadata = async ({ params }: { params: Promise<Params> }) 
 
   const basicMetadata = {
     title: exercise.title,
-    description: `Learn about ${exercise.name}: how to do it, target muscles, equipment needed, and more.`,
-    keywords: exercise.keywords.join(', ') ?? '',
+    description: `Learn how to do ${exercise.name}, plus target muscles and equipment.`,
+    keywords: Array.from(
+      new Set([
+        ...exercise.keywords.slice(0, 8),
+        exercise.name,
+        `${exercise.name} exercise`,
+        `${exercise.bodyPart} workouts`,
+        `${exercise.target} exercises`,
+        `${exercise.equipment} exercises`,
+      ]),
+    ).filter(Boolean),
   };
 
   return {
@@ -45,10 +55,12 @@ export const generateMetadata = async ({ params }: { params: Promise<Params> }) 
     openGraph: {
       title: exercise.title,
       description: basicMetadata.description,
-      url: `https://bodyworks.akshatjaiswal.com/exercises/${exerciseId}`,
+      url: `${siteUrl}/exercises/${exerciseId}`,
       images: exercise.images?.[0] ? [exercise.images[0]] : [],
     },
-    canonical: `https://bodyworks.akshatjaiswal.com/exercises/${exerciseId}`,
+    alternates: {
+      canonical: `${siteUrl}/exercises/${exerciseId}`,
+    },
   };
 };
 
