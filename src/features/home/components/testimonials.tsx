@@ -1,8 +1,7 @@
+import { TestimonialCards } from '@/components/testimonial-card';
+import { HeadingPrimary } from '@/features/home/components/heading-primary';
 import * as motion from 'motion/react-client';
 import React from 'react';
-
-import { HeadingPrimary } from '@/app/(home)/_components/heading-primary';
-import { TestimonialCards } from '@/components/testimonial-card';
 
 export const UserTestimonials = React.memo((): React.ReactNode => {
   return (

@@ -1,14 +1,13 @@
-import { FAQ } from '@/app/(home)/_components/faq';
-import { Hero } from '@/app/(home)/_components/hero';
+import { Hero } from '@/features/home/components/hero';
 import * as motion from 'motion/react-client';
 import dynamic from 'next/dynamic';
-import React from 'react';
 const Features = dynamic(() =>
-  import('@/app/(home)/_components/features').then((mod) => mod.Features),
+  import('@/features/home/components/features').then((mod) => mod.Features),
 );
 const UserTestimonials = dynamic(() =>
-  import('@/app/(home)/_components/testimonials').then((mod) => mod.UserTestimonials),
+  import('@/features/home/components/testimonials').then((mod) => mod.UserTestimonials),
 );
+const Faq = dynamic(() => import('@/features/home/components/faq').then((mod) => mod.FAQ));
 
 const Home = (): React.ReactNode => {
   return (
@@ -20,7 +19,7 @@ const Home = (): React.ReactNode => {
       <Hero />
       <Features />
       <UserTestimonials />
-      <FAQ />
+      <Faq />
     </motion.div>
   );
 };

@@ -1,18 +1,16 @@
 'use client';
-import React from 'react';
 
-import type { Easing } from 'motion/react';
-import * as motion from 'motion/react-client';
-
+import { Button } from '@/components/ui/button';
+import { Skeleton } from '@/components/ui/skeleton';
 import { useBodyParts } from '@/features/body-parts/services/use-get-body-parts';
 import useEquipments from '@/features/equipments/services/use-get-equipments';
 import { useExercises } from '@/features/exercises/services/use-get-exercises';
 import useTargetMuscles from '@/features/target-muscles/services/use-get-target-muscles';
-
-import { FeatureContent } from '@/app/(home)/_components/features-content';
-import { HeadingPrimary } from '@/app/(home)/_components/heading-primary';
-import { Button } from '@/components/ui/button';
-import { Skeleton } from '@/components/ui/skeleton';
+import type { Easing } from 'motion/react';
+import { motion } from 'motion/react';
+import React from 'react';
+import { FeatureContent } from './features-content';
+import { HeadingPrimary } from './heading-primary';
 
 export const Features = React.memo((): React.ReactNode => {
   const itemsCount = 3;

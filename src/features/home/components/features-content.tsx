@@ -1,11 +1,10 @@
 'use client';
-import * as motion from 'motion/react-client';
-import React, { memo, useCallback, useRef } from 'react';
 
 import { DescriptedCard } from '@/components/descripted-card';
 import { Card } from '@/components/exercise-card';
-import { type Easing } from 'motion/react';
+import { motion, type Easing } from 'motion/react';
 import Link from 'next/link';
+import React, { memo, useCallback, useRef } from 'react';
 
 type FeatureContentProps =
   | { type: 'exercises'; data: IExercise[]; heading: string }

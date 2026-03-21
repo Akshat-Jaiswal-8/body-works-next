@@ -124,7 +124,7 @@ export default function RootLayout({
       <head>
         <link rel='preload' href='/hero.webp' as='image' type='image/webp' />
         <link rel='preload' href='/img.webp' as='image' type='image/webp' />
-        <link rel='preconnect' href='https://api.bodyworks.akshatjaiswal.me' />
+        <link rel='preconnect' href='https://api.bodyworks.akshatjaiswal.me/api/v1' />
         <link rel='icon' href='/favicon.ico' sizes='any' />
         <link rel='icon' href='/favicon-16x16.png' type='image/png' sizes='16x16' />
         <link rel='icon' href='/favicon-32x32.png' type='image/png' sizes='32x32' />

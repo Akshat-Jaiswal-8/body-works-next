@@ -1,4 +1,6 @@
-export const HeadingPrimary = ({ heading }: { heading: string }) => {
+import { memo } from 'react';
+
+export const HeadingPrimary = memo(({ heading }: { heading: string }) => {
   return (
     <h1
       className={
@@ -8,4 +10,6 @@ export const HeadingPrimary = ({ heading }: { heading: string }) => {
       {heading}
     </h1>
   );
-};
+});
+
+HeadingPrimary.displayName = 'HeadingPrimary';
