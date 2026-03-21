@@ -2,6 +2,10 @@
 
 import { DescriptedCard } from '@/components/descripted-card';
 import { Card } from '@/components/exercise-card';
+import type { IBodyPart } from '@/features/body-parts/types';
+import type { IEquipment } from '@/features/equipments/types';
+import type { IExercise } from '@/features/exercises/types';
+import type { ITargetMuscle } from '@/features/target-muscles/types';
 import { motion, type Easing } from 'motion/react';
 import Link from 'next/link';
 import React, { memo, useCallback, useRef } from 'react';

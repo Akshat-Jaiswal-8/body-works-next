@@ -1,3 +1,4 @@
+import type { IExerciseData } from '@/features/exercises/types';
 import { apiCaller } from '@/lib/api-caller';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 

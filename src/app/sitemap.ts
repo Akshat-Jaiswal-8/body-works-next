@@ -1,7 +1,11 @@
 import { getBodyParts } from '@/features/body-parts/services/use-get-body-parts';
+import type { IBodyPart } from '@/features/body-parts/types';
 import { getEquipments } from '@/features/equipments/services/use-get-equipments';
+import type { IEquipment } from '@/features/equipments/types';
 import { getExercises } from '@/features/exercises/services/use-get-exercises';
+import type { IExercise } from '@/features/exercises/types';
 import { getTargetMuscles } from '@/features/target-muscles/services/use-get-target-muscles';
+import type { ITargetMuscle } from '@/features/target-muscles/types';
 import type { MetadataRoute } from 'next';
 
 const siteUrl = 'https://bodyworks.akshatjaiswal.me';

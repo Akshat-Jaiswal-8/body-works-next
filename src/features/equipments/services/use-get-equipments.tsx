@@ -1,3 +1,4 @@
+import type { IEquipmentData } from '@/features/equipments/types';
 import { apiCaller } from '@/lib/api-caller';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 

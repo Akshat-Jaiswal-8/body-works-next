@@ -1,3 +1,4 @@
+import type { IRoutineCategory, IRoutineCategoryResponse } from '@/features/routines/types';
 import { apiCaller } from '@/lib/api-caller';
 import { useQuery } from '@tanstack/react-query';
 

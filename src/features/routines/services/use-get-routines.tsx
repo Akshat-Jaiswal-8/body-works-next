@@ -1,3 +1,4 @@
+import type { IRoutinesResponse } from '@/features/routines/types';
 import { apiCaller } from '@/lib/api-caller';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 

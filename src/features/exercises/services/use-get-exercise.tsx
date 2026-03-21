@@ -1,3 +1,4 @@
+import type { IExercise, IExerciseResponse } from '@/features/exercises/types';
 import { apiCaller } from '@/lib/api-caller';
 import { useQuery } from '@tanstack/react-query';
 

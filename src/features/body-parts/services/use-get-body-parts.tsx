@@ -1,3 +1,4 @@
+import type { IBodyPartData } from '@/features/body-parts/types';
 import { apiCaller } from '@/lib/api-caller';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 

@@ -2,6 +2,7 @@ import { siteUrl } from '@/constants';
 import ExerciseClient from '@/features/exercises/components/exercise-client';
 import { getExercise } from '@/features/exercises/services/use-get-exercise';
 import { getExercises } from '@/features/exercises/services/use-get-exercises';
+import type { IExercise } from '@/features/exercises/types';
 
 export const generateStaticParams = async () => {
   const first = await getExercises(1000, 1);

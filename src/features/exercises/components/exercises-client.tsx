@@ -4,6 +4,7 @@ import { DescriptedCard } from '@/components/descripted-card';
 import { PaginationProvidor } from '@/components/pagination-providor';
 import { SearchBar } from '@/components/search-bar';
 import { useExercises } from '@/features/exercises/services/use-get-exercises';
+import type { IExercise } from '@/features/exercises/types';
 import { useErrorHandler } from '@/lib/error-utils';
 import { cn } from '@/lib/utils';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
