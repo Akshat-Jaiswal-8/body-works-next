@@ -4,7 +4,6 @@ import { Footer } from '@/components/footer';
 import { Button } from '@/components/ui/button';
 import { AlertTriangle, Home, RefreshCw } from 'lucide-react';
 import Link from 'next/link';
-import { useEffect } from 'react';
 
 interface GlobalErrorProps {
   error: Error & { digest?: string };
@@ -12,10 +11,6 @@ interface GlobalErrorProps {
 }
 
 export default function GlobalError({ error, reset }: GlobalErrorProps) {
-  useEffect(() => {
-    console.error('Global error:', error);
-  }, [error]);
-
   return (
     <html>
       <body className='font-urbanist'>
