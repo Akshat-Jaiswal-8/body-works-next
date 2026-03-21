@@ -1,8 +1,13 @@
 'use client';
 
-import { FooterNavbar } from '@/components/footer-navbar';
 import useDevice from '@/hooks/use-device';
+import dynamic from 'next/dynamic';
 import React, { memo } from 'react';
+
+const MobileFooterNavbar = dynamic(
+  () => import('@/components/footer-navbar').then((mod) => mod.FooterNavbar),
+  { ssr: false },
+);
 
 export const Footer = memo((): React.ReactNode => {
   const { isMobile } = useDevice();
@@ -13,7 +18,7 @@ export const Footer = memo((): React.ReactNode => {
       <section className='h-[3rem]'>
         {isMobile && (
           <div className={'fixed right-0 bottom-5'}>
-            <FooterNavbar />
+            <MobileFooterNavbar />
           </div>
         )}
         <div

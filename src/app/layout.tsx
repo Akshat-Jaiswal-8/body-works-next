@@ -5,7 +5,7 @@ import { siteUrl } from '@/constants';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { Metadata } from 'next';
-import { Poppins, Urbanist } from 'next/font/google';
+import { Montserrat, Poppins, Urbanist } from 'next/font/google';
 import React from 'react';
 import './globals.css';
 import Providers from './providor';
@@ -24,6 +24,14 @@ const poppins = Poppins({
   weight: ['400', '500', '600', '700'],
   display: 'swap',
   preload: true,
+});
+
+const montserrat = Montserrat({
+  subsets: ['latin'],
+  variable: '--font-montserrat',
+  weight: ['400', '500', '600', '700'],
+  display: 'swap',
+  preload: false,
 });
 
 export const metadata: Metadata = {
@@ -59,7 +67,7 @@ export const metadata: Metadata = {
     siteName: 'BodyWorks',
     images: [
       {
-        url: '/hero.webp',
+        url: `${siteUrl}/hero.webp`,
         width: 1200,
         height: 630,
         alt: 'BodyWorks - Fitness Exercise Guide',
@@ -70,8 +78,8 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'BodyWorks - Fitness Exercise Guide',
     description: 'Discover exercises, workout routines, and fitness guidance.',
-    images: ['/hero.webp'],
-    creator: '@bodyworks',
+    images: [`${siteUrl}/hero.webp`],
+    creator: '@akshat_twt',
   },
   robots: {
     index: true,
@@ -105,8 +113,12 @@ export default function RootLayout({
         <link rel='icon' href='/favicon-16x16.png' type='image/png' sizes='16x16' />
         <link rel='icon' href='/favicon-32x32.png' type='image/png' sizes='32x32' />
         <link rel='apple-touch-icon' href='/apple-touch-icon.png' />
-        <link rel='manifest' href='/site.webmanifest' />
-        <meta name='theme-color' content='#d97706' />
+        <link
+          rel='manifest'
+          href='data:application/manifest+json,{"name":"Bodyworks","short_name":"Bodyworks","icons":[{"src":"/android-chrome-192x192.png","sizes":"192x192","type":"image/png"},{"src":"/android-chrome-512x512.png","sizes":"512x512","type":"image/png"}],"theme_color":"#d97706","background_color":"#ffffff","display":"standalone"}'
+        />
+        <meta name='theme-color' content='#d97706' media='(prefers-color-scheme: light)' />
+        <meta name='theme-color' content='#000000' media='(prefers-color-scheme: dark)' />
         <script
           type='application/ld+json'
           dangerouslySetInnerHTML={{
@@ -143,8 +155,11 @@ export default function RootLayout({
               '@type': 'Organization',
               name: 'BodyWorks',
               url: siteUrl,
-              logo: `${siteUrl}/logo.webp`,
               description: 'Fitness exercise guide and workout routine library.',
+              logo: {
+                '@type': 'ImageObject',
+                url: `${siteUrl}/logo.webp`,
+              },
               contactPoint: {
                 '@type': 'ContactPoint',
                 contactType: 'Customer Support',
@@ -158,7 +173,9 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${poppins.variable} ${urbanist.variable} font-urbanist antialiased`}>
+      <body
+        className={`${poppins.variable} ${urbanist.variable} ${montserrat.variable} font-urbanist antialiased`}
+      >
         <Providers>
           <Navbar />
           <div className='mt-[var(--navbar-height)]'>{children}</div>

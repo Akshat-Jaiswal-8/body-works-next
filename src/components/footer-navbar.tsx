@@ -1,7 +1,7 @@
+import { exerciseNavItems, routineNavItems } from '@/components/navbar-data';
 import { FloatingDock } from '@/components/ui/floating-dock';
 import { Home } from 'lucide-react';
 import React, { memo } from 'react';
-import { exerciseNavItems, routineNavItems } from './navbar';
 
 export const FooterNavbar = memo((): React.ReactNode => {
   const footerNavItems = [
