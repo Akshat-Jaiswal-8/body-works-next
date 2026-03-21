@@ -12,6 +12,11 @@ const ExercisesPage = async ({ searchParams }: { searchParams: Promise<SearchPar
   const pageNumber = Number(page) || 1;
 
   await queryClient.prefetchQuery({
+    queryKey: exercisesQueryKey(9, pageNumber),
+    queryFn: () => getExercises(9, pageNumber),
+  });
+
+  await queryClient.prefetchQuery({
     queryKey: exercisesQueryKey(9, pageNumber + 1),
     queryFn: () => getExercises(9, pageNumber + 1),
   });
