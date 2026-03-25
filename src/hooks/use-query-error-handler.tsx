@@ -7,10 +7,6 @@ export function useQueryErrorHandler(error: Error | null, refetch?: RefetchFn) {
   const { handleError } = useErrorHandler();
 
   useEffect(() => {
-    if (!error) {
-      return;
-    }
-
-    handleError(error, refetch);
+    if (error) handleError(error, refetch);
   }, [error, refetch, handleError]);
 }

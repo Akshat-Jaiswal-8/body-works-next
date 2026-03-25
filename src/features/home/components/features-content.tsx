@@ -2,9 +2,11 @@
 
 import { DescriptedCard } from '@/components/descripted-card';
 import { Card } from '@/components/exercise-card';
+import { RoutineCard } from '@/components/routine-card';
 import type { IBodyPart } from '@/features/body-parts/types';
 import type { IEquipment } from '@/features/equipments/types';
 import type { IExercise } from '@/features/exercises/types';
+import { IRoutine } from '@/features/routines/types';
 import type { ITargetMuscle } from '@/features/target-muscles/types';
 import { motion, type Easing } from 'motion/react';
 import Link from 'next/link';
@@ -14,7 +16,8 @@ type FeatureContentProps =
   | { type: 'exercises'; data: IExercise[]; heading: string }
   | { type: 'bodyParts'; data: IBodyPart[]; heading: string }
   | { type: 'targetMuscles'; data: ITargetMuscle[]; heading: string }
-  | { type: 'equipments'; data: IEquipment[]; heading: string };
+  | { type: 'equipments'; data: IEquipment[]; heading: string }
+  | { type: 'routines'; data: IRoutine[]; heading: string };
 
 const animations = {
   component: {
@@ -49,6 +52,7 @@ export const FeatureContent = memo(
         equipments: '/equipments',
         bodyParts: '/body-parts',
         targetMuscles: '/target-muscles',
+        routines: '/routines',
       };
       return linkMap[type];
     }, [type]);
@@ -64,6 +68,17 @@ export const FeatureContent = memo(
               gif={exercise.gifUrl}
               title={exercise.title}
               blog={exercise.blog}
+            />
+          ));
+        }
+        case 'routines': {
+          const routinesData = displayedData as IRoutine[];
+          return routinesData.map((routine) => (
+            <RoutineCard
+              key={routine.id_}
+              routine_title={routine.routine.routine_title}
+              routine_description={routine.routine.routine_description}
+              routine_imageUrl={routine.routine.routine_imageUrl}
             />
           ));
         }
@@ -100,6 +115,7 @@ export const FeatureContent = memo(
             />
           ));
         }
+
         default:
           return null;
       }

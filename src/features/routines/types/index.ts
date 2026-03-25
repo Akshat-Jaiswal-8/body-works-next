@@ -1,13 +1,33 @@
-export interface IRoutineCategory {
+export interface IRoutineFilterItem {
   title: string;
   imageUrl: string;
+  nRoutines: number;
 }
+
+export type IRoutineFilterName =
+  | 'category'
+  | 'days_per_week'
+  | 'duration'
+  | 'equipment'
+  | 'gender'
+  | 'level'
+  | 'main_goal'
+  | 'workout_type';
+
+export interface IRoutineFiltersResponse {
+  totalRoutinesFilter: number;
+  count: number;
+  data: Partial<Record<IRoutineFilterName, IRoutineFilterItem[]>>;
+}
+
+export type IRoutineCategory = IRoutineFilterItem;
 
 export interface IRoutineCategoryResponse {
   data: {
-    category: IRoutineCategory[];
+    category: IRoutineFilterItem[];
   };
   totalRoutinesFilter: number;
+  count: number;
 }
 
 export interface IRoutine {

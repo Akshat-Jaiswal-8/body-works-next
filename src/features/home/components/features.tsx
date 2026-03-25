@@ -5,6 +5,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { useBodyParts } from '@/features/body-parts/services/use-get-body-parts';
 import useEquipments from '@/features/equipments/services/use-get-equipments';
 import { useExercises } from '@/features/exercises/services/use-get-exercises';
+import useRoutines from '@/features/routines/services/use-get-routines';
 import useTargetMuscles from '@/features/target-muscles/services/use-get-target-muscles';
 import type { Easing } from 'motion/react';
 import { motion } from 'motion/react';
@@ -35,16 +36,26 @@ export const Features = React.memo((): React.ReactNode => {
     isLoading: targetMuscleLoading,
     refetch: refetchTargetMuscle,
   } = useTargetMuscles(itemsCount);
+  const {
+    routines,
+    isLoading: routinesLoading,
+    refetch: refetchRoutines,
+  } = useRoutines(itemsCount);
 
   const refetchAll = () => {
     refetchExercises();
     refetchBodyParts();
     refetchEquipments();
     refetchTargetMuscle();
+    refetchRoutines();
   };
 
   const isLoading =
-    exercisesLoading || equipmentsLoading || bodyPartsLoading || targetMuscleLoading;
+    exercisesLoading ||
+    equipmentsLoading ||
+    bodyPartsLoading ||
+    targetMuscleLoading ||
+    routinesLoading;
 
   const sectionVariants = {
     initial: { opacity: 0, y: 100 },
@@ -76,7 +87,7 @@ export const Features = React.memo((): React.ReactNode => {
         <LoadingSkeleton />
       ) : (
         <>
-          {!exercises && !bodyParts && !targetMuscle && !equipments ? (
+          {!exercises && !bodyParts && !targetMuscle && !equipments && !routines ? (
             <div className='flex flex-col items-center justify-center space-y-8 py-10 text-center text-gray-500'>
               <h1 className='xs:text-xl mb-2 font-semibold xl:text-2xl'>
                 Oops! Something went wrong while fetching the features.
@@ -96,6 +107,13 @@ export const Features = React.memo((): React.ReactNode => {
                   type='exercises'
                   data={exercises?.data || []}
                   heading='1300+ Exercises'
+                />
+              )}
+              {routines && (
+                <FeatureContent
+                  type='routines'
+                  data={routines?.data || []}
+                  heading='600+ Routines'
                 />
               )}
               {bodyParts && (

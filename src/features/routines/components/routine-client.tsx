@@ -59,7 +59,10 @@ export default function RoutineClient() {
             {routine.category.map((eachCategory: string) => {
               return (
                 <Link
-                  href={`/routines/${eachCategory}`}
+                  href={{
+                    pathname: '/routines',
+                    search: `?category=${eachCategory}`,
+                  }}
                   key={eachCategory}
                   className='my-6 bg-linear-to-r from-amber-800 to-amber-600 bg-clip-text text-transparent dark:from-pink-600 dark:to-violet-400'
                 >
