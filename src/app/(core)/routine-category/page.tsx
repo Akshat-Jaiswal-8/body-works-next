@@ -1,9 +1,9 @@
 import { siteUrl } from '@/constants';
 import RoutineCategoryClient from '@/features/routines/components/routine-category-client';
 import {
-  getRoutineCategories,
-  routineCategoriesQueryKey,
-} from '@/features/routines/services/use-get-routines-category';
+  getRoutineFilter,
+  routineFilterQueryKey,
+} from '@/features/routines/services/use-get-routines-filter';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import type { Metadata } from 'next';
 
@@ -19,8 +19,8 @@ const RoutineCategoryPage = async () => {
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
-    queryKey: routineCategoriesQueryKey(),
-    queryFn: () => getRoutineCategories(),
+    queryKey: routineFilterQueryKey('category'),
+    queryFn: () => getRoutineFilter('category'),
   });
 
   return (

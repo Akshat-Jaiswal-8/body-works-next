@@ -1,33 +1,43 @@
 'use client';
+
 import { Input } from '@/components/ui/input';
-import { useDebounce } from '@uidotdev/usehooks';
-import React, { ChangeEvent, ChangeEventHandler, memo, useEffect, useState } from 'react';
+import { cn } from '@/lib/utils';
+import { Search } from 'lucide-react';
+import { parseAsString, useQueryState } from 'nuqs';
+import React, { ChangeEventHandler, memo } from 'react';
+
+type SearchBarProps = {
+  placeholder?: string;
+  className?: string;
+  queryKey?: string;
+};
 
 export const SearchBar = memo(
-  ({ getQuery }: { getQuery: (query: string) => void }): React.ReactNode => {
-    const [searchQuery, setSearchQuery] = useState<string>('');
-    const debouncedSearchQuery = useDebounce(searchQuery, 500);
+  ({
+    placeholder = 'Search by name',
+    className,
+    queryKey = 'search',
+  }: SearchBarProps): React.ReactNode => {
+    const textParser = parseAsString.withDefault('').withOptions({ history: 'replace' });
+    const [searchQuery, setSearchQuery] = useQueryState(queryKey, textParser);
 
-    useEffect(() => {
-      if (getQuery) {
-        getQuery(debouncedSearchQuery);
-      }
-    }, [debouncedSearchQuery]);
-
-    const onSearchChange: ChangeEventHandler<HTMLInputElement> = (
-      event: ChangeEvent<HTMLInputElement>,
-    ) => {
+    const onSearchChange: ChangeEventHandler<HTMLInputElement> = (event) => {
       setSearchQuery(event.target.value);
     };
 
     return (
-      <div className={'mx-auto items-center justify-center'}>
-        <Input
-          placeholder='Search by name'
-          className='font-poppins xs:text-xs xs:placeholder:text-xs mx-auto h-10 max-w-lg bg-transparent py-3 focus:outline-hidden md:text-base md:placeholder:text-base'
-          value={searchQuery}
-          onChange={onSearchChange}
-        />
+      <div className={cn('mx-auto w-full max-w-4xl', className)}>
+        <div className='group relative'>
+          <div className='relative flex h-14 items-center rounded-xl bg-white/95 px-4 shadow-md shadow-amber-800/50 backdrop-blur-xl dark:bg-black dark:shadow-2xl dark:shadow-pink-500/50'>
+            <Search className='mr-3 size-5 text-amber-700 dark:text-pink-400' />
+            <Input
+              placeholder={placeholder}
+              className='font-montserrat h-full border-none px-0 text-base text-amber-800 shadow-none placeholder:text-amber-800/50 focus-visible:ring-0 dark:bg-black dark:text-slate-100 dark:placeholder:text-slate-100/50'
+              value={searchQuery}
+              onChange={onSearchChange}
+            />
+          </div>
+        </div>
       </div>
     );
   },

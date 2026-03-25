@@ -3,6 +3,7 @@ import { ThemeProvider } from '@/components/theme-provider';
 import { getQueryClient } from '@/lib/query-client';
 import { QueryClientProvider } from '@tanstack/react-query';
 import dynamic from 'next/dynamic';
+import { NuqsAdapter } from 'nuqs/adapters/next/app';
 import React from 'react';
 
 const ReactQueryDevtools =
@@ -17,11 +18,13 @@ export default function Providers({ children }: { children: React.ReactNode }) {
   const queryClient = getQueryClient();
 
   return (
-    <ThemeProvider attribute='class' defaultTheme='system' enableSystem enableColorScheme>
-      <QueryClientProvider client={queryClient}>
-        <ReactQueryDevtools initialIsOpen={false} />
-        {children}
-      </QueryClientProvider>
-    </ThemeProvider>
+    <NuqsAdapter>
+      <ThemeProvider attribute='class' defaultTheme='system' enableSystem enableColorScheme>
+        <QueryClientProvider client={queryClient}>
+          <ReactQueryDevtools initialIsOpen={false} />
+          {children}
+        </QueryClientProvider>
+      </ThemeProvider>
+    </NuqsAdapter>
   );
 }

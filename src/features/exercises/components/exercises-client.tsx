@@ -8,62 +8,55 @@ import { useExercises } from '@/features/exercises/services/use-get-exercises';
 import type { IExercise } from '@/features/exercises/types';
 import { useQueryErrorHandler } from '@/hooks/use-query-error-handler';
 import { cn } from '@/lib/utils';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useCallback } from 'react';
+import { useDebounce } from '@uidotdev/usehooks';
+import { useSearchParams } from 'next/navigation';
+import { useQueryState } from 'nuqs';
 
 export const ExercisesClient = () => {
-  const router = useRouter();
   const searchParams = useSearchParams();
-  const pathName = usePathname();
+  const [searchQuery] = useQueryState('search');
+  const debouncedSearchQuery = useDebounce(searchQuery, 500);
 
   const page = Number(searchParams?.get('page')) || 1;
 
-  const { isLoading, exercises, error, refetch, isRefetching } = useExercises(9, page);
+  const { isLoading, exercises, error, refetch, isRefetching } = useExercises(
+    9,
+    page,
+    debouncedSearchQuery ?? undefined,
+  );
 
   useQueryErrorHandler(error, refetch);
 
-  const getSearchQuery = useCallback(
-    (query: string) => {
-      if (query) {
-        router.push(`/exercises?search=${query}`);
-      } else {
-        const url = `${pathName}?${searchParams}`;
-        router.push(url);
-      }
-    },
-    [router, pathName, searchParams],
-  );
-
-  if (isLoading || isRefetching) {
-    return <DataLoadingSkeleton />;
-  }
-
-  if (exercises && exercises.data.length === 0) {
-    return (
-      <div className='flex h-full w-full items-center justify-center'>
-        <h1 className='text-2xl font-bold text-gray-500'>No exercises found.</h1>
-      </div>
-    );
-  }
-
   return (
     <>
-      <SearchBar getQuery={getSearchQuery} />
-      <div className={cn('w-full lg:grid lg:grid-cols-2 2xl:grid-cols-3')}>
-        {exercises?.data.map((exercise: IExercise) => {
-          return (
-            <DescriptedCard
-              key={exercise.id_}
-              id={exercise.id_}
-              gif={exercise.gifUrl}
-              title={exercise.title}
-              blog={exercise.blog}
-            />
-          );
-        })}
-      </div>
+      <SearchBar />
+      {isLoading || isRefetching ? (
+        <DataLoadingSkeleton />
+      ) : (
+        <div className='h-full'>
+          {exercises && exercises.data.length > 0 ? (
+            <div className={cn('h-full w-full lg:grid lg:grid-cols-2 2xl:grid-cols-3')}>
+              {exercises?.data.map((exercise: IExercise) => (
+                <DescriptedCard
+                  key={exercise.id_}
+                  id={exercise.id_}
+                  gif={exercise.gifUrl}
+                  title={exercise.title}
+                  blog={exercise.blog}
+                />
+              ))}
+            </div>
+          ) : (
+            <h1 className='mt-20 text-center text-2xl font-bold text-amber-600 dark:text-pink-500'>
+              No exercises found.
+            </h1>
+          )}
+        </div>
+      )}
 
-      <PaginationProvidor currentPage={page} totalPages={exercises?.totalPages || 0} />
+      {exercises && exercises.data.length > 0 && (
+        <PaginationProvidor currentPage={page} totalPages={exercises.totalPages} />
+      )}
     </>
   );
 };

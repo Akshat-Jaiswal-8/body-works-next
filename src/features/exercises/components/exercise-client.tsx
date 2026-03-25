@@ -13,6 +13,7 @@ import { useExercise } from '@/features/exercises/services/use-get-exercise';
 import useDevice from '@/hooks/use-device';
 import { useQueryErrorHandler } from '@/hooks/use-query-error-handler';
 import { markdownToHtml } from '@/lib/markdown-to-html';
+import DOMPurify from 'dompurify';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
 
@@ -26,6 +27,8 @@ export default function ExerciseClient() {
 
   useQueryErrorHandler(error, refetch);
 
+  const sanitizedBlog = exercise?.blog ? DOMPurify.sanitize(exercise.blog) : null;
+
   if (isLoading || isRefetching) {
     return (
       <div className={'container mx-auto h-screen w-full pt-[calc(var(--navbar-height)+4rem)]'}>
@@ -36,6 +39,7 @@ export default function ExerciseClient() {
       </div>
     );
   }
+
   return (
     <section className='container'>
       {exercise && (
@@ -59,7 +63,7 @@ export default function ExerciseClient() {
                 className='mx-auto h-80 w-fit rounded-3xl drop-shadow-2xl sm:h-96 md:w-full'
                 height={1000}
                 width={1000}
-                quality={100}
+                quality={75}
                 unoptimized
               />
             </div>
@@ -140,12 +144,18 @@ export default function ExerciseClient() {
           )}
 
           <div className='mb-16 text-left'>
-            <div
-              className='markdown-content rounded-2xl border border-amber-700 p-4 text-amber-800 dark:border-gray-700 dark:text-gray-200'
-              dangerouslySetInnerHTML={{
-                __html: markdownToHtml(exercise?.blog),
-              }}
-            />
+            {sanitizedBlog ? (
+              <div
+                className='markdown-content rounded-2xl border border-amber-700 p-4 text-amber-800 dark:border-gray-700 dark:text-gray-200'
+                dangerouslySetInnerHTML={{
+                  __html: markdownToHtml(sanitizedBlog || ''),
+                }}
+              />
+            ) : (
+              <p className='text-center text-2xl text-amber-800 dark:text-gray-200'>
+                No additional information available for this exercise.
+              </p>
+            )}
           </div>
         </div>
       )}

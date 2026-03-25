@@ -178,7 +178,7 @@ export default function RootLayout({
       >
         <Providers>
           <Navbar />
-          <div className='mt-[var(--navbar-height)]'>{children}</div>
+          <main className='min-h-[calc(100vh-var(--navbar-height))]'>{children}</main>
           <Footer />
           <SpeedInsights />
           <Analytics />

@@ -1,3 +1,5 @@
+'use client';
+
 import {
   Pagination,
   PaginationContent,
@@ -7,15 +9,25 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from '@/components/ui/pagination';
+import { useSearchParams } from 'next/navigation';
 import { memo } from 'react';
 
 export const PaginationProvidor = memo(
   ({ currentPage, totalPages }: { currentPage: number; totalPages: number }) => {
+    const searchParams = useSearchParams();
     const blockSize = 3;
     const currentBlock = Math.floor((currentPage - 1) / blockSize);
     const startPage = currentBlock * blockSize + 1;
     const endPage = Math.min(startPage + blockSize - 1, totalPages);
     const pages = [];
+
+    const getHref = (page: number) => {
+      const params = new URLSearchParams(searchParams?.toString());
+      params.set('page', String(page));
+
+      return `?${params.toString()}`;
+    };
+
     for (let i = startPage; i <= endPage; i++) {
       pages.push(i);
     }
@@ -25,25 +37,14 @@ export const PaginationProvidor = memo(
         <PaginationContent>
           <PaginationItem>
             <PaginationPrevious
-              href={{
-                query: {
-                  page: `${startPage - blockSize > 0 ? startPage - blockSize : 1}`,
-                },
-              }}
+              href={getHref(startPage - blockSize > 0 ? startPage - blockSize : 1)}
               aria-disabled={startPage === 1}
               className={startPage === 1 ? 'pointer-events-none opacity-50' : 'cursor-pointer'}
             />
           </PaginationItem>
           {pages.map((page) => (
             <PaginationItem key={page}>
-              <PaginationLink
-                isActive={page === currentPage}
-                href={{
-                  query: {
-                    page,
-                  },
-                }}
-              >
+              <PaginationLink isActive={page === currentPage} href={getHref(page)}>
                 {page}
               </PaginationLink>
             </PaginationItem>
@@ -55,11 +56,7 @@ export const PaginationProvidor = memo(
           )}
           <PaginationItem>
             <PaginationNext
-              href={{
-                query: {
-                  page: `${endPage + 1 <= totalPages ? endPage + 1 : totalPages}`,
-                },
-              }}
+              href={getHref(endPage + 1 <= totalPages ? endPage + 1 : totalPages)}
               aria-disabled={endPage === totalPages}
               className={
                 endPage === totalPages ? 'pointer-events-none opacity-50' : 'cursor-pointer'
