@@ -6,14 +6,13 @@ import type { IExercise } from '@/features/exercises/types';
 
 export const generateStaticParams = async () => {
   const first = await getExercises(1000, 1);
-
-  const allExercises = [...first.data];
   const totalPages = first.totalPages ?? Math.ceil(first.totalExercises / 1000);
 
-  for (let page = 2; page <= totalPages; page++) {
-    const next = await getExercises(1000, page);
-    allExercises.push(...next.data);
-  }
+  const remainingPages = await Promise.all(
+    Array.from({ length: totalPages - 1 }, (_, i) => getExercises(1000, i + 2)),
+  );
+
+  const allExercises = [...first.data, ...remainingPages.flatMap((r) => r.data)];
 
   return allExercises.map((exercise) => ({
     'exercise-id': exercise.id_.toString(),
@@ -39,7 +38,7 @@ export const generateMetadata = async ({ params }: { params: Promise<Params> }) 
   try {
     exercise = await getExercise(exerciseId);
   } catch {
-   return {
+    return {
       title: 'Exercise Not Found',
       description: 'This exercise could not be found.',
     };

@@ -119,56 +119,62 @@ export default function RootLayout({
         />
         <meta name='theme-color' content='#d97706' media='(prefers-color-scheme: light)' />
         <meta name='theme-color' content='#000000' media='(prefers-color-scheme: dark)' />
+
         <script
           type='application/ld+json'
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               '@context': 'https://schema.org',
-              '@type': 'WebApplication',
-              name: 'BodyWorks',
-              description: 'Discover exercises, workout routines, and fitness guidance.',
-              url: siteUrl,
-              applicationCategory: 'HealthApplication',
-              operatingSystem: 'Web',
-              offers: {
-                '@type': 'Offer',
-                price: '0',
-                priceCurrency: 'USD',
-              },
-              creator: {
-                '@type': 'Person',
-                name: 'Akshat Jaiswal',
-              },
-              potentialAction: {
-                '@type': 'SearchAction',
-                target: 'https://bodyworks.akshatjaiswal.me/exercises?search={search_term_string}',
-                'query-input': 'required name=search_term_string',
-              },
-            }),
-          }}
-        />
-        <script
-          type='application/ld+json'
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              '@context': 'https://schema.org',
-              '@type': 'Organization',
-              name: 'BodyWorks',
-              url: siteUrl,
-              description: 'Fitness exercise guide and workout routine library.',
-              logo: {
-                '@type': 'ImageObject',
-                url: `${siteUrl}/logo.webp`,
-              },
-              contactPoint: {
-                '@type': 'ContactPoint',
-                contactType: 'Customer Support',
-                email: 'akshatjaiswal.official@gmail.com',
-              },
-              founder: {
-                '@type': 'Person',
-                name: 'Akshat Jaiswal',
-              },
+              '@graph': [
+                {
+                  '@type': 'WebSite',
+                  name: 'BodyWorks',
+                  alternateName: ['Body Works', 'BodyWorks Fitness'],
+                  url: 'https://bodyworks.akshatjaiswal.me',
+                  potentialAction: {
+                    '@type': 'SearchAction',
+                    target:
+                      'https://bodyworks.akshatjaiswal.me/exercises?search={search_term_string}',
+                    'query-input': 'required name=search_term_string',
+                  },
+                },
+                {
+                  '@type': 'WebApplication',
+                  name: 'BodyWorks',
+                  description: 'Discover exercises, workout routines, and fitness guidance.',
+                  url: siteUrl,
+                  applicationCategory: 'HealthApplication',
+                  operatingSystem: 'Web',
+                  offers: {
+                    '@type': 'Offer',
+                    price: '0',
+                    priceCurrency: 'USD',
+                  },
+                  creator: {
+                    '@type': 'Person',
+                    name: 'Akshat Jaiswal',
+                  },
+                },
+                {
+                  '@type': 'Organization',
+                  name: 'BodyWorks',
+                  url: siteUrl,
+                  description: 'Fitness exercise guide and workout routine library.',
+                  logo: {
+                    '@type': 'ImageObject',
+                    url: `${siteUrl}/logo.webp`,
+                  },
+                  contactPoint: {
+                    '@type': 'ContactPoint',
+                    contactType: 'Customer Support',
+                    email: 'akshatjaiswal.official@gmail.com',
+                  },
+                  founder: {
+                    '@type': 'Person',
+                    name: 'Akshat Jaiswal',
+                  },
+                },
+              ],
             }),
           }}
         />

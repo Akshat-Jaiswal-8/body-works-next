@@ -9,19 +9,17 @@ import type { IExercise } from '@/features/exercises/types';
 import { useQueryErrorHandler } from '@/hooks/use-query-error-handler';
 import { cn } from '@/lib/utils';
 import { useDebounce } from '@uidotdev/usehooks';
-import { useSearchParams } from 'next/navigation';
 import { useQueryState } from 'nuqs';
 
 export const ExercisesClient = () => {
-  const searchParams = useSearchParams();
+  const [page] = useQueryState('page', { defaultValue: '1' });
   const [searchQuery] = useQueryState('search');
   const debouncedSearchQuery = useDebounce(searchQuery, 500);
-
-  const page = Number(searchParams?.get('page')) || 1;
+  const pageNumber = Number(page) || 1;
 
   const { isLoading, exercises, error, refetch, isRefetching } = useExercises(
     9,
-    page,
+    pageNumber,
     debouncedSearchQuery ?? undefined,
   );
 
@@ -55,7 +53,7 @@ export const ExercisesClient = () => {
       )}
 
       {exercises && exercises.data.length > 0 && (
-        <PaginationProvidor currentPage={page} totalPages={exercises.totalPages} />
+        <PaginationProvidor currentPage={pageNumber} totalPages={exercises.totalPages} />
       )}
     </>
   );

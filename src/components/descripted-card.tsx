@@ -15,10 +15,13 @@ export const DescriptedCard = memo(({ gif, title, blog, id }: IDescriptedCardPro
   const index: number | undefined = match?.index;
 
   return (
-    <Link prefetch href={`/exercises/${id}`}>
-      <CardContainer className='font-poppins xs:max-w-[16rem] no-scrollbar min-h-fit sm:max-w-80 lg:max-w-70'>
-        <CardBody className='group/card scrollbar-hide relative mt-10 flex h-auto flex-col items-center justify-center space-y-6 overflow-hidden rounded-xl border border-black/20 bg-gray-50 p-6 shadow-lg shadow-amber-900 transition-all duration-300 hover:-translate-y-6 dark:border-gray-800 dark:bg-black dark:shadow-pink-500 dark:hover:shadow-2xl dark:hover:shadow-emerald-500/10'>
-          <CardItem translateZ='50' className='text-xl font-bold text-gray-800 dark:text-white'>
+    <Link prefetch href={`/exercises/${id}`} className='h-full'>
+      <CardContainer className='font-poppins xs:max-w-[16rem] no-scrollbar h-full min-h-fit sm:max-w-80 lg:max-w-70'>
+        <CardBody className='group/card scrollbar-hide relative mt-10 flex h-full flex-col items-center justify-center space-y-6 overflow-hidden rounded-xl border border-black/20 bg-gray-50 p-6 shadow-lg shadow-amber-900 transition-all duration-300 hover:-translate-y-6 dark:border-gray-800 dark:bg-black dark:shadow-pink-500 dark:hover:shadow-2xl dark:hover:shadow-emerald-500/10'>
+          <CardItem
+            translateZ='50'
+            className='line-clamp-1 text-xl font-bold text-gray-800 dark:text-white'
+          >
             {title}
           </CardItem>
           <CardItem translateZ='100' rotateX={20} rotateZ={-10} className='mt-4 w-full'>
