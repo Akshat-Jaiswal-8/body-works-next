@@ -21,7 +21,7 @@ export default function ExerciseClient() {
   const params = useParams();
   const exerciseId = params?.['exercise-id'] as string;
 
-  const { exercise, isLoading, refetch, error, isRefetching } = useExercise(exerciseId);
+  const { data: exercise, isLoading, refetch, error, isRefetching } = useExercise(exerciseId);
 
   const { isMobile } = useDevice();
 

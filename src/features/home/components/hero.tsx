@@ -22,9 +22,9 @@ const imageVariants = {
 
 export const Hero = memo((): React.ReactNode => {
   return (
-    <section className='flex flex-col items-center justify-center sm:mt-16'>
+    <section className='xs:mt-16 flex flex-col items-center justify-center'>
       <div className='flex h-full flex-col items-center justify-center md:flex-row'>
-        <div className='grid-cols-col-lg items-center justify-between gap-5 lg:grid'>
+        <div className='items-center justify-between gap-5 lg:grid lg:grid-cols-[58%_42%]'>
           <div>
             <motion.h1
               variants={headingVariants}

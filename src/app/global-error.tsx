@@ -1,6 +1,6 @@
 'use client';
 
-import { Footer } from '@/components/footer';
+import { Footer } from '@/components/shared/footer';
 import { Button } from '@/components/ui/button';
 import { AlertTriangle, Home, RefreshCw } from 'lucide-react';
 import Link from 'next/link';

@@ -1,9 +1,9 @@
 'use client';
 
-import { DataLoadingSkeleton } from '@/components/data-loading-skeleton';
-import { DescriptedCard } from '@/components/descripted-card';
-import { PaginationProvidor } from '@/components/pagination-providor';
-import { SearchBar } from '@/components/search-bar';
+import { DataLoadingSkeleton } from '@/components/shared/data-loading-skeleton';
+import { DescriptedCard } from '@/components/shared/descripted-card';
+import { PaginationProvider } from '@/components/shared/pagination-provider';
+import { SearchBar } from '@/components/shared/search-bar';
 import { useExercises } from '@/features/exercises/services/use-get-exercises';
 import type { IExercise } from '@/features/exercises/types';
 import { useQueryErrorHandler } from '@/hooks/use-query-error-handler';
@@ -17,11 +17,13 @@ export const ExercisesClient = () => {
   const debouncedSearchQuery = useDebounce(searchQuery, 500);
   const pageNumber = Number(page) || 1;
 
-  const { isLoading, exercises, error, refetch, isRefetching } = useExercises(
-    9,
-    pageNumber,
-    debouncedSearchQuery ?? undefined,
-  );
+  const {
+    isLoading,
+    data: exercises,
+    error,
+    refetch,
+    isRefetching,
+  } = useExercises(9, pageNumber, debouncedSearchQuery ?? undefined);
 
   useQueryErrorHandler(error, refetch);
 
@@ -53,7 +55,7 @@ export const ExercisesClient = () => {
       )}
 
       {exercises && exercises.data.length > 0 && (
-        <PaginationProvidor currentPage={pageNumber} totalPages={exercises.totalPages} />
+        <PaginationProvider currentPage={pageNumber} totalPages={exercises.totalPages} />
       )}
     </>
   );

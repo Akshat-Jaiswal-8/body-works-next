@@ -1,14 +1,14 @@
-import { Footer } from '@/components/footer';
-import { Navbar } from '@/components/navbar';
+import { Footer } from '@/components/shared/footer';
+import { Navbar } from '@/components/shared/navbar';
 import { Toaster } from '@/components/ui/sonner';
 import { siteUrl } from '@/constants';
+import Providers from '@/providers/app-providers';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { Metadata } from 'next';
 import { Montserrat, Poppins, Urbanist } from 'next/font/google';
 import React from 'react';
 import './globals.css';
-import Providers from './providor';
 
 const urbanist = Urbanist({
   subsets: ['latin'],

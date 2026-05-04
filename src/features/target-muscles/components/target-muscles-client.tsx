@@ -1,11 +1,11 @@
 'use client';
 
-import { withTaxonomyCardsClient } from '@/components/with-taxonomy-cards-client';
-import useTargetMuscles from '@/features/target-muscles/services/use-get-target-muscles';
+import { withTaxonomyCardsClient } from '@/components/shared/with-taxonomy-cards-client';
+import { useTargetMuscles } from '@/features/target-muscles/services/use-get-target-muscles';
 import type { ITargetMuscle } from '@/features/target-muscles/types';
 
 const useTargetMusclesData = () => {
-  const { isLoading, targetMuscle, error, refetch, isRefetching } = useTargetMuscles();
+  const { isLoading, data: targetMuscle, error, refetch, isRefetching } = useTargetMuscles();
 
   return {
     items: targetMuscle?.data,

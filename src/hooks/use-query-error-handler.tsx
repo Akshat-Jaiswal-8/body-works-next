@@ -1,12 +1,12 @@
-import { useErrorHandler } from '@/lib/error-utils';
+import { useError } from '@/hooks/use-error';
 import { useEffect } from 'react';
 
 type RefetchFn = () => void | Promise<unknown>;
 
-export function useQueryErrorHandler(error: Error | null, refetch?: RefetchFn) {
-  const { handleError } = useErrorHandler();
+export function useQueryErrorHandler(error: unknown, refetch?: RefetchFn) {
+  const { handleQueryError } = useError();
 
   useEffect(() => {
-    if (error) handleError(error, refetch);
-  }, [error, refetch, handleError]);
+    if (error) handleQueryError(error, refetch);
+  }, [error, refetch, handleQueryError]);
 }

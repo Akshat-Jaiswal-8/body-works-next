@@ -1,8 +1,8 @@
 'use client';
 
+import { WorkoutSummaryTable } from '@/components/shared/workout-summary-table';
 import { Skeleton } from '@/components/ui/skeleton';
-import { WorkoutSummaryTable } from '@/components/workout-summary-table';
-import useRoutine from '@/features/routines/services/use-get-routine';
+import { useRoutine } from '@/features/routines/services/use-get-routine';
 import { useQueryErrorHandler } from '@/hooks/use-query-error-handler';
 import { markdownToHtml } from '@/lib/markdown-to-html';
 import Image from 'next/image';
@@ -12,7 +12,13 @@ import { useParams } from 'next/navigation';
 export default function RoutineClient() {
   const params = useParams();
   const routineId = params?.routine as string;
-  const { isLoading, routine, error, refetch, isRefetching } = useRoutine({
+  const {
+    isLoading,
+    data: routine,
+    error,
+    refetch,
+    isRefetching,
+  } = useRoutine({
     routineId,
   });
 

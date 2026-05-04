@@ -3,10 +3,11 @@
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useBodyParts } from '@/features/body-parts/services/use-get-body-parts';
-import useEquipments from '@/features/equipments/services/use-get-equipments';
+import { useEquipments } from '@/features/equipments/services/use-get-equipments';
+
 import { useExercises } from '@/features/exercises/services/use-get-exercises';
-import useRoutines from '@/features/routines/services/use-get-routines';
-import useTargetMuscles from '@/features/target-muscles/services/use-get-target-muscles';
+import { useRoutines } from '@/features/routines/services/use-get-routines';
+import { useTargetMuscles } from '@/features/target-muscles/services/use-get-target-muscles';
 import type { Easing } from 'motion/react';
 import { motion } from 'motion/react';
 import React from 'react';
@@ -17,27 +18,27 @@ export const Features = React.memo((): React.ReactNode => {
   const itemsCount = 3;
 
   const {
-    exercises,
+    data: exercises,
     isLoading: exercisesLoading,
     refetch: refetchExercises,
   } = useExercises(itemsCount);
   const {
-    bodyParts,
+    data: bodyParts,
     isLoading: bodyPartsLoading,
     refetch: refetchBodyParts,
   } = useBodyParts(itemsCount);
   const {
-    equipments,
+    data: equipments,
     isLoading: equipmentsLoading,
     refetch: refetchEquipments,
   } = useEquipments(itemsCount);
   const {
-    targetMuscle,
+    data: targetMuscle,
     isLoading: targetMuscleLoading,
     refetch: refetchTargetMuscle,
   } = useTargetMuscles(itemsCount);
   const {
-    routines,
+    data: routines,
     isLoading: routinesLoading,
     refetch: refetchRoutines,
   } = useRoutines(itemsCount);

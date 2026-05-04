@@ -1,5 +1,5 @@
 import type { IRoutinesResponse } from '@/features/routines/types';
-import { apiCaller } from '@/lib/api-caller';
+import { publicApiCaller } from '@/lib/api-caller';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
 export type IRoutinesFilters = {
@@ -48,7 +48,7 @@ export const getRoutines = async (
     }
   }
 
-  const routines = await apiCaller.get<IRoutinesResponse>('routines', {
+  const routines = await publicApiCaller.get<IRoutinesResponse>('routines', {
     params,
   });
 
@@ -56,18 +56,9 @@ export const getRoutines = async (
 };
 
 export const useRoutines = (limit: number, page: number = 1, filters?: IRoutinesFilters) => {
-  const {
-    isLoading,
-    data: routines,
-    error,
-    refetch,
-    isRefetching,
-  } = useQuery({
+  return useQuery({
     queryKey: routinesQueryKey(limit, page, filters),
     queryFn: () => getRoutines(limit, page, filters),
     placeholderData: keepPreviousData,
   });
-  return { isLoading, routines, error, refetch, isRefetching };
 };
-
-export default useRoutines;

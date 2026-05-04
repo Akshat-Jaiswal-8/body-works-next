@@ -1,5 +1,5 @@
 import type { IExerciseData } from '@/features/exercises/types';
-import { apiCaller } from '@/lib/api-caller';
+import { publicApiCaller } from '@/lib/api-caller';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
 export const bodyPartExercisesQueryKey = (
@@ -13,7 +13,7 @@ export const getBodyPartExercises = async (
   limit: number,
   page: number,
 ): Promise<IExerciseData> => {
-  const bodypart = await apiCaller.get<IExerciseData>('exercises', {
+  const bodypart = await publicApiCaller.get<IExerciseData>('exercises', {
     params: {
       bodyPart,
       limit,
@@ -25,16 +25,9 @@ export const getBodyPartExercises = async (
 };
 
 export const useBodyPart = (bodypart: string | undefined, limit: number, page: number) => {
-  const {
-    isLoading,
-    data: bodyPart,
-    error,
-    refetch,
-    isRefetching,
-  } = useQuery({
+  return useQuery({
     queryKey: bodyPartExercisesQueryKey(bodypart, limit, page),
     queryFn: () => getBodyPartExercises(bodypart, limit, page),
     placeholderData: keepPreviousData,
   });
-  return { isLoading, bodyPart, error, refetch, isRefetching };
 };

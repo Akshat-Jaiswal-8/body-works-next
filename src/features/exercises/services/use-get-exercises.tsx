@@ -1,5 +1,5 @@
 import type { IExerciseData } from '@/features/exercises/types';
-import { apiCaller } from '@/lib/api-caller';
+import { publicApiCaller } from '@/lib/api-caller';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
 export const exercisesQueryKey = (limit: number, page: number, search?: string) => [
@@ -14,7 +14,7 @@ export const getExercises = async (
   page: number,
   search?: string,
 ): Promise<IExerciseData> => {
-  const exercises = await apiCaller.get<IExerciseData>(`/exercises`, {
+  const exercises = await publicApiCaller.get<IExerciseData>(`/exercises`, {
     params: {
       limit,
       page,
@@ -25,16 +25,9 @@ export const getExercises = async (
 };
 
 export const useExercises = (limit: number = 9, page: number = 1, search?: string) => {
-  const {
-    isLoading,
-    data: exercises,
-    error,
-    refetch,
-    isRefetching,
-  } = useQuery({
+  return useQuery({
     queryKey: exercisesQueryKey(limit, page, search),
     queryFn: () => getExercises(limit, page, search),
     placeholderData: keepPreviousData,
   });
-  return { isLoading, exercises, error, refetch, isRefetching };
 };

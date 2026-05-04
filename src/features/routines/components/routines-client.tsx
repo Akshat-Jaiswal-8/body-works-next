@@ -1,12 +1,12 @@
 'use client';
 
-import { DataLoadingSkeleton } from '@/components/data-loading-skeleton';
-import { FilterSection, type FilterConfig } from '@/components/filter-section';
-import { PaginationProvidor } from '@/components/pagination-providor';
-import { RoutineCard } from '@/components/routine-card';
-import { SearchBar } from '@/components/search-bar';
+import { DataLoadingSkeleton } from '@/components/shared/data-loading-skeleton';
+import { FilterSection, type FilterConfig } from '@/components/shared/filter-section';
+import { PaginationProvider } from '@/components/shared/pagination-provider';
+import { RoutineCard } from '@/components/shared/routine-card';
+import { SearchBar } from '@/components/shared/search-bar';
 import { PAGE_LIMIT, PAGE_SIZE } from '@/constants';
-import useRoutines, { type IRoutinesFilters } from '@/features/routines/services/use-get-routines';
+import { useRoutines, type IRoutinesFilters } from '@/features/routines/services/use-get-routines';
 import {
   useRoutinesFilter,
   type IRoutineFilterName,
@@ -77,24 +77,24 @@ function RoutinesContent(): React.ReactNode {
 
   const routinesFilterData = useMemo(
     () => ({
-      main_goal: toFilterOptions(mainGoalFilter.routineFilter),
-      workout_type: toFilterOptions(workoutTypeFilter.routineFilter),
-      level: toFilterOptions(levelFilter.routineFilter),
-      duration: toFilterOptions(durationFilter.routineFilter),
-      days_per_week: toFilterOptions(daysPerWeekFilter.routineFilter),
-      equipment: toFilterOptions(equipmentFilter.routineFilter),
-      gender: toFilterOptions(genderFilter.routineFilter),
-      category: toFilterOptions(categoryFilter.routineFilter),
+      main_goal: toFilterOptions(mainGoalFilter.data),
+      workout_type: toFilterOptions(workoutTypeFilter.data),
+      level: toFilterOptions(levelFilter.data),
+      duration: toFilterOptions(durationFilter.data),
+      days_per_week: toFilterOptions(daysPerWeekFilter.data),
+      equipment: toFilterOptions(equipmentFilter.data),
+      gender: toFilterOptions(genderFilter.data),
+      category: toFilterOptions(categoryFilter.data),
     }),
     [
-      mainGoalFilter.routineFilter,
-      workoutTypeFilter.routineFilter,
-      levelFilter.routineFilter,
-      durationFilter.routineFilter,
-      daysPerWeekFilter.routineFilter,
-      equipmentFilter.routineFilter,
-      genderFilter.routineFilter,
-      categoryFilter.routineFilter,
+      mainGoalFilter.data,
+      workoutTypeFilter.data,
+      levelFilter.data,
+      durationFilter.data,
+      daysPerWeekFilter.data,
+      equipmentFilter.data,
+      genderFilter.data,
+      categoryFilter.data,
     ],
   );
 
@@ -108,11 +108,13 @@ function RoutinesContent(): React.ReactNode {
     genderFilter.isLoading ||
     categoryFilter.isLoading;
 
-  const { isLoading, routines, error, refetch, isRefetching } = useRoutines(
-    PAGE_LIMIT,
-    page,
-    queryFilters,
-  );
+  const {
+    isLoading,
+    data: routines,
+    error,
+    refetch,
+    isRefetching,
+  } = useRoutines(PAGE_LIMIT, page, queryFilters);
 
   useQueryErrorHandler(error, refetch);
 
@@ -183,7 +185,7 @@ function RoutinesContent(): React.ReactNode {
         </div>
       )}
 
-      <PaginationProvidor currentPage={page} totalPages={routines?.totalPages || 0} />
+      <PaginationProvider currentPage={page} totalPages={routines?.totalPages || 0} />
     </section>
   );
 }

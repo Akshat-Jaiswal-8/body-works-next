@@ -1,11 +1,11 @@
 'use client';
 
-import { withTaxonomyCardsClient } from '@/components/with-taxonomy-cards-client';
-import useEquipments from '@/features/equipments/services/use-get-equipments';
+import { withTaxonomyCardsClient } from '@/components/shared/with-taxonomy-cards-client';
+import { useEquipments } from '@/features/equipments/services/use-get-equipments';
 import type { IEquipment } from '@/features/equipments/types';
 
 const useEquipmentsData = () => {
-  const { equipments, isLoading, error, refetch, isRefetching } = useEquipments();
+  const { data: equipments, isLoading, error, refetch, isRefetching } = useEquipments();
 
   return {
     items: equipments?.data,

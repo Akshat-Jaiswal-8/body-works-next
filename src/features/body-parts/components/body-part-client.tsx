@@ -1,16 +1,10 @@
 'use client';
 
-import { withFilteredExercisesClient } from '@/components/with-filtered-exercises-client';
+import { withFilteredExercisesClient } from '@/components/shared/with-filtered-exercises-client';
 import { useBodyPart } from '@/features/body-parts/services/use-get-body-part';
 
 const useBodyPartExercises = (bodyPart: string | undefined, limit: number, page: number) => {
-  const {
-    isLoading,
-    bodyPart: data,
-    error,
-    refetch,
-    isRefetching,
-  } = useBodyPart(bodyPart, limit, page);
+  const { isLoading, data, error, refetch, isRefetching } = useBodyPart(bodyPart, limit, page);
 
   return {
     data,
