@@ -1,3 +1,4 @@
+import { AUTH_ACCESS_TOKEN_KEY } from '@/features/auth/constants';
 import { useAuthStore } from '@/features/auth/store/use-auth-store';
 import axios, { AxiosInstance, InternalAxiosRequestConfig } from 'axios';
 import Cookies from 'js-cookie';
@@ -41,6 +42,18 @@ type RetriableRequestConfig = InternalAxiosRequestConfig & {
   _retry?: boolean;
 };
 
+const setAuthorizationHeader = (
+  config: InternalAxiosRequestConfig,
+  accessToken: string | undefined,
+) => {
+  if (accessToken) {
+    config.headers.set('Authorization', `Bearer ${accessToken}`);
+    return;
+  }
+
+  config.headers.delete('Authorization');
+};
+
 export const createPrivateApi = ({ baseURL }: ApiConfig): AxiosInstance => {
   if (!baseURL) {
     throw new Error('API baseURL is required');
@@ -49,9 +62,6 @@ export const createPrivateApi = ({ baseURL }: ApiConfig): AxiosInstance => {
   const instance = axios.create({
     baseURL,
     withCredentials: true,
-    headers: {
-      Authorization: `Bearer ${Cookies.get('accessToken')}`,
-    },
   });
 
   let refreshRequestPromise: Promise<void> | null = null;
@@ -80,8 +90,11 @@ export const createPrivateApi = ({ baseURL }: ApiConfig): AxiosInstance => {
       const { cookies } = await import('next/headers');
       const cookieStore = await cookies();
       config.headers.set('Cookie', cookieStore.toString());
+      setAuthorizationHeader(config, cookieStore.get(AUTH_ACCESS_TOKEN_KEY)?.value);
+      return config;
     }
 
+    setAuthorizationHeader(config, Cookies.get(AUTH_ACCESS_TOKEN_KEY));
     return config;
   });
 
@@ -94,7 +107,7 @@ export const createPrivateApi = ({ baseURL }: ApiConfig): AxiosInstance => {
 
       if (
         !originalRequest ||
-        error.response?.status !== 401 ||
+        ![401, 403].includes(error.response?.status) ||
         originalRequest._retry ||
         isRefreshRequest
       ) {
