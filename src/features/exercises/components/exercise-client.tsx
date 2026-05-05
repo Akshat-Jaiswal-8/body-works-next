@@ -31,7 +31,7 @@ export default function ExerciseClient() {
 
   if (isLoading || isRefetching) {
     return (
-      <div className={'container mx-auto h-screen w-full pt-[calc(var(--navbar-height)+4rem)]'}>
+      <div className={'container mx-auto h-screen w-full'}>
         <div className={'my-10'}>
           <Skeleton className={'h-20 w-1/2'} />
           <Skeleton className={'mt-10 min-h-[60vh] w-full'} />

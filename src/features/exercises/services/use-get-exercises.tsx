@@ -6,7 +6,7 @@ export const exercisesQueryKey = (limit: number, page: number, search?: string) 
   'exercises',
   limit,
   page,
-  search,
+  ...(search != null ? [search] : []),
 ];
 
 export const getExercises = async (

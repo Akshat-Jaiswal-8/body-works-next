@@ -1,8 +1,8 @@
 'use client';
 
-import { DataLoadingSkeleton } from '@/components/shared/data-loading-skeleton';
 import { DescriptedCard } from '@/components/shared/descripted-card';
 import { PaginationProvider } from '@/components/shared/pagination-provider';
+import { PaginationSkeleton } from '@/components/shared/pagination-skeleton';
 import { SearchBar } from '@/components/shared/search-bar';
 import { useExercises } from '@/features/exercises/services/use-get-exercises';
 import type { IExercise } from '@/features/exercises/types';
@@ -23,39 +23,40 @@ export const ExercisesClient = () => {
     error,
     refetch,
     isRefetching,
-  } = useExercises(9, pageNumber, debouncedSearchQuery ?? undefined);
+  } = useExercises(9, pageNumber, debouncedSearchQuery || undefined);
 
   useQueryErrorHandler(error, refetch);
 
   return (
     <>
       <SearchBar />
-      {isLoading || isRefetching ? (
-        <DataLoadingSkeleton />
-      ) : (
-        <div className='h-full'>
-          {exercises && exercises.data.length > 0 ? (
-            <div className={cn('h-full w-full lg:grid lg:grid-cols-2 2xl:grid-cols-3')}>
-              {exercises?.data.map((exercise: IExercise) => (
-                <DescriptedCard
-                  key={exercise.id_}
-                  id={exercise.id_}
-                  gif={exercise.gifUrl}
-                  title={exercise.title}
-                  blog={exercise.blog}
-                />
-              ))}
-            </div>
-          ) : (
-            <h1 className='mt-20 text-center text-2xl font-bold text-amber-600 dark:text-pink-500'>
-              No exercises found.
-            </h1>
-          )}
-        </div>
-      )}
+      <div className='h-full'>
+        {exercises && exercises.data.length > 0 ? (
+          <div className={cn('h-full w-full md:grid md:grid-cols-2 lg:grid-cols-3')}>
+            {exercises?.data.map((exercise: IExercise) => (
+              <DescriptedCard
+                key={exercise.id_}
+                id={exercise.id_}
+                gif={exercise.gifUrl}
+                title={exercise.title}
+                blog={exercise.blog}
+              />
+            ))}
+          </div>
+        ) : (
+          <h1 className='mt-20 text-center text-2xl font-bold text-amber-600 dark:text-pink-500'>
+            No exercises found.
+          </h1>
+        )}
+      </div>
 
-      {exercises && exercises.data.length > 0 && (
-        <PaginationProvider currentPage={pageNumber} totalPages={exercises.totalPages} />
+      {isLoading || isRefetching ? (
+        <PaginationSkeleton />
+      ) : (
+        exercises &&
+        exercises.data.length > 0 && (
+          <PaginationProvider currentPage={pageNumber} totalPages={exercises.totalPages} />
+        )
       )}
     </>
   );
