@@ -15,7 +15,7 @@ export const Footer = memo((): React.ReactNode => {
 
   return (
     <>
-      <section className='h-[3rem]'>
+      <section className='h-footer-height'>
         {isMobile && (
           <div className={'fixed right-0 bottom-5'}>
             <MobileFooterNavbar />

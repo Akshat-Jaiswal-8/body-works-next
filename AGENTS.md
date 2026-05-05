@@ -19,6 +19,7 @@ strategies outlined in `docs/architecture.md`.
 6. **SEO**: Implement static/dynamic metadata, update `robots.ts` and `sitemap.ts` when adding new
    public routes, and use semantic HTML.
 7. **Naming Conventions**: Use `kebab-case` for all files and directories.
+8. Always use bun instead of npm or yarn for package management and scripts.
 
 If in doubt about where to place a file or how to structure a component, read `docs/architecture.md`
 for comprehensive guidelines.

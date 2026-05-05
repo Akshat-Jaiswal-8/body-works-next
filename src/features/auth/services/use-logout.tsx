@@ -1,7 +1,7 @@
+import { authQueryKeys } from '@/features/auth/services/use-login';
 import { useAuthStore } from '@/features/auth/store/use-auth-store';
 import { privateApiCaller } from '@/lib/api-caller';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { authQueryKeys } from './use-login';
 
 export const logoutUser = async (): Promise<void> => {
   await privateApiCaller.post('auth/logout');

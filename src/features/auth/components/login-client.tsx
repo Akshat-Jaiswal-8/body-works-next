@@ -2,6 +2,7 @@
 
 import { FormError } from '@/components/shared/form-error';
 import { Button } from '@/components/ui/button';
+import { ButtonWithLoader } from '@/components/ui/button-with-loader';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
 import {
@@ -12,26 +13,16 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
+import { InputWithIcon } from '@/components/ui/input-with-icon';
 import { BrandHeader } from '@/features/auth/components/brand-header';
+import type { LoginFormValues } from '@/features/auth/lib/login-form-schema';
+import { loginFormSchema } from '@/features/auth/lib/login-form-schema';
 import { useLogin } from '@/features/auth/services/use-login';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { ArrowRight, Loader2, Lock, Mail } from 'lucide-react';
+import { ArrowRight, Lock, Mail } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-
-const inputClass =
-  'border-black/20 bg-gray-50 pl-10 text-amber-900 placeholder:text-amber-600/40 focus-visible:border-amber-600 focus-visible:ring-amber-400/40 dark:border-gray-800 dark:bg-black dark:text-white dark:placeholder:text-gray-600 dark:focus-visible:border-pink-400 dark:focus-visible:ring-pink-400/30';
-
-const loginSchema = z.object({
-  email: z.email('Please enter a valid email address'),
-  password: z.string().min(1, 'Password is required'),
-  rememberMe: z.boolean().optional(),
-});
-
-type LoginFormValues = z.infer<typeof loginSchema>;
 
 export default function LoginClient() {
   const router = useRouter();
@@ -41,7 +32,7 @@ export default function LoginClient() {
   const postLoginRedirectPath = searchParams.get('next') || '/dashboard';
 
   const form = useForm<LoginFormValues>({
-    resolver: zodResolver(loginSchema),
+    resolver: zodResolver(loginFormSchema),
     defaultValues: {
       email: '',
       password: '',
@@ -61,16 +52,14 @@ export default function LoginClient() {
   };
 
   return (
-    <section className='h-screen-height flex w-full items-center justify-center'>
-      <Card className='flex w-full max-w-md'>
+    <section className='h-screen-height mt-navbar-height flex w-full justify-center py-8'>
+      <Card className='flex h-fit w-full max-w-md'>
         <CardHeader>
           <BrandHeader tagline='Welcome back. Ready to train?' />
         </CardHeader>
 
         <CardContent>
-          {error && (
-            <FormError error={error} fallbackMessage='Registration failed. Please try again.' />
-          )}
+          {error && <FormError error={error} fallbackMessage='Login failed. Please try again.' />}
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-5'>
               <FormField
@@ -82,15 +71,12 @@ export default function LoginClient() {
                       Email address
                     </FormLabel>
                     <FormControl>
-                      <div className='relative'>
-                        <Mail className='absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-amber-600/50 dark:text-pink-500' />
-                        <Input
-                          type='email'
-                          placeholder='you@example.com'
-                          {...field}
-                          className={inputClass}
-                        />
-                      </div>
+                      <InputWithIcon
+                        type='email'
+                        placeholder='you@example.com'
+                        icon={Mail}
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage className='text-xs text-red-600 dark:text-red-400' />
                   </FormItem>
@@ -106,15 +92,12 @@ export default function LoginClient() {
                       Password
                     </FormLabel>
                     <FormControl>
-                      <div className='relative'>
-                        <Lock className='absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-amber-600/50 dark:text-pink-500' />
-                        <Input
-                          type='password'
-                          placeholder='*********'
-                          {...field}
-                          className={inputClass}
-                        />
-                      </div>
+                      <InputWithIcon
+                        type='password'
+                        placeholder='*********'
+                        icon={Lock}
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage className='text-xs text-red-600 dark:text-red-400' />
                   </FormItem>
@@ -140,23 +123,17 @@ export default function LoginClient() {
                 )}
               />
 
-              <Button
+              <ButtonWithLoader
                 type='submit'
                 disabled={isPending}
+                isPending={isPending}
+                text={
+                  <>
+                    Sign In <ArrowRight className='ml-2 h-4 w-4' />
+                  </>
+                }
                 className='w-full bg-amber-700 py-3.5 text-base font-medium text-white shadow-sm transition-all hover:bg-amber-800 active:scale-[0.98] dark:bg-pink-700 dark:hover:bg-pink-800'
-              >
-                {isPending ? (
-                  <>
-                    <Loader2 className='mr-2 h-4 w-4 animate-spin' />
-                    Signing in...
-                  </>
-                ) : (
-                  <>
-                    Sign In
-                    <ArrowRight className='ml-2 h-4 w-4' />
-                  </>
-                )}
-              </Button>
+              />
             </form>
           </Form>
 

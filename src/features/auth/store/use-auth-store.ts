@@ -6,7 +6,7 @@ interface AuthState {
   user: IUser | null;
   isAuthenticated: boolean;
   setSession: (user: IUser) => void;
-  updateUser: (user: IUser) => void;
+  updateUser: (userPatch: IUser) => void;
   clearSession: () => void;
 }
 
@@ -20,7 +20,8 @@ export const useAuthStore = create<AuthState>()(
           user,
           isAuthenticated: true,
         }),
-      updateUser: (user) => set({ user }),
+      updateUser: (userPatch: IUser) =>
+        set((state) => ({ user: { ...(state.user ?? {}), ...userPatch } })),
       clearSession: () =>
         set({
           user: null,

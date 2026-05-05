@@ -42,8 +42,9 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-  --navbar-height: var(--navbar-height);
-  --spacing-screen-height: calc(100vh - var(--navbar-height));
+  --spacing-footer-height: 3rem;
+  --spacing-navbar-height: var(--navbar-height);
+  --spacing-screen-height: calc(100vh - var(--navbar-height) - var(--spacing-footer-height));
 }
 
 @theme {

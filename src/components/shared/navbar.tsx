@@ -1,22 +1,25 @@
 'use client';
 
 import { ModeToggle } from '@/components/shared/mode-toggle';
-import { useAuthStore } from '@/features/auth/store/use-auth-store';
-import useDevice from '@/hooks/use-device';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
+import { useAuthStore } from '@/features/auth/store/use-auth-store';
+import useDevice from '@/hooks/use-device';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import React from 'react';
 import logo from '../../../public/logo.webp';
 
 const DesktopNavigationMenu = dynamic(
-  () => import('@/components/shared/desktop-navigation-menu').then((mod) => mod.DesktopNavigationMenu),
+  () =>
+    import('@/components/shared/desktop-navigation-menu').then((mod) => mod.DesktopNavigationMenu),
   { ssr: false },
 );
 
 export const Navbar = React.memo(() => {
+  const router = useRouter();
   const { isMobile, customQuery: showLogoText } = useDevice('only screen and (max-width : 540px)');
 
   const user = useAuthStore((state) => state.user);
@@ -44,7 +47,13 @@ export const Navbar = React.memo(() => {
 
         <div className='flex gap-2 focus:outline-hidden'>
           {isAuthenticated ? (
-            <Avatar>
+            <Avatar
+              role='button'
+              onClick={() => {
+                router.push('/profile');
+              }}
+              className='border-input size-9 cursor-pointer border'
+            >
               <AvatarImage />
               <AvatarFallback>{user?.name.charAt(0).toUpperCase()}</AvatarFallback>
             </Avatar>

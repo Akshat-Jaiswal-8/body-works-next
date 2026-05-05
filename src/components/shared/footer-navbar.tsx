@@ -1,4 +1,4 @@
-import { exerciseNavItems, routineNavItems } from '@/components/shared/navbar-data';
+import { authNavItems, exerciseNavItems, routineNavItems } from '@/components/shared/navbar-data';
 import { FloatingDock } from '@/components/ui/floating-dock';
 import { Home } from 'lucide-react';
 import React, { memo } from 'react';
@@ -7,6 +7,7 @@ export const FooterNavbar = memo((): React.ReactNode => {
   const footerNavItems = [
     ...exerciseNavItems,
     ...routineNavItems,
+    ...authNavItems,
     { title: 'Home', icon: <Home />, href: '/' },
   ];
   return (

@@ -89,7 +89,6 @@ export const createPrivateApi = ({ baseURL }: ApiConfig): AxiosInstance => {
     (response) => response,
     async (error) => {
       const originalRequest = error.config as RetriableRequestConfig | undefined;
-
       const requestUrl = String(originalRequest?.url || '');
       const isRefreshRequest = requestUrl.includes('auth/refresh-token');
 

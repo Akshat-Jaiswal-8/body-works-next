@@ -285,11 +285,59 @@ export { Button, buttonVariants };
 - `cn()` from `tailwind-merge` + `clsx` for safe class merging
 - Both component and `buttonVariants` are exported
 
+### G. ButtonWithLoader
+
+When a button's content depends on a pending state (e.g., mutations), use `ButtonWithLoader` instead
+of manually inlining a loading spinner. It accepts all `Button` props plus a `text` ReactNode shown
+when not pending and an `isPending` flag that replaces the content with a spinning `Loader` icon.
+
+```tsx
+// src/components/ui/button-with-loader.tsx
+import { Loader } from 'lucide-react';
+import { memo } from 'react';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
+
+export type ButtonWithLoaderProps = React.ComponentProps<typeof Button> & {
+  text: React.ReactNode;
+  isPending?: boolean;
+  loaderClassName?: string;
+  loaderSize?: number;
+};
+
+export const ButtonWithLoader = memo(
+  ({ text, isPending, loaderClassName, loaderSize, ...props }: ButtonWithLoaderProps) => {
+    return (
+      <Button {...props}>
+        {isPending ? (
+          <Loader size={loaderSize ?? 24} className={cn('animate-spin', loaderClassName)} />
+        ) : (
+          text
+        )}
+      </Button>
+    );
+  },
+);
+
+ButtonWithLoader.displayName = 'ButtonWithLoader';
+```
+
+Usage:
+```tsx
+<ButtonWithLoader
+  type='submit'
+  disabled={isPending}
+  isPending={isPending}
+  text={<>Sign In <ArrowRight className='ml-2 h-4 w-4' /></>}
+  className='w-full'
+/>
+```
+
 ### Full list of UI primitives
 
-`3d-card`, `accordion`, `avatar`, `badge`, `box-reveal`, `button`, `card`, `carousel`, `checkbox`,
-`drawer`, `dropdown-menu`, `floating-dock`, `form`, `infinite-moving-cards`, `input`, `label`,
-`navigation-menu`, `pagination`, `progress`, `select`, `skeleton`, `sonner`, `tooltip`
+`3d-card`, `accordion`, `avatar`, `badge`, `box-reveal`, `button`, `button-with-loader`, `card`,
+`carousel`, `checkbox`, `drawer`, `dropdown-menu`, `floating-dock`, `form`, `infinite-moving-cards`,
+`input`, `label`, `navigation-menu`, `pagination`, `progress`, `select`, `skeleton`, `sonner`, `tooltip`
 
 ### B. Shared Components (`src/components/shared/`)
 

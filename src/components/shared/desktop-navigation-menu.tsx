@@ -1,6 +1,6 @@
 'use client';
 
-import { exerciseNavItems, routineNavItems } from '@/components/shared/navbar-data';
+import { authNavItems, exerciseNavItems, routineNavItems } from '@/components/shared/navbar-data';
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -9,11 +9,15 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from '@/components/ui/navigation-menu';
-import { CalendarCheck2, Dumbbell } from 'lucide-react';
+import { CalendarCheck2, Dumbbell, UserCircle } from 'lucide-react';
 import Link from 'next/link';
 import { memo } from 'react';
 
+import { useAuthStore } from '@/features/auth/store/use-auth-store';
+
 export const DesktopNavigationMenu = memo(() => {
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+
   return (
     <NavigationMenu>
       <NavigationMenuList className='flex items-center gap-x-4'>
@@ -78,6 +82,39 @@ export const DesktopNavigationMenu = memo(() => {
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
+
+        {isAuthenticated && (
+          <NavigationMenuItem>
+            <NavigationMenuTrigger className='bg-transparent hover:bg-transparent focus:bg-transparent data-[active]:bg-transparent data-[state=open]:bg-transparent'>
+              <div className='flex items-center gap-x-2'>
+                <UserCircle className='h-4 w-4' />
+                Account
+              </div>
+            </NavigationMenuTrigger>
+            <NavigationMenuContent>
+              <ul className='grid w-[400px] gap-3 p-4'>
+                {authNavItems.map((item) => (
+                  <li key={item.title}>
+                    <NavigationMenuLink asChild>
+                      <Link
+                        href={item.href}
+                        className='hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground block space-y-1 rounded-md p-3 leading-none no-underline transition-colors outline-none select-none'
+                      >
+                        <div className='flex items-center gap-2 text-sm leading-none font-medium'>
+                          {item.icon}
+                          {item.title}
+                        </div>
+                        <p className='text-muted-foreground line-clamp-2 text-sm leading-snug'>
+                          {item.description}
+                        </p>
+                      </Link>
+                    </NavigationMenuLink>
+                  </li>
+                ))}
+              </ul>
+            </NavigationMenuContent>
+          </NavigationMenuItem>
+        )}
       </NavigationMenuList>
     </NavigationMenu>
   );

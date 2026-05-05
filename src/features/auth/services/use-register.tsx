@@ -1,9 +1,9 @@
+import { authQueryKeys } from '@/features/auth/services/use-login';
 import { useAuthStore } from '@/features/auth/store/use-auth-store';
 import type { IAuthUser, IRegisterCredentials } from '@/features/auth/types';
 import { publicApiCaller } from '@/lib/api-caller';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Cookies from 'js-cookie';
-import { authQueryKeys } from './use-login';
 
 export const registerUser = async (credentials: IRegisterCredentials): Promise<IAuthUser> => {
   const response = await publicApiCaller.post<{ data: IAuthUser }>('auth/register', credentials);
@@ -12,12 +12,14 @@ export const registerUser = async (credentials: IRegisterCredentials): Promise<I
 
 export const useRegister = () => {
   const queryClient = useQueryClient();
+  const setSession = useAuthStore((state) => state.setSession);
 
   return useMutation({
     mutationFn: registerUser,
     onSuccess: async (user) => {
-      useAuthStore.getState().setSession(user);
-      Cookies.set('accessToken', user.accessToken, { expires: 7 });
+      const { accessToken, ...userWithoutToken } = user;
+      setSession(userWithoutToken);
+      Cookies.set('accessToken', accessToken, { expires: 7, secure: true, sameSite: 'Lax' });
       await queryClient.invalidateQueries({ queryKey: authQueryKeys.all });
     },
   });

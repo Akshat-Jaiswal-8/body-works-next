@@ -2,10 +2,11 @@ export interface IUser {
   id: string;
   name: string;
   email: string;
-  accessToken: string;
 }
 
-export type IAuthUser = IUser;
+export interface IAuthUser extends IUser {
+  accessToken: string;
+}
 
 export interface ILoginCredentials {
   email: string;

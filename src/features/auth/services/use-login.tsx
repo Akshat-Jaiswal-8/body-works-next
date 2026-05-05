@@ -15,12 +15,14 @@ export const loginUser = async (credentials: ILoginCredentials): Promise<IAuthUs
 
 export const useLogin = () => {
   const queryClient = useQueryClient();
+  const setSession = useAuthStore((state) => state.setSession);
 
   return useMutation({
     mutationFn: loginUser,
     onSuccess: async (user) => {
-      useAuthStore.getState().setSession(user);
-      Cookies.set('accessToken', user.accessToken, { expires: 7 });
+      const { accessToken, ...userWithoutToken } = user;
+      setSession(userWithoutToken);
+      Cookies.set('accessToken', accessToken, { expires: 7, secure: true, sameSite: 'Lax' });
       await queryClient.invalidateQueries({ queryKey: authQueryKeys.all });
     },
   });

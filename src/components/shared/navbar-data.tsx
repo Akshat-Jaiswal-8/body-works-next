@@ -1,4 +1,13 @@
-import { BicepsFlexed, CalendarCheck2, Dumbbell, PersonStanding, Zap } from 'lucide-react';
+import {
+  BicepsFlexed,
+  CalendarCheck2,
+  Dumbbell,
+  LayoutDashboard,
+  LineChart,
+  PersonStanding,
+  UserCircle,
+  Zap,
+} from 'lucide-react';
 import type React from 'react';
 
 export interface NavItemProps {
@@ -47,5 +56,26 @@ export const routineNavItems: NavItemProps[] = [
     icon: <CalendarCheck2 className='h-4 w-4' />,
     href: '/routine-category',
     description: 'Browse routines by categories like strength, cardio, and more.',
+  },
+];
+
+export const authNavItems: NavItemProps[] = [
+  {
+    title: 'Dashboard',
+    icon: <LayoutDashboard className='h-4 w-4' />,
+    href: '/dashboard',
+    description: 'View your fitness stats, BMI, and workout goals.',
+  },
+  {
+    title: 'Profile',
+    icon: <UserCircle className='h-4 w-4' />,
+    href: '/profile',
+    description: 'Manage your account settings and preferences.',
+  },
+  {
+    title: 'Tracker',
+    icon: <LineChart className='h-4 w-4' />,
+    href: '/tracker',
+    description: 'Track your body stats like weight and body fat over time.',
   },
 ];
