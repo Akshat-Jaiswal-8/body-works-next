@@ -1,11 +1,11 @@
 'use client';
 
-import { withTaxonomyCardsClient } from '@/components/with-taxonomy-cards-client';
+import { withTaxonomyCardsClient } from '@/components/shared/with-taxonomy-cards-client';
 import { useBodyParts } from '@/features/body-parts/services/use-get-body-parts';
 import type { IBodyPart } from '@/features/body-parts/types';
 
 const useBodyPartsData = () => {
-  const { isLoading, bodyParts, error, isRefetching, refetch } = useBodyParts();
+  const { isLoading, data: bodyParts, error, isRefetching, refetch } = useBodyParts();
 
   return {
     items: bodyParts?.data,

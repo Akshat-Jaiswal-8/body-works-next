@@ -1,8 +1,8 @@
 'use client';
 
-import { DescriptedCard } from '@/components/descripted-card';
-import { Card } from '@/components/exercise-card';
-import { RoutineCard } from '@/components/routine-card';
+import { DescriptedCard } from '@/components/shared/descripted-card';
+import { Card } from '@/components/shared/exercise-card';
+import { RoutineCard } from '@/components/shared/routine-card';
 import type { IBodyPart } from '@/features/body-parts/types';
 import type { IEquipment } from '@/features/equipments/types';
 import type { IExercise } from '@/features/exercises/types';

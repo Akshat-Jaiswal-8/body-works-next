@@ -8,6 +8,12 @@ const withBundleAnalyzer = bundleAnalyzer({
 
 const nextConfig: NextConfig = {
   devIndicators: false,
+  rewrites: async () => [
+    {
+      source: '/api/:path*',
+      destination: `${process.env.API_URL || 'http://localhost:8000/api/v1'}/:path*`,
+    },
+  ],
   images: {
     remotePatterns: [new URL('https://d2ppnttncjw8dy.cloudfront.net/assets/**')],
     formats: ['image/webp', 'image/avif'],

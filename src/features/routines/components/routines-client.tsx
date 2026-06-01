@@ -1,12 +1,13 @@
 'use client';
 
-import { DataLoadingSkeleton } from '@/components/data-loading-skeleton';
-import { FilterSection, type FilterConfig } from '@/components/filter-section';
-import { PaginationProvidor } from '@/components/pagination-providor';
-import { RoutineCard } from '@/components/routine-card';
-import { SearchBar } from '@/components/search-bar';
+import { FilterSection, type FilterConfig } from '@/components/shared/filter-section';
+import { RoutineCardSkeleton, RoutinesSkeleton } from '@/components/shared/page-skeletons';
+import { PaginationProvider } from '@/components/shared/pagination-provider';
+import { PaginationSkeleton } from '@/components/shared/pagination-skeleton';
+import { RoutineCard } from '@/components/shared/routine-card';
+import { SearchBar } from '@/components/shared/search-bar';
 import { PAGE_LIMIT, PAGE_SIZE } from '@/constants';
-import useRoutines, { type IRoutinesFilters } from '@/features/routines/services/use-get-routines';
+import { useRoutines, type IRoutinesFilters } from '@/features/routines/services/use-get-routines';
 import {
   useRoutinesFilter,
   type IRoutineFilterName,
@@ -77,24 +78,24 @@ function RoutinesContent(): React.ReactNode {
 
   const routinesFilterData = useMemo(
     () => ({
-      main_goal: toFilterOptions(mainGoalFilter.routineFilter),
-      workout_type: toFilterOptions(workoutTypeFilter.routineFilter),
-      level: toFilterOptions(levelFilter.routineFilter),
-      duration: toFilterOptions(durationFilter.routineFilter),
-      days_per_week: toFilterOptions(daysPerWeekFilter.routineFilter),
-      equipment: toFilterOptions(equipmentFilter.routineFilter),
-      gender: toFilterOptions(genderFilter.routineFilter),
-      category: toFilterOptions(categoryFilter.routineFilter),
+      main_goal: toFilterOptions(mainGoalFilter.data),
+      workout_type: toFilterOptions(workoutTypeFilter.data),
+      level: toFilterOptions(levelFilter.data),
+      duration: toFilterOptions(durationFilter.data),
+      days_per_week: toFilterOptions(daysPerWeekFilter.data),
+      equipment: toFilterOptions(equipmentFilter.data),
+      gender: toFilterOptions(genderFilter.data),
+      category: toFilterOptions(categoryFilter.data),
     }),
     [
-      mainGoalFilter.routineFilter,
-      workoutTypeFilter.routineFilter,
-      levelFilter.routineFilter,
-      durationFilter.routineFilter,
-      daysPerWeekFilter.routineFilter,
-      equipmentFilter.routineFilter,
-      genderFilter.routineFilter,
-      categoryFilter.routineFilter,
+      mainGoalFilter.data,
+      workoutTypeFilter.data,
+      levelFilter.data,
+      durationFilter.data,
+      daysPerWeekFilter.data,
+      equipmentFilter.data,
+      genderFilter.data,
+      categoryFilter.data,
     ],
   );
 
@@ -108,11 +109,13 @@ function RoutinesContent(): React.ReactNode {
     genderFilter.isLoading ||
     categoryFilter.isLoading;
 
-  const { isLoading, routines, error, refetch, isRefetching } = useRoutines(
-    PAGE_LIMIT,
-    page,
-    queryFilters,
-  );
+  const {
+    isLoading,
+    data: routines,
+    error,
+    refetch,
+    isRefetching,
+  } = useRoutines(PAGE_LIMIT, page, queryFilters);
 
   useQueryErrorHandler(error, refetch);
 
@@ -142,8 +145,7 @@ function RoutinesContent(): React.ReactNode {
     setPage(PAGE_SIZE, { history: 'replace' });
   }, [setFilters, setPage]);
 
-  if (isLoading) return <DataLoadingSkeleton />;
-  if (isFiltersLoading) return <DataLoadingSkeleton />;
+  if (isLoading || isFiltersLoading) return <RoutinesSkeleton />;
 
   const filterSections: FilterConfig<FilterKey>[] = routinesFilterConfig.map((filter) => ({
     key: filter.key,
@@ -161,36 +163,48 @@ function RoutinesContent(): React.ReactNode {
         onChange={onFilterChange}
         onReset={clearAllFilters}
       />
-      {isRefetching && <DataLoadingSkeleton />}
-      <div className={'w-full lg:grid lg:grid-cols-2 2xl:grid-cols-3'}>
-        {routines?.data.map((eachroutine: IRoutine) => {
-          return (
-            <Link key={eachroutine.id_} href={`/routines/${eachroutine.id_}`}>
-              <RoutineCard
-                key={eachroutine.id_}
-                routine_title={eachroutine.routine.routine_title}
-                routine_description={eachroutine.routine.routine_description}
-                routine_imageUrl={eachroutine.routine.routine_imageUrl}
-              />
-            </Link>
-          );
-        })}
-      </div>
+      {isRefetching ? (
+        <>
+          <div className='w-full lg:grid lg:grid-cols-2 2xl:grid-cols-3'>
+            {Array.from({ length: 6 }).map((_, i) => (
+              <RoutineCardSkeleton key={i} />
+            ))}
+          </div>
+          <PaginationSkeleton />
+        </>
+      ) : (
+        <>
+          <div className='w-full lg:grid lg:grid-cols-2 2xl:grid-cols-3'>
+            {routines?.data.map((eachroutine: IRoutine) => {
+              return (
+                <Link key={eachroutine.id_} href={`/routines/${eachroutine.id_}`}>
+                  <RoutineCard
+                    key={eachroutine.id_}
+                    routine_title={eachroutine.routine.routine_title}
+                    routine_description={eachroutine.routine.routine_description}
+                    routine_imageUrl={eachroutine.routine.routine_imageUrl}
+                  />
+                </Link>
+              );
+            })}
+          </div>
 
-      {routines && routines.data.length === 0 && (
-        <div className='flex h-full w-full items-center justify-center'>
-          <h1 className='text-2xl font-bold text-gray-500'>No routines found.</h1>
-        </div>
+          {routines && routines.data.length === 0 && (
+            <div className='flex h-full w-full items-center justify-center'>
+              <h1 className='text-2xl font-bold text-gray-500'>No routines found.</h1>
+            </div>
+          )}
+
+          <PaginationProvider currentPage={page} totalPages={routines?.totalPages || 0} />
+        </>
       )}
-
-      <PaginationProvidor currentPage={page} totalPages={routines?.totalPages || 0} />
     </section>
   );
 }
 
 export default function RoutinesClient(): React.ReactNode {
   return (
-    <Suspense fallback={<DataLoadingSkeleton />}>
+    <Suspense fallback={<RoutinesSkeleton />}>
       <RoutinesContent />
     </Suspense>
   );

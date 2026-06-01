@@ -1,6 +1,6 @@
 'use client';
 
-import { withFilteredExercisesClient } from '@/components/with-filtered-exercises-client';
+import { withFilteredExercisesClient } from '@/components/shared/with-filtered-exercises-client';
 import { useTargetMuscle } from '@/features/target-muscles/services/use-get-target-muscle';
 
 const useTargetMuscleExercises = (
@@ -8,13 +8,11 @@ const useTargetMuscleExercises = (
   limit: number,
   page: number,
 ) => {
-  const {
-    targetMuscle: data,
-    isLoading,
-    error,
-    refetch,
-    isRefetching,
-  } = useTargetMuscle(targetMuscle, limit, page);
+  const { data, isLoading, error, refetch, isRefetching } = useTargetMuscle(
+    targetMuscle,
+    limit,
+    page,
+  );
 
   return {
     data,

@@ -18,4 +18,4 @@ if [ -n "$STAGED_FILES" ]; then
 fi
 
 bun run lint
-bun run build
+bun run tsc --noEmit

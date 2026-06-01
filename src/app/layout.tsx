@@ -1,14 +1,14 @@
-import { Footer } from '@/components/footer';
-import { Navbar } from '@/components/navbar';
+import { Footer } from '@/components/shared/footer';
+import { Navbar } from '@/components/shared/navbar';
 import { Toaster } from '@/components/ui/sonner';
 import { siteUrl } from '@/constants';
+import Providers from '@/providers/app-providers';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { Metadata } from 'next';
 import { Montserrat, Poppins, Urbanist } from 'next/font/google';
 import React from 'react';
 import './globals.css';
-import Providers from './providor';
 
 const urbanist = Urbanist({
   subsets: ['latin'],
@@ -119,56 +119,62 @@ export default function RootLayout({
         />
         <meta name='theme-color' content='#d97706' media='(prefers-color-scheme: light)' />
         <meta name='theme-color' content='#000000' media='(prefers-color-scheme: dark)' />
+
         <script
           type='application/ld+json'
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               '@context': 'https://schema.org',
-              '@type': 'WebApplication',
-              name: 'BodyWorks',
-              description: 'Discover exercises, workout routines, and fitness guidance.',
-              url: siteUrl,
-              applicationCategory: 'HealthApplication',
-              operatingSystem: 'Web',
-              offers: {
-                '@type': 'Offer',
-                price: '0',
-                priceCurrency: 'USD',
-              },
-              creator: {
-                '@type': 'Person',
-                name: 'Akshat Jaiswal',
-              },
-              potentialAction: {
-                '@type': 'SearchAction',
-                target: 'https://bodyworks.akshatjaiswal.me/exercises?search={search_term_string}',
-                'query-input': 'required name=search_term_string',
-              },
-            }),
-          }}
-        />
-        <script
-          type='application/ld+json'
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              '@context': 'https://schema.org',
-              '@type': 'Organization',
-              name: 'BodyWorks',
-              url: siteUrl,
-              description: 'Fitness exercise guide and workout routine library.',
-              logo: {
-                '@type': 'ImageObject',
-                url: `${siteUrl}/logo.webp`,
-              },
-              contactPoint: {
-                '@type': 'ContactPoint',
-                contactType: 'Customer Support',
-                email: 'akshatjaiswal.official@gmail.com',
-              },
-              founder: {
-                '@type': 'Person',
-                name: 'Akshat Jaiswal',
-              },
+              '@graph': [
+                {
+                  '@type': 'WebSite',
+                  name: 'BodyWorks',
+                  alternateName: ['Body Works', 'BodyWorks Fitness'],
+                  url: 'https://bodyworks.akshatjaiswal.me',
+                  potentialAction: {
+                    '@type': 'SearchAction',
+                    target:
+                      'https://bodyworks.akshatjaiswal.me/exercises?search={search_term_string}',
+                    'query-input': 'required name=search_term_string',
+                  },
+                },
+                {
+                  '@type': 'WebApplication',
+                  name: 'BodyWorks',
+                  description: 'Discover exercises, workout routines, and fitness guidance.',
+                  url: siteUrl,
+                  applicationCategory: 'HealthApplication',
+                  operatingSystem: 'Web',
+                  offers: {
+                    '@type': 'Offer',
+                    price: '0',
+                    priceCurrency: 'USD',
+                  },
+                  creator: {
+                    '@type': 'Person',
+                    name: 'Akshat Jaiswal',
+                  },
+                },
+                {
+                  '@type': 'Organization',
+                  name: 'BodyWorks',
+                  url: siteUrl,
+                  description: 'Fitness exercise guide and workout routine library.',
+                  logo: {
+                    '@type': 'ImageObject',
+                    url: `${siteUrl}/logo.webp`,
+                  },
+                  contactPoint: {
+                    '@type': 'ContactPoint',
+                    contactType: 'Customer Support',
+                    email: 'akshatjaiswal.official@gmail.com',
+                  },
+                  founder: {
+                    '@type': 'Person',
+                    name: 'Akshat Jaiswal',
+                  },
+                },
+              ],
             }),
           }}
         />
@@ -178,7 +184,7 @@ export default function RootLayout({
       >
         <Providers>
           <Navbar />
-          <main className='min-h-[calc(100vh-var(--navbar-height))]'>{children}</main>
+          <main className='container min-h-[calc(100vh-var(--navbar-height))]'>{children}</main>
           <Footer />
           <SpeedInsights />
           <Analytics />

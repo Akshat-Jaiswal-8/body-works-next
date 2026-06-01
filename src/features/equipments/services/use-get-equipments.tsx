@@ -1,11 +1,11 @@
 import type { IEquipmentData } from '@/features/equipments/types';
-import { apiCaller } from '@/lib/api-caller';
+import { publicApiCaller } from '@/lib/api-caller';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
 export const equipmentsQueryKey = (limit?: number) => ['equipments', limit] as const;
 
 export const getEquipments = async (limit?: number): Promise<IEquipmentData> => {
-  const equipments = await apiCaller.get<IEquipmentData>('equipments', {
+  const equipments = await publicApiCaller.get<IEquipmentData>('equipments', {
     params: {
       limit,
     },
@@ -13,19 +13,10 @@ export const getEquipments = async (limit?: number): Promise<IEquipmentData> => 
   return equipments.data;
 };
 
-const useEquipments = (limit?: number) => {
-  const {
-    isLoading,
-    data: equipments,
-    error,
-    refetch,
-    isRefetching,
-  } = useQuery({
+export const useEquipments = (limit?: number) => {
+  return useQuery({
     queryKey: equipmentsQueryKey(limit),
     queryFn: () => getEquipments(limit),
     placeholderData: keepPreviousData,
   });
-  return { isLoading, equipments, error, refetch, isRefetching };
 };
-
-export default useEquipments;

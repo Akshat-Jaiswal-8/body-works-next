@@ -1,8 +1,8 @@
 'use client';
 
+import { WorkoutSummaryTable } from '@/components/shared/workout-summary-table';
 import { Skeleton } from '@/components/ui/skeleton';
-import { WorkoutSummaryTable } from '@/components/workout-summary-table';
-import useRoutine from '@/features/routines/services/use-get-routine';
+import { useRoutine } from '@/features/routines/services/use-get-routine';
 import { useQueryErrorHandler } from '@/hooks/use-query-error-handler';
 import { markdownToHtml } from '@/lib/markdown-to-html';
 import Image from 'next/image';
@@ -12,7 +12,13 @@ import { useParams } from 'next/navigation';
 export default function RoutineClient() {
   const params = useParams();
   const routineId = params?.routine as string;
-  const { isLoading, routine, error, refetch, isRefetching } = useRoutine({
+  const {
+    isLoading,
+    data: routine,
+    error,
+    refetch,
+    isRefetching,
+  } = useRoutine({
     routineId,
   });
 
@@ -20,10 +26,29 @@ export default function RoutineClient() {
 
   if (isLoading || isRefetching)
     return (
-      <div className={'container mx-auto h-screen w-full pt-[calc(var(--navbar-height)+4rem)]'}>
-        <div className={'my-10'}>
-          <Skeleton className={'h-20 w-1/2'} />
-          <Skeleton className={'mt-10 min-h-[60vh] w-full'} />
+      <div className='relative mt-10 h-full min-h-screen w-full overflow-x-hidden'>
+        <div className='mt-16 grid justify-center gap-5 lg:grid-cols-2'>
+          <div className='col-span-1 border-t border-b border-double border-black/10 py-10 dark:border-gray-800'>
+            <div className='flex flex-col gap-4'>
+              <Skeleton className='h-10 w-3/4 rounded-md' />
+              <Skeleton className='h-6 w-full rounded-md' />
+              <Skeleton className='h-6 w-5/6 rounded-md' />
+            </div>
+          </div>
+          <Skeleton className='h-80 w-full rounded-3xl' />
+        </div>
+        <div className='mt-10 flex gap-4 overflow-x-auto'>
+          {[...Array(4)].map((_, i) => (
+            <Skeleton key={i} className='h-8 w-24 shrink-0 rounded-md' />
+          ))}
+        </div>
+        <Skeleton className='mt-12 h-8 w-48 rounded-md' />
+        <Skeleton className='mt-6 h-64 w-full rounded-2xl' />
+        <Skeleton className='mt-12 h-8 w-48 rounded-md' />
+        <div className='mt-6 space-y-4'>
+          {[...Array(3)].map((_, i) => (
+            <Skeleton key={i} className='h-40 w-full rounded-2xl' />
+          ))}
         </div>
       </div>
     );
@@ -31,7 +56,7 @@ export default function RoutineClient() {
   {
     return (
       routine && (
-        <div className={'relative container mt-10 h-full min-h-screen w-full overflow-x-hidden'}>
+        <div className={'relative mt-10 h-full min-h-screen w-full overflow-x-hidden'}>
           <div className='mt-16 grid justify-center gap-5 md:mb-12 lg:mb-28 lg:grid-cols-2'>
             <div className='xs:py-6 col-span-1 gap-16 border-t border-b border-double border-amber-900 md:py-12 dark:border-pink-500'>
               <div className='flex flex-col md:gap-4 lg:gap-8'>

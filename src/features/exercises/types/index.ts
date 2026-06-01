@@ -23,3 +23,17 @@ export interface IExerciseData {
 export interface IExerciseResponse {
   data: IExercise;
 }
+
+export interface IExerciseFilterItem {
+  title: string;
+  exerciseCount: number;
+  imageUrl: string;
+}
+
+export type IExerciseFilterName = 'equipment' | 'target' | 'bodyPart';
+
+export interface IExerciseFilterResponse {
+  data: IExerciseFilterItem[];
+  totalPages: number;
+  count: number;
+}

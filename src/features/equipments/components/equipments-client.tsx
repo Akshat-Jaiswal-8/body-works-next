@@ -1,11 +1,11 @@
 'use client';
 
-import { withTaxonomyCardsClient } from '@/components/with-taxonomy-cards-client';
-import useEquipments from '@/features/equipments/services/use-get-equipments';
+import { withTaxonomyCardsClient } from '@/components/shared/with-taxonomy-cards-client';
+import { useEquipments } from '@/features/equipments/services/use-get-equipments';
 import type { IEquipment } from '@/features/equipments/types';
 
 const useEquipmentsData = () => {
-  const { equipments, isLoading, error, refetch, isRefetching } = useEquipments();
+  const { data: equipments, isLoading, error, refetch, isRefetching } = useEquipments();
 
   return {
     items: equipments?.data,
@@ -22,7 +22,7 @@ const EquipmentsClient = withTaxonomyCardsClient<IEquipment>({
   getName: (item) => item.equipment,
   getImage: (item) => item.imageUrl,
   path: 'equipments',
-  wrapperClassName: 'no-scrollbar container w-full overflow-y-scroll pb-4',
+  wrapperClassName: 'no-scrollbar w-full overflow-y-scroll pb-4',
   gridClassName: 'lg:grid lg:grid-cols-2 2xl:grid-cols-3',
 });
 

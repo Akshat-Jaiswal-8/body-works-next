@@ -12,7 +12,7 @@ const Faq = dynamic(() => import('@/features/home/components/faq').then((mod) =>
 const Home = (): React.ReactNode => {
   return (
     <motion.div
-      className='container mb-[7rem] space-y-28 pb-0!'
+      className='mb-[7rem] space-y-28 pb-0!'
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >

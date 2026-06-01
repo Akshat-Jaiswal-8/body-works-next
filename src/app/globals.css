@@ -1,5 +1,5 @@
-@import "tailwindcss";
-@import "tw-animate-css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -42,37 +42,16 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-  --navbar-height: var(--navbar-height);
+  --spacing-footer-height: 3rem;
+  --spacing-navbar-height: var(--navbar-height);
+  --spacing-screen-height: calc(100vh - var(--navbar-height) - var(--spacing-footer-height));
 }
 
 @theme {
   --breakpoint-xs: 320px;
   --breakpoint-smd: 425px;
-
-  --grid-cols-col-lg: 58% 42%;
-
   --animation-duration: 40s;
   --animation-direction: forwards;
-}
-
-@utility grid-cols-col-lg {
-  grid-template-columns: 58% 42%;
-}
-
-@utility h-120 {
-  height: 30rem;
-}
-
-@utility h-140 {
-  height: 35rem;
-}
-
-@utility animate-bounce-right {
-  animation: bounce-right 1s infinite;
-}
-
-@utility animate-spin-fast {
-  animation: spin 300ms linear infinite;
 }
 
 @utility animate-accordion-down {
@@ -84,8 +63,8 @@
 }
 
 @utility animate-scroll {
-  animation: scroll var(--animation-duration, 40s)
-    var(--animation-direction, forwards) linear infinite;
+  animation: scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear
+    infinite;
 }
 
 @utility custom-scrollbar {
@@ -104,13 +83,13 @@
   @apply p-4;
 
   & h1 {
-    @apply bg-linear-to-tr from-amber-800 to-amber-500 bg-clip-text font-extrabold text-transparent dark:from-pink-400 dark:to-violet-700 text-3xl;
+    @apply bg-linear-to-tr from-amber-800 to-amber-500 bg-clip-text text-3xl font-extrabold text-transparent dark:from-pink-400 dark:to-violet-700;
   }
   & h2 {
-    @apply mb-2 font-bold text-amber-800 dark:text-white text-xl md:text-2xl;
+    @apply mb-2 text-xl font-bold text-amber-800 md:text-2xl dark:text-white;
   }
   & p {
-    @apply p-2 font-normal text-amber-700 dark:text-gray-200 text-sm md:text-base;
+    @apply p-2 text-sm font-normal text-amber-700 md:text-base dark:text-gray-200;
   }
 }
 
@@ -119,17 +98,17 @@
     @apply w-full;
   }
   & p {
-    @apply border-amber-900 font-montserrat font-semibold text-amber-700 dark:border-gray-600 dark:text-gray-200 text-base xl:text-xl;
+    @apply font-montserrat border-amber-900 text-base font-semibold text-amber-700 xl:text-xl dark:border-gray-600 dark:text-gray-200;
   }
   & th:not(:last-child),
   & td:not(:last-child) {
-    @apply my-auto items-center border-r border-t border-dashed border-amber-900 py-2 text-left dark:border-gray-700 px-1.5 sm:px-4;
+    @apply my-auto items-center border-t border-r border-dashed border-amber-900 px-1.5 py-2 text-left sm:px-4 dark:border-gray-700;
   }
   & th:last-child {
-    @apply my-auto items-center rounded-tr-2xl border-t border-dashed border-amber-900 py-2 text-left dark:border-gray-700 px-1.5 sm:px-4;
+    @apply my-auto items-center rounded-tr-2xl border-t border-dashed border-amber-900 px-1.5 py-2 text-left sm:px-4 dark:border-gray-700;
   }
   & tr:last-child {
-    @apply rounded-bl-2xl rounded-br-2xl border-b border-dashed border-amber-900 dark:border-gray-700;
+    @apply rounded-br-2xl rounded-bl-2xl border-b border-dashed border-amber-900 dark:border-gray-700;
   }
   & td:last-child {
     @apply border-t border-dashed border-amber-900 px-4 py-4 text-left dark:border-gray-700;
@@ -166,14 +145,22 @@
 }
 
 @utility container {
-  padding: 1.5rem;
-  margin: 0 auto;
+  padding-inline: 1rem;
+  margin-inline: auto;
+  max-width: 80rem;
+
+  @media (width >= 40rem) {
+    padding-inline: 1.5rem;
+  }
+
+  @media (width >= 64rem) {
+    padding-inline: 2rem;
+  }
 }
 
 :root {
   --navbar-height: 4rem;
   --radius: 0.625rem;
-
   --bg-card-light-primary-color: #f9b572;
   --border-light-primary-color: #772f1a;
   --bg-light-secondary-color: #f7efe5;
