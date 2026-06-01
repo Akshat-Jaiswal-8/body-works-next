@@ -31,10 +31,10 @@ export const HistoryRow = memo(({ entry, index }: HistoryRowProps) => {
         {entry.weightKg} kg
       </span>
       <span className='font-montserrat text-sm text-amber-800 dark:text-gray-300'>
-        {entry.bmi ? entry.bmi : '-'}
+        {entry.bmi ?? '-'}
       </span>
       <span className='font-montserrat text-sm text-amber-800 dark:text-gray-300'>
-        {entry.bodyFatPct ? `${entry.bodyFatPct}%` : '-'}
+        {entry.bodyFatPct ?? '-'}
       </span>
       <span className={cn('font-montserrat text-sm font-medium', colorClass)}>{assessment}</span>
     </div>
