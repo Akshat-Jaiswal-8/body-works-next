@@ -5,7 +5,7 @@ export const assessmentClasses: Record<string, string> = {
 };
 
 export const getBodyFatAssessment = (bodyFatPct: number | null) => {
-  if (!bodyFatPct) return { label: '-', colorClass: '' };
+  if (bodyFatPct == null) return { label: '-', colorClass: '' };
   if (bodyFatPct < 16) return { label: 'Excellent', colorClass: assessmentClasses.Excellent };
   if (bodyFatPct < 20) return { label: 'Standard', colorClass: assessmentClasses.Standard };
   return { label: 'Monitor', colorClass: assessmentClasses.Monitor };
