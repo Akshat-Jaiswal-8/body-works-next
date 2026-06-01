@@ -31,17 +31,36 @@ export default function ExerciseClient() {
 
   if (isLoading || isRefetching) {
     return (
-      <div className={'container mx-auto h-screen w-full'}>
-        <div className={'my-10'}>
-          <Skeleton className={'h-20 w-1/2'} />
-          <Skeleton className={'mt-10 min-h-[60vh] w-full'} />
+      <section>
+        <div className='h-full w-full space-y-20 sm:space-y-40'>
+          <div className='mt-16 justify-center gap-5 lg:grid lg:grid-cols-2'>
+            <div className='col-span-1 border-t border-b border-double border-black/10 py-10 dark:border-gray-800'>
+              <div className='flex flex-col gap-6'>
+                <Skeleton className='h-10 w-3/4 rounded-md' />
+                {[...Array(4)].map((_, i) => (
+                  <div key={i} className='space-y-2'>
+                    <Skeleton className='h-4 w-24 rounded-md' />
+                    <Skeleton className='h-5 w-40 rounded-md' />
+                  </div>
+                ))}
+              </div>
+            </div>
+            <Skeleton className='mx-auto h-80 w-full rounded-3xl sm:h-96' />
+          </div>
+          <div className='space-y-6'>
+            <Skeleton className='h-8 w-48 rounded-md' />
+            <Skeleton className='h-[24rem] w-full rounded-2xl' />
+          </div>
+          <div className='mb-16'>
+            <Skeleton className='h-48 w-full rounded-2xl' />
+          </div>
         </div>
-      </div>
+      </section>
     );
   }
 
   return (
-    <section className='container'>
+    <section>
       {exercise && (
         <div className={'h-full w-full space-y-20 sm:space-y-40'}>
           <div className='mt-16 justify-center gap-5 lg:grid lg:grid-cols-2'>

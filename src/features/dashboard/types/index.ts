@@ -9,17 +9,6 @@ export interface IDashboardStats {
   bmi: number;
   bmiStatus: string;
   currentGoal: string;
-  goalProgress: number;
-  goalTarget: string;
-  goalWeeksLeft: number;
-  insights: IScanInsight[];
-}
-
-export interface IScanInsight {
-  label: string;
-  value: string;
-  status: string;
-  statusColor: 'success' | 'warning' | 'error' | 'info';
 }
 
 export interface IDashboardData {

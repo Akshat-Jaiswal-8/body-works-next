@@ -1,10 +1,14 @@
-import { siteUrl } from '@/constants';
+import { PAGE_LIMIT, siteUrl } from '@/constants';
 import { ExercisesClient } from '@/features/exercises/components/exercises-client';
-import { exercisesQueryKey, getExercises } from '@/features/exercises/services/use-get-exercises';
+import {
+  exercisesQueryKey,
+  getExercises,
+  type IExercisesFilters,
+} from '@/features/exercises/services/use-get-exercises';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import { Metadata } from 'next';
 
-type SearchParams = {
+type SearchParams = IExercisesFilters & {
   page?: string;
 };
 
@@ -18,17 +22,23 @@ export const metadata: Metadata = {
 
 const ExercisesPage = async ({ searchParams }: { searchParams: Promise<SearchParams> }) => {
   const queryClient = new QueryClient();
-  const { page } = await searchParams;
-  const pageNumber = Number(page) || 1;
+  const params = await searchParams;
+  const pageNumber = Number(params?.page) || 1;
+  const filters: IExercisesFilters = {
+    search: params?.search,
+    equipment: params?.equipment,
+    target: params?.target,
+    bodyPart: params?.bodyPart,
+  };
 
   await queryClient.prefetchQuery({
-    queryKey: exercisesQueryKey(9, pageNumber),
-    queryFn: () => getExercises(9, pageNumber),
+    queryKey: exercisesQueryKey(PAGE_LIMIT, pageNumber, filters),
+    queryFn: () => getExercises(PAGE_LIMIT, pageNumber, filters),
   });
 
   await queryClient.prefetchQuery({
-    queryKey: exercisesQueryKey(9, pageNumber + 1),
-    queryFn: () => getExercises(9, pageNumber + 1),
+    queryKey: exercisesQueryKey(PAGE_LIMIT, pageNumber + 1, filters),
+    queryFn: () => getExercises(PAGE_LIMIT, pageNumber + 1, filters),
   });
 
   return (

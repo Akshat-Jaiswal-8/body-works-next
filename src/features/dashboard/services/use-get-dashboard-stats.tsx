@@ -61,14 +61,6 @@ export const getDashboardStats = async (): Promise<IDashboardStats> => {
     bmi,
     bmiStatus,
     currentGoal,
-    goalProgress: 65, // TODO: compute from actual data when available
-    goalTarget: '+2kg Muscle', // TODO: make dynamic
-    goalWeeksLeft: 4, // TODO: make dynamic
-    insights: [
-      { label: 'Muscle Mass', value: '35.2 kg', status: 'Excellent', statusColor: 'success' },
-      { label: 'Bone Mass', value: '3.1 kg', status: 'Standard', statusColor: 'info' },
-      { label: 'Visceral Fat', value: 'Level 4', status: 'Low', statusColor: 'success' },
-    ],
   };
 };
 

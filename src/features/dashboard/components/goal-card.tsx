@@ -1,9 +1,8 @@
 'use client';
 
 import { Card, CardContent } from '@/components/ui/card';
-import { Progress } from '@/components/ui/progress';
 import type { IDashboardStats } from '@/features/dashboard/types';
-import { Dumbbell } from 'lucide-react';
+import { Dumbbell, Target } from 'lucide-react';
 import { memo } from 'react';
 
 export interface GoalCardProps {
@@ -29,19 +28,11 @@ export const GoalCard = memo(({ stats }: GoalCardProps) => {
             {stats.currentGoal}
           </p>
         </div>
-        <div className='relative z-10 w-full'>
-          <div className='font-montserrat mb-2 flex justify-between text-sm text-amber-800 dark:text-gray-300'>
-            <span>Progress</span>
-            <span>{stats.goalProgress}%</span>
-          </div>
-          <Progress
-            value={stats.goalProgress}
-            className='h-3 overflow-hidden rounded-full bg-amber-100 dark:bg-gray-800 [&>[data-slot=progress-indicator]]:rounded-full [&>[data-slot=progress-indicator]]:bg-linear-to-r [&>[data-slot=progress-indicator]]:from-amber-500 [&>[data-slot=progress-indicator]]:to-amber-700 dark:[&>[data-slot=progress-indicator]]:from-pink-500 dark:[&>[data-slot=progress-indicator]]:to-violet-600'
-          />
-          <div className='font-montserrat mt-2 flex justify-between text-xs text-amber-700 dark:text-gray-500'>
-            <span>Target: {stats.goalTarget}</span>
-            <span>{stats.goalWeeksLeft} weeks left</span>
-          </div>
+        <div className='relative z-10 flex items-center gap-2 rounded-lg border border-black/10 bg-white p-3 dark:border-gray-800 dark:bg-gray-900'>
+          <Target className='h-4 w-4 text-amber-600 dark:text-pink-500' />
+          <span className='font-montserrat text-sm text-amber-700 dark:text-gray-400'>
+            Track your progress over time to see how you&apos;re doing.
+          </span>
         </div>
       </CardContent>
     </Card>

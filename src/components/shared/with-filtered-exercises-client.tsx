@@ -2,6 +2,7 @@
 
 import { DataLoadingSkeleton } from '@/components/shared/data-loading-skeleton';
 import { DescriptedCard } from '@/components/shared/descripted-card';
+import { PaginationSkeleton } from '@/components/shared/page-skeletons';
 import { PaginationProvider } from '@/components/shared/pagination-provider';
 import type { IExerciseData } from '@/features/exercises/types';
 import { useQueryErrorHandler } from '@/hooks/use-query-error-handler';
@@ -56,7 +57,12 @@ export function withFilteredExercisesClient({
     useQueryErrorHandler(error, refetch);
 
     if (isLoading || isRefetching) {
-      return <DataLoadingSkeleton />;
+      return (
+        <section className='mb-12 space-y-12'>
+          <DataLoadingSkeleton gridClassName={gridClassName} />
+          <PaginationSkeleton />
+        </section>
+      );
     }
 
     return (
@@ -81,7 +87,14 @@ export function withFilteredExercisesClient({
 
   function FilteredExercisesClient() {
     return (
-      <Suspense fallback={<DataLoadingSkeleton />}>
+      <Suspense
+        fallback={
+          <section className='mb-12 space-y-12'>
+            <DataLoadingSkeleton gridClassName={gridClassName} />
+            <PaginationSkeleton />
+          </section>
+        }
+      >
         <FilteredExercisesContent />
       </Suspense>
     );

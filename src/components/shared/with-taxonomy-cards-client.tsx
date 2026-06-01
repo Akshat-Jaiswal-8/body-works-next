@@ -42,7 +42,7 @@ export function withTaxonomyCardsClient<TItem>({
     useQueryErrorHandler(error, refetch);
 
     if (isLoading || isRefetching) {
-      return <DataLoadingSkeleton />;
+      return <DataLoadingSkeleton gridClassName={gridClassName} />;
     }
 
     return (

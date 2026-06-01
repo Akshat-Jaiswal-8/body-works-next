@@ -22,7 +22,7 @@ const EquipmentsClient = withTaxonomyCardsClient<IEquipment>({
   getName: (item) => item.equipment,
   getImage: (item) => item.imageUrl,
   path: 'equipments',
-  wrapperClassName: 'no-scrollbar container w-full overflow-y-scroll pb-4',
+  wrapperClassName: 'no-scrollbar w-full overflow-y-scroll pb-4',
   gridClassName: 'lg:grid lg:grid-cols-2 2xl:grid-cols-3',
 });
 

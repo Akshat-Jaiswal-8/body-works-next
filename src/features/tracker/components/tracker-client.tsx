@@ -1,6 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
+import { DatePicker } from '@/components/ui/date-picker';
 import {
   Form,
   FormControl,
@@ -12,6 +13,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Skeleton } from '@/components/ui/skeleton';
 import { HistoryRow } from '@/features/tracker/components/history-row';
+import TrackerChart from '@/features/tracker/components/tracker-chart';
 import {
   defaultTrackerFormValues,
   trackerFormSchema,
@@ -23,14 +25,15 @@ import { useError } from '@/hooks/use-error';
 import { useQueryErrorHandler } from '@/hooks/use-query-error-handler';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
-  ArrowRight,
   Calculator,
-  Calendar,
+  ChevronLeft,
+  ChevronRight,
   Lightbulb,
   Percent,
   PlusCircle,
   Scale,
 } from 'lucide-react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 const cardBaseClass =
@@ -45,7 +48,14 @@ const inputClass =
 const labelClass = 'font-montserrat text-sm font-semibold text-amber-800 dark:text-gray-300';
 
 export default function TrackerClient() {
-  const { isLoading, data: trackerData, error, refetch, isRefetching } = useTrackerEntries(1, 20);
+  const [page, setPage] = useState(1);
+  const {
+    isLoading,
+    data: trackerData,
+    error,
+    refetch,
+    isRefetching,
+  } = useTrackerEntries(page, 20);
   const createBodyStat = useCreateBodyStat();
   const { handleError } = useError();
 
@@ -61,6 +71,7 @@ export default function TrackerClient() {
       {
         weightKg: Number(values.weight),
         bodyFatPct: values.bodyFat === '' ? undefined : Number(values.bodyFat),
+        bmi: values.bmi === '' ? undefined : Number(values.bmi),
         loggedAt: new Date(values.date).toISOString(),
       },
       {
@@ -74,12 +85,31 @@ export default function TrackerClient() {
 
   if (isLoading || isRefetching) {
     return (
-      <div className='mx-auto h-full w-full max-w-7xl pb-12'>
+      <div className='h-full w-full pb-12'>
         <Skeleton className='mb-4 h-10 w-1/3 rounded-xl' />
         <Skeleton className='mb-8 h-6 w-1/2 rounded-xl' />
+        <div className='mb-8 rounded-2xl border border-black/20 bg-gray-50 p-6 dark:border-gray-800 dark:bg-black'>
+          <div className='flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between'>
+            <Skeleton className='h-6 w-40 rounded-md' />
+            <div className='flex gap-1'>
+              {[...Array(5)].map((_, i) => (
+                <Skeleton key={i} className='h-8 w-16 rounded-md' />
+              ))}
+            </div>
+          </div>
+          <div className='flex gap-2 pt-4'>
+            {[...Array(3)].map((_, i) => (
+              <Skeleton key={i} className='h-8 w-24 rounded-md' />
+            ))}
+          </div>
+          <Skeleton className='mt-4 h-[300px] w-full rounded-xl' />
+        </div>
         <div className='grid grid-cols-1 gap-8 lg:grid-cols-3'>
-          <Skeleton className='h-96 w-full rounded-2xl' />
-          <Skeleton className='col-span-2 h-96 w-full rounded-2xl' />
+          <div className='flex flex-col gap-6 lg:col-span-1'>
+            <Skeleton className='h-[480px] w-full rounded-2xl' />
+            <Skeleton className='h-24 w-full rounded-2xl' />
+          </div>
+          <Skeleton className='col-span-2 h-[480px] w-full rounded-2xl' />
         </div>
       </div>
     );
@@ -88,7 +118,7 @@ export default function TrackerClient() {
   const entries = trackerData?.entries ?? [];
 
   return (
-    <div className='mx-auto h-full w-full max-w-7xl pb-12'>
+    <div className='h-full w-full pb-12'>
       <header className='mb-8'>
         <h1 className='font-poppins text-3xl font-bold text-amber-900 dark:text-white'>
           Body Stats Tracker
@@ -97,6 +127,8 @@ export default function TrackerClient() {
           Log your latest metrics and review your historical progress.
         </p>
       </header>
+
+      <TrackerChart />
 
       <div className='grid grid-cols-1 gap-8 lg:grid-cols-3'>
         <div className='flex flex-col gap-6 lg:col-span-1'>
@@ -112,13 +144,14 @@ export default function TrackerClient() {
                   control={form.control}
                   name='date'
                   render={({ field }) => (
-                    <FormItem>
+                    <FormItem className='flex flex-col gap-2'>
                       <FormLabel className={labelClass}>Date</FormLabel>
                       <FormControl>
-                        <div className='relative'>
-                          <Calendar className='absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-amber-600/50 dark:text-gray-500' />
-                          <Input type='date' {...field} className={inputClass} />
-                        </div>
+                        <DatePicker
+                          value={field.value}
+                          onChange={field.onChange}
+                          placeholder='Pick a date'
+                        />
                       </FormControl>
                       <FormMessage className='text-xs text-red-600 dark:text-red-400' />
                     </FormItem>
@@ -233,13 +266,16 @@ export default function TrackerClient() {
             </div>
 
             <div className='overflow-x-auto'>
-              <div className='min-w-[500px]'>
-                <div className='grid grid-cols-4 gap-4 border-b-2 border-black/10 px-4 py-3 dark:border-gray-800'>
+              <div className='min-w-[600px]'>
+                <div className='grid grid-cols-5 gap-4 border-b-2 border-black/10 px-4 py-3 dark:border-gray-800'>
                   <span className='font-montserrat text-xs font-semibold tracking-wider text-amber-700 uppercase dark:text-gray-500'>
                     Date
                   </span>
                   <span className='font-montserrat text-xs font-semibold tracking-wider text-amber-700 uppercase dark:text-gray-500'>
                     Weight (kg)
+                  </span>
+                  <span className='font-montserrat text-xs font-semibold tracking-wider text-amber-700 uppercase dark:text-gray-500'>
+                    BMI
                   </span>
                   <span className='font-montserrat text-xs font-semibold tracking-wider text-amber-700 uppercase dark:text-gray-500'>
                     Body Fat %
@@ -262,15 +298,33 @@ export default function TrackerClient() {
               </div>
             </div>
 
-            <div className='mt-6 flex justify-center'>
-              <Button
-                variant='ghost'
-                className='flex items-center gap-1 text-amber-700 transition-colors hover:text-amber-900 dark:text-pink-400 dark:hover:text-pink-300'
-              >
-                View Full History
-                <ArrowRight className='h-4 w-4' />
-              </Button>
-            </div>
+            {trackerData && trackerData.totalPages > 1 && (
+              <div className='mt-6 flex items-center justify-center gap-4'>
+                <Button
+                  variant='ghost'
+                  size='sm'
+                  disabled={page <= 1}
+                  onClick={() => setPage((p) => Math.max(1, p - 1))}
+                  className='flex items-center gap-1 text-amber-700 transition-colors hover:text-amber-900 disabled:opacity-40 dark:text-pink-400 dark:hover:text-pink-300'
+                >
+                  <ChevronLeft className='h-4 w-4' />
+                  Previous
+                </Button>
+                <span className='font-montserrat text-sm text-amber-700 dark:text-gray-400'>
+                  Page {trackerData.page} of {trackerData.totalPages}
+                </span>
+                <Button
+                  variant='ghost'
+                  size='sm'
+                  disabled={page >= trackerData.totalPages}
+                  onClick={() => setPage((p) => p + 1)}
+                  className='flex items-center gap-1 text-amber-700 transition-colors hover:text-amber-900 disabled:opacity-40 dark:text-pink-400 dark:hover:text-pink-300'
+                >
+                  Next
+                  <ChevronRight className='h-4 w-4' />
+                </Button>
+              </div>
+            )}
           </div>
         </div>
       </div>

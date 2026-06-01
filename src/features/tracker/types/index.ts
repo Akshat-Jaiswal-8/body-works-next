@@ -3,6 +3,7 @@ export interface IBodyStatEntry {
   userId: string;
   weightKg: number;
   bodyFatPct: number | null;
+  bmi: number | null;
   loggedAt: string;
 }
 
@@ -18,6 +19,7 @@ export interface IBodyStatsResponse {
 export interface ICreateBodyStatPayload {
   weightKg: number;
   bodyFatPct?: number;
+  bmi?: number;
   loggedAt?: string;
 }
 

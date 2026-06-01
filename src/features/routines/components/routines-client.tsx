@@ -1,7 +1,11 @@
 'use client';
 
-import { DataLoadingSkeleton } from '@/components/shared/data-loading-skeleton';
 import { FilterSection, type FilterConfig } from '@/components/shared/filter-section';
+import {
+  PaginationSkeleton,
+  RoutineCardSkeleton,
+  RoutinesSkeleton,
+} from '@/components/shared/page-skeletons';
 import { PaginationProvider } from '@/components/shared/pagination-provider';
 import { RoutineCard } from '@/components/shared/routine-card';
 import { SearchBar } from '@/components/shared/search-bar';
@@ -144,8 +148,7 @@ function RoutinesContent(): React.ReactNode {
     setPage(PAGE_SIZE, { history: 'replace' });
   }, [setFilters, setPage]);
 
-  if (isLoading) return <DataLoadingSkeleton />;
-  if (isFiltersLoading) return <DataLoadingSkeleton />;
+  if (isLoading || isFiltersLoading) return <RoutinesSkeleton />;
 
   const filterSections: FilterConfig<FilterKey>[] = routinesFilterConfig.map((filter) => ({
     key: filter.key,
@@ -163,36 +166,48 @@ function RoutinesContent(): React.ReactNode {
         onChange={onFilterChange}
         onReset={clearAllFilters}
       />
-      {isRefetching && <DataLoadingSkeleton />}
-      <div className={'w-full lg:grid lg:grid-cols-2 2xl:grid-cols-3'}>
-        {routines?.data.map((eachroutine: IRoutine) => {
-          return (
-            <Link key={eachroutine.id_} href={`/routines/${eachroutine.id_}`}>
-              <RoutineCard
-                key={eachroutine.id_}
-                routine_title={eachroutine.routine.routine_title}
-                routine_description={eachroutine.routine.routine_description}
-                routine_imageUrl={eachroutine.routine.routine_imageUrl}
-              />
-            </Link>
-          );
-        })}
-      </div>
+      {isRefetching ? (
+        <>
+          <div className='w-full lg:grid lg:grid-cols-2 2xl:grid-cols-3'>
+            {Array.from({ length: 6 }).map((_, i) => (
+              <RoutineCardSkeleton key={i} />
+            ))}
+          </div>
+          <PaginationSkeleton />
+        </>
+      ) : (
+        <>
+          <div className='w-full lg:grid lg:grid-cols-2 2xl:grid-cols-3'>
+            {routines?.data.map((eachroutine: IRoutine) => {
+              return (
+                <Link key={eachroutine.id_} href={`/routines/${eachroutine.id_}`}>
+                  <RoutineCard
+                    key={eachroutine.id_}
+                    routine_title={eachroutine.routine.routine_title}
+                    routine_description={eachroutine.routine.routine_description}
+                    routine_imageUrl={eachroutine.routine.routine_imageUrl}
+                  />
+                </Link>
+              );
+            })}
+          </div>
 
-      {routines && routines.data.length === 0 && (
-        <div className='flex h-full w-full items-center justify-center'>
-          <h1 className='text-2xl font-bold text-gray-500'>No routines found.</h1>
-        </div>
+          {routines && routines.data.length === 0 && (
+            <div className='flex h-full w-full items-center justify-center'>
+              <h1 className='text-2xl font-bold text-gray-500'>No routines found.</h1>
+            </div>
+          )}
+
+          <PaginationProvider currentPage={page} totalPages={routines?.totalPages || 0} />
+        </>
       )}
-
-      <PaginationProvider currentPage={page} totalPages={routines?.totalPages || 0} />
     </section>
   );
 }
 
 export default function RoutinesClient(): React.ReactNode {
   return (
-    <Suspense fallback={<DataLoadingSkeleton />}>
+    <Suspense fallback={<RoutinesSkeleton />}>
       <RoutinesContent />
     </Suspense>
   );

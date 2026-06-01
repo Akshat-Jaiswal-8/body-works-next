@@ -1,6 +1,6 @@
 'use client';
-import { ThemeProvider } from '@/providers/theme-provider';
 import { getQueryClient } from '@/lib/query-client';
+import { ThemeProvider } from '@/providers/theme-provider';
 import { QueryClientProvider } from '@tanstack/react-query';
 import dynamic from 'next/dynamic';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
