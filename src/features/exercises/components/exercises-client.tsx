@@ -2,12 +2,9 @@
 
 import { DescriptedCard } from '@/components/shared/descripted-card';
 import { FilterSection, type FilterConfig } from '@/components/shared/filter-section';
-import {
-  ExerciseCardSkeleton,
-  ExercisesSkeleton,
-  PaginationSkeleton,
-} from '@/components/shared/page-skeletons';
+import { ExerciseCardSkeleton, ExercisesSkeleton } from '@/components/shared/page-skeletons';
 import { PaginationProvider } from '@/components/shared/pagination-provider';
+import { PaginationSkeleton } from '@/components/shared/pagination-skeleton';
 import { SearchBar } from '@/components/shared/search-bar';
 import { PAGE_LIMIT, PAGE_SIZE } from '@/constants';
 import { useExercises } from '@/features/exercises/services/use-get-exercises';

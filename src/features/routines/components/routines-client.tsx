@@ -1,12 +1,9 @@
 'use client';
 
 import { FilterSection, type FilterConfig } from '@/components/shared/filter-section';
-import {
-  PaginationSkeleton,
-  RoutineCardSkeleton,
-  RoutinesSkeleton,
-} from '@/components/shared/page-skeletons';
+import { RoutineCardSkeleton, RoutinesSkeleton } from '@/components/shared/page-skeletons';
 import { PaginationProvider } from '@/components/shared/pagination-provider';
+import { PaginationSkeleton } from '@/components/shared/pagination-skeleton';
 import { RoutineCard } from '@/components/shared/routine-card';
 import { SearchBar } from '@/components/shared/search-bar';
 import { PAGE_LIMIT, PAGE_SIZE } from '@/constants';

@@ -2,13 +2,14 @@
 
 import { DataLoadingSkeleton } from '@/components/shared/data-loading-skeleton';
 import { DescriptedCard } from '@/components/shared/descripted-card';
-import { PaginationSkeleton } from '@/components/shared/page-skeletons';
+
 import { PaginationProvider } from '@/components/shared/pagination-provider';
 import type { IExerciseData } from '@/features/exercises/types';
 import { useQueryErrorHandler } from '@/hooks/use-query-error-handler';
 import { cn } from '@/lib/utils';
 import { useParams, useSearchParams } from 'next/navigation';
 import { Suspense } from 'react';
+import { PaginationSkeleton } from './pagination-skeleton';
 
 type RefetchFn = () => void | Promise<unknown>;
 

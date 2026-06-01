@@ -1,6 +1,7 @@
 import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/lib/utils';
 import { memo } from 'react';
+import { PaginationSkeleton } from './pagination-skeleton';
 
 function SearchBarSkeleton() {
   return (
@@ -67,20 +68,6 @@ export const ExerciseCardSkeleton = memo(() => {
   );
 });
 
-export const PaginationSkeleton = memo(() => {
-  return (
-    <div className='mt-10 flex justify-center'>
-      <div className='flex items-center gap-2'>
-        <Skeleton className='h-10 w-20 rounded-md' />
-        <Skeleton className='h-10 w-10 rounded-md' />
-        <Skeleton className='h-10 w-10 rounded-md' />
-        <Skeleton className='h-10 w-10 rounded-md' />
-        <Skeleton className='h-10 w-20 rounded-md' />
-      </div>
-    </div>
-  );
-});
-
 export const RoutinesSkeleton = memo(() => {
   return (
     <section className='mb-12 space-y-12'>
@@ -113,6 +100,5 @@ export const ExercisesSkeleton = memo(() => {
 
 RoutineCardSkeleton.displayName = 'RoutineCardSkeleton';
 ExerciseCardSkeleton.displayName = 'ExerciseCardSkeleton';
-PaginationSkeleton.displayName = 'PaginationSkeleton';
 RoutinesSkeleton.displayName = 'RoutinesSkeleton';
 ExercisesSkeleton.displayName = 'ExercisesSkeleton';
