@@ -1,3 +1,4 @@
+import { AUTH_ACCESS_TOKEN_KEY } from '@/features/auth/constants';
 import { authQueryKeys } from '@/features/auth/services/use-login';
 import { useAuthStore } from '@/features/auth/store/use-auth-store';
 import type { IAuthUser, IRegisterCredentials } from '@/features/auth/types';
@@ -19,7 +20,7 @@ export const useRegister = () => {
     onSuccess: async (user) => {
       const { accessToken, ...userWithoutToken } = user;
       setSession(userWithoutToken);
-      Cookies.set('accessToken', accessToken, { expires: 7, secure: true, sameSite: 'Lax' });
+      Cookies.set(AUTH_ACCESS_TOKEN_KEY, accessToken, { expires: 7, secure: true, sameSite: 'Lax' });
       await queryClient.invalidateQueries({ queryKey: authQueryKeys.all });
     },
   });
